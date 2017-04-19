@@ -3,6 +3,10 @@
 	{
 		"selected_items":
 		[
+			[
+				"con",
+				"contrasena"
+			]
 		]
 	},
 	"buffers":
@@ -12,6 +16,14 @@
 			"settings":
 			{
 				"buffer_size": 222,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "usuario/forms.py",
+			"settings":
+			{
+				"buffer_size": 155,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -20,25 +32,7 @@
 			"file": "usuario/views.py",
 			"settings":
 			{
-				"buffer_size": 99,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "inventarios/urls.py",
-			"settings":
-			{
-				"buffer_size": 840,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "inventarios/settings.py",
-			"settings":
-			{
-				"buffer_size": 3250,
+				"buffer_size": 574,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -47,7 +41,15 @@
 			"file": "templates/login.html",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 368,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "inventarios/urls.py",
+			"settings":
+			{
+				"buffer_size": 859,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -85,13 +87,21 @@
 	},
 	"expanded_folders":
 	[
-		"/home/jonathan/django/inventarios"
+		"/home/jonathan/django/inventarios",
+		"/home/jonathan/django/inventarios/inventarios",
+		"/home/jonathan/django/inventarios/templates",
+		"/home/jonathan/django/inventarios/usuario"
 	],
 	"file_history":
 	[
+		"/home/jonathan/Lazarus/SENL (2)/usenl.pas",
+		"/home/jonathan/django/inventarios/templates/inicio.html",
+		"/home/jonathan/django/inventarios/templates/login.html",
+		"/home/jonathan/django/inventarios/usuario/models.py",
+		"/home/jonathan/django/inventarios/inventarios/settings.py",
+		"/home/jonathan/django/inventarios/inventarios/urls.py",
 		"/home/jonathan/django/inventarios/inventarios/templates/inicio.html",
 		"/home/jonathan/django/inventarios/inventarios/templates/login.html",
-		"/home/jonathan/django/inventarios/inventarios/settings.py",
 		"/home/jonathan/django/inventarios/usuario/admin.py"
 	],
 	"find":
@@ -127,7 +137,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -160,19 +170,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "usuario/views.py",
+					"file": "usuario/forms.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 99,
+						"buffer_size": 155,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								56,
-								56
+								154,
+								154
 							]
 						],
 						"settings":
@@ -188,19 +198,19 @@
 				},
 				{
 					"buffer": 2,
-					"file": "inventarios/urls.py",
+					"file": "usuario/views.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 840,
+						"buffer_size": 574,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								837,
-								837
+								573,
+								573
 							]
 						],
 						"settings":
@@ -211,46 +221,16 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "inventarios/settings.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3250,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1620,
-								1620
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 450.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "templates/login.html",
-					"semi_transient": false,
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 368,
 						"regions":
 						{
 						},
@@ -263,13 +243,42 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "inventarios/urls.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 859,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								854,
+								854
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -352,7 +361,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 180.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
