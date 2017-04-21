@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from usuario import views
+from aplicacion import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.login),
+
+    url(r'^$', views.IniciarSesionView, name = 'iniciar_sesion'),
+    url(r'^inicio/', views.InicioView, name = 'inicio'),
 ]
