@@ -23,5 +23,9 @@ urlpatterns = [
     url(r'^$', views.IniciarSesionView, name = 'iniciar_sesion'),
     url(r'^inicio/', views.InicioView, name = 'inicio'),
     url(r'^mostrarProducto/', views.mostrarProductoView, name = 'mostrarProducto'),
-    url(r'^registrarProducto/', views.registrarProductoView, name = 'registrarProducto')
+    url(r'^registrarProducto/', views.registrarProductoView, name = 'registrarProducto'),
+    url(r'^registrar_proveedor/', views.RegistrarProveedorView, name = 'registrar_proveedor'),
+    url(r'^proveedor/', views.ProveedorView, name = 'proveedor'),
+    url(r'^almacen/', views.AlmacenView, name = 'almacen'),
+    url(r'^pedido/', views.PedidoView, name = 'pedido')
 ]
