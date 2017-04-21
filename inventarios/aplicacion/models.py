@@ -16,3 +16,8 @@ class Proveedor(models.Model):
 
 	def __str__(self):
 		return self.nombre
+
+class Producto(models.Model):
+        nombre = models.CharField(max_length = 20)
+        tipo = models.CharField(max_length = 20)
+        valor = models.IntegerField()

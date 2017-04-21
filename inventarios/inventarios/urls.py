@@ -20,7 +20,8 @@ from aplicacion import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-
     url(r'^$', views.IniciarSesionView, name = 'iniciar_sesion'),
     url(r'^inicio/', views.InicioView, name = 'inicio'),
+    url(r'^mostrarProducto/', views.mostrarProductoView, name = 'mostrarProducto'),
+    url(r'^registrarProducto/', views.registrarProductoView, name = 'registrarProducto')
 ]
