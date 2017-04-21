@@ -19,6 +19,6 @@ from usuario import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.login),
-    url(r'^inicio/', views.inicio),
+    url(r'^$', views.login, name = 'login'),
+    url(r'^inicio/', views.inicio, name = 'inicio'),
 ]
