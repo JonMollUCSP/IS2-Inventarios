@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from .forms import IniciarSesionForm
 from .models import Usuario
+from .models import Proveedor
 
 def IniciarSesionView(request):
 	formulario = IniciarSesionForm(request.POST or None)
@@ -15,7 +16,6 @@ def IniciarSesionView(request):
 		datos_formulario = formulario.cleaned_data
 		nombre_obtenido = datos_formulario.get("nombre_form")
 		contrasena_obtenida = datos_formulario.get("contrasena_form")
-
 		objeto_usuario = Usuario.objects.get(nombre = nombre_obtenido)
 
 		if contrasena_obtenida == objeto_usuario.contrasena:
@@ -25,3 +25,9 @@ def IniciarSesionView(request):
 
 def InicioView(request):
 	return render(request, "inicio.html", {})
+
+
+def ProveedorView(request):
+	proveedores = Proveedor.objects.all()
+	contexto_prov = { "proveedores" : proveedores}
+	return render(request, "proveedor.html", contexto_prov)   

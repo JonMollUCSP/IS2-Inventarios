@@ -1,11 +1,31 @@
 <html>
-    <head>
-        <title>Proveedor</title>
-    </head>
-    <body>
-      <h1> Proveedor</h1>  
-     {% for proveedor in proveedores %}
-     <h1>{{proveedor.nombre}</h1>}
-    {% endfor%}
-    </body>
+<head>
+<title>Proveedores</title>
+</head>
+<body>
+	<table class=>
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Telefono</th>
+				<th>direccion</th>
+				<th>email</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+	{% for Proveedor in proveedores %}
+			<tr>
+				<td>{{ Proveedor.nombre }}</td>
+				<td>{{ Proveedor.telefono }}</td>
+				<td>{{ Proveedor.direccion }}</td>
+				<td>{{ Proveedor.email }}</td>
+	<!--		<td><a href="?id={{ person.id }}">See</a> | <a href="add-person?id={{person.id }}">Modify</a> </td>
+			--></tr>
+	{% endfor %}
+        </tbody>
+      </table>
+      <br/>
+     <!-- <a href="add-person">Add New Person</a>-->
+</body>
 </html>
