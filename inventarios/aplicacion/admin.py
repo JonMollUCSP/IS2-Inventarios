@@ -18,5 +18,3 @@ class AdminProveedor(admin.ModelAdmin):
 		model = Proveedor
 
 admin.site.register(Proveedor,AdminProveedor)
-
-

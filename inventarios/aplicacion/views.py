@@ -2,17 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-<<<<<<< HEAD
-from .forms import IniciarSesionForm
-from .models import Usuario
-<<<<<<< HEAD
-=======
 from .forms import *
 from .models import *
->>>>>>> jonathan
-=======
-from .models import Proveedor
->>>>>>> b3ce23c5ab67080006e6d2a103e957b9373f6500
+
+def InicioView(request):
+	return render(request, "inicio.html", {})
 
 def IniciarSesionView(request):
 	formulario = IniciarSesionForm(request.POST or None)
@@ -31,11 +25,11 @@ def IniciarSesionView(request):
 
 	return render(request, "iniciar_sesion.html", contexto)
 
-def InicioView(request):
-	return render(request, "inicio.html", {})
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+def ProveedorView(request):
+	proveedores = Proveedor.objects.all()
+	contexto = { "proveedores" : proveedores }
+	
+	return render(request, "proveedor.html", contexto)
 
 def RegistrarProveedorView(request):
 	formulario = RegistrarProveedorForm(request.POST or None)
@@ -55,12 +49,3 @@ def RegistrarProveedorView(request):
 		return HttpResponseRedirect(reverse('inicio'))
 		
 	return render(request, "registrar_proveedor.html", contexto)
->>>>>>> jonathan
-=======
-
-
-def ProveedorView(request):
-	proveedores = Proveedor.objects.all()
-	contexto_prov = { "proveedores" : proveedores}
-	return render(request, "proveedor.html", contexto_prov)   
->>>>>>> b3ce23c5ab67080006e6d2a103e957b9373f6500
