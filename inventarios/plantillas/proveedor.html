@@ -3,16 +3,16 @@
 <title>Proveedores</title>
 </head>
 <body>
+    <h1> Proveedores</h1>
 	<table class=>
 		<thead>
 			<tr>
 				<th>Nombre</th>
 				<th>Telefono</th>
-				<th>direccion</th>
-				<th>email</th>
+				<th>Direccion</th>
+				<th>Email</th>
 			</tr>
 		</thead>
-		
 		<tbody>
 	{% for Proveedor in proveedores %}
 			<tr>
@@ -20,12 +20,9 @@
 				<td>{{ Proveedor.telefono }}</td>
 				<td>{{ Proveedor.direccion }}</td>
 				<td>{{ Proveedor.email }}</td>
-	<!--		<td><a href="?id={{ person.id }}">See</a> | <a href="add-person?id={{person.id }}">Modify</a> </td>
-			--></tr>
+			</tr>
 	{% endfor %}
         </tbody>
       </table>
-      <br/>
-     <!-- <a href="add-person">Add New Person</a>-->
 </body>
 </html>
