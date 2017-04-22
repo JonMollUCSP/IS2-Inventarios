@@ -23,4 +23,5 @@ urlpatterns = [
 
     url(r'^$', views.IniciarSesionView, name = 'iniciar_sesion'),
     url(r'^inicio/', views.InicioView, name = 'inicio'),
+    url(r'^pedidos/', views.PedidosView, name = 'pedidos'),
 ]

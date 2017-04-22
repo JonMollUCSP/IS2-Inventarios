@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from .forms import IniciarSesionForm
 from .models import Usuario
+from .models import Pedido
 
 def IniciarSesionView(request):
 	formulario = IniciarSesionForm(request.POST or None)
@@ -25,3 +26,13 @@ def IniciarSesionView(request):
 
 def InicioView(request):
 	return render(request, "inicio.html", {})
+
+def PedidosView(request):
+	query = Pedido.objects.all()
+	# data = []
+	# for row in rows:
+	# 	data.append(row)
+
+	return render(request, 'pedidos.html',{'pedidos':query})
+
+
