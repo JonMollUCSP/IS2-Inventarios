@@ -16,3 +16,14 @@ class Proveedor(models.Model):
 
 	def __str__(self):
 		return self.nombre
+
+class Almacen(models.Model):
+	anaqueles_por_fila =models.IntegerField()
+	direccion=models.TextField()
+	filas=models.IntegerField()
+
+	def __str__(self):
+		return self.direccion
+		
+
+		

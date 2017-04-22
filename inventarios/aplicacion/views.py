@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.views.generic import ListView
 from .forms import IniciarSesionForm
 from .models import Usuario
+from .models import Almacen
 
 def IniciarSesionView(request):
 	formulario = IniciarSesionForm(request.POST or None)
@@ -25,3 +26,12 @@ def IniciarSesionView(request):
 
 def InicioView(request):
 	return render(request, "inicio.html", {})
+
+
+
+def AlmacenView(request):
+    almacen=Almacen.objects.all() 
+    return render(request,"lista_tipo_almacen.html",{"almacen":almacen})
+
+    
+
