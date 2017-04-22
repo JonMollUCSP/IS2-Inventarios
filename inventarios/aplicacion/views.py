@@ -2,17 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-
 from .forms import *
 from .models import *
 
 def InicioView(request):
 	return render(request, "inicio.html", {})
-
-from .forms import IniciarSesionForm
-from .models import Usuario
-from .models import Pedido
-
 
 def IniciarSesionView(request):
 	formulario = IniciarSesionForm(request.POST or None)
@@ -30,7 +24,6 @@ def IniciarSesionView(request):
 			return HttpResponseRedirect(reverse('inicio'))
 
 	return render(request, "iniciar_sesion.html", contexto)
-
 
 def ProveedorView(request):
 	proveedores = Proveedor.objects.all()
@@ -57,16 +50,14 @@ def RegistrarProveedorView(request):
 		
 	return render(request, "registrar_proveedor.html", contexto)
 
-def InicioView(request):
-	return render(request, "inicio.html", {})
+def AlmacenView(request):
+    almacenes = Almacen.objects.all()
+    contexto = { "almacenes" : almacenes }
 
-def PedidosView(request):
-	query = Pedido.objects.all()
-	# data = []
-	# for row in rows:
-	# 	data.append(row)
+    return render(request, "almacen.html", contexto)
 
-	return render(request, 'pedidos.html',{'pedidos':query})
+def PedidoView(request):
+	pedidos = Pedido.objects.all()
+	contexto = { 'pedidos' : pedidos }
 
-
-
+	return render(request, 'pedido.html', contexto)

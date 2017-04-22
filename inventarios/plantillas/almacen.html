@@ -1,27 +1,25 @@
 <html>
 	<head>
-		<title> Proveedores </title>
+		<title> Almacenes </title>
 		<meta charset = "UTF-8">
 		<link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 	</head>
 	<body>
-	    <h1> Proveedores </h1>
+	    <h1> Almacenes </h1>
 		<table>
 			<thead>
 				<tr>
-					<th> Nombre </th>
-					<th> Telefono </th>
+					<th> Anaqueles </th>
 					<th> Direccion </th>
-					<th> Email </th>
+					<th> Filas </th>
 				</tr>
 			</thead>
 			<tbody>
-			{% for Proveedor in proveedores %}
+			{% for Almacen in almacenes %}
 				<tr>
-					<td> {{ Proveedor.nombre }} </td>
-					<td> {{ Proveedor.telefono }} </td>
-					<td> {{ Proveedor.direccion }} </td>
-					<td> {{ Proveedor.email }} </td>
+					<td> {{ Almacen.anaqueles_por_fila }} </td>
+					<td> {{ Almacen.direccion }} </td>
+					<td> {{ Almacen.filas }} </td>
 				</tr>
 			{% endfor %}
 	        </tbody>

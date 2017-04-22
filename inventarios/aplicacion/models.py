@@ -16,3 +16,22 @@ class Proveedor(models.Model):
 
 	def __str__(self):
 		return self.nombre
+
+class Almacen(models.Model):
+	anaqueles_por_fila = models.IntegerField()
+	direccion = models.TextField()
+	filas = models.IntegerField()
+
+	def __str__(self):
+		return self.direccion
+
+class Pedido(models.Model):
+	proveedor = models.ForeignKey(Proveedor, on_delete = models.CASCADE)
+	#producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+	fechaRealizada = models.DateField(null = True)
+	fechaPrevista = models.DateField(null = True)
+	fechaRecibida = models.DateField(null = True)
+	cantidad = models.CharField(max_length = 10)
+
+	def _str_(self):
+		return self.cantidad
