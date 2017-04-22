@@ -24,7 +24,12 @@ urlpatterns = [
     url(r'^$', views.IniciarSesionView, name = 'iniciar_sesion'),
     url(r'^inicio/', views.InicioView, name = 'inicio'),
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     url(r'^registrar_proveedor/', views.RegistrarProveedorView, name = 'registrar_proveedor'),
 >>>>>>> jonathan
+=======
+    url(r'^proveedor/', views.ProveedorView, name = 'proveedor'),
+    
+>>>>>>> b3ce23c5ab67080006e6d2a103e957b9373f6500
 ]

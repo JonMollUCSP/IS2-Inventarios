@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Proveedores</title>
+</head>
+<body>
+    <h1> Proveedores</h1>
+	<table class=>
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Telefono</th>
+				<th>Direccion</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+	{% for Proveedor in proveedores %}
+			<tr>
+				<td>{{ Proveedor.nombre }}</td>
+				<td>{{ Proveedor.telefono }}</td>
+				<td>{{ Proveedor.direccion }}</td>
+				<td>{{ Proveedor.email }}</td>
+			</tr>
+	{% endfor %}
+        </tbody>
+      </table>
+</body>
+</html>
