@@ -14,3 +14,8 @@ class RegistrarProveedorForm(forms.Form):
 	telefono_form = forms.IntegerField()
 	direccion_form = forms.CharField()
 	email_form = forms.EmailField()
+
+class RegistrarUsuarioForm(forms.Form):
+	nombre_form=forms.CharField(max_length=20)
+	contrasena_form=forms.CharField(max_length=20)
+	email_form=forms.EmailField()

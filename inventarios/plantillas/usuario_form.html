@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title> Registrar Usuario </title>
+		<meta charset = "UTF-8">
+		<link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+	</head>
+	
+	<body>
+		<h1> Registrar usuario </h1>
+
+		<form method = 'post' action = ''>
+			{% csrf_token %}
+			{{ formulario.as_p }}
+
+			<input type = 'submit' value = 'Registrar'>
+		</form>
+	</body>
+</html>
