@@ -1,0 +1,29 @@
+{% block extrahead %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+    var data = {
+        labels: ['1', '5', '10', '15', '20', '25', '30'],
+        datasets: [
+            {
+                label: "Site Registrations in the Last 30 Days",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: {{ 30_day_registrations }}
+            }
+        ]
+    };
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<canvas id="myChart" width="500" height="300"></canvas>
+{% endblock %}

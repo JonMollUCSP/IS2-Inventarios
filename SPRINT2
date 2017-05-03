@@ -1,0 +1,20 @@
+Baylon Ibañez Alexander Arturo
+- Generar un reporte con los productos ingresados y vendidos en un determinado mes, indicando la fecha en la que fueron ingresados o vendidos, cantidad y el almacen
+
+Castro Ramos Nicolas Rodrigo
+- Mostrar una grafica que muestre los pedidos hechos en un periodo de tiempo, por ejemplo del dia 15/05/17 al 20/05/17 (https://godjango.com/blog/using-chartjs-with-django/)
+
+Cutire Sivincha Wilber Eder
+- En la tabla de pedidos colocar un combobox que permita filtral los pedidos pendiente y los pedidos recibidos
+
+Garmendia Cabrera Joaquin
+- En la tabla de almacenes colocar un boton al lado de cada almacen que lleve a una tabla con los productos que ofrece
+
+Mollapaza Apaza Jonathan Jimmy
+- Al realizar un pedido enviarle un correo al proveedor con los datos del pedido 
+
+Osco Cuba Eyvind
+- Mostrar una grafica que muestre los pedidos hechos en un periodo de tiempo, por ejemplo del dia 15/05/17 al 20/05/17 (https://godjango.com/blog/using-chartjs-with-django/)
+
+Tong Chabes Luis
+- En la tabla de proveedores colocar un boton al lado de cada proveedor que lleve a una tabla con los productos que ofrece
