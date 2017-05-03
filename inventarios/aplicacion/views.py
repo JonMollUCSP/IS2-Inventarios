@@ -102,3 +102,9 @@ def RegistrarUsuarioView(request):
         
     return render(request, "usuario_form.html", contexto)
 
+def ReporteProductoView(request):
+    reporte = ReporteProducto.objects.all()
+    contexto = { "reporteProducto" : reporteProducto }
+    
+    return render(request, "reporteProducto.html", contexto)
+
