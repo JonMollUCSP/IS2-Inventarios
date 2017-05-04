@@ -8,7 +8,9 @@ class Usuario(models.Model):
 	def __str__(self):
 		return self.nombre
 
+
 class Proveedor(models.Model):
+	id = models.AutoField(primary_key=True)
 	nombre = models.CharField(max_length = 20)
 	telefono = models.IntegerField()
 	direccion = models.TextField()
@@ -18,9 +20,23 @@ class Proveedor(models.Model):
 		return self.nombre
 
 class Producto(models.Model):
-        nombre = models.CharField(max_length = 20)
-        tipo = models.CharField(max_length = 20)
-        valor = models.IntegerField()
+	id = models.AutoField(primary_key= True)
+	nombre = models.CharField(max_length = 20)
+	tipo = models.CharField(max_length = 20)
+	valor = models.IntegerField()
+	
+	def __str__(self):
+		return self.nombre
+		
+class ProveedorProducto(models.Model):
+	id = models.AutoField(primary_key=True)
+	id_proveedor = models.ForeignKey(Proveedor)
+	id_producto = models.ForeignKey(Producto)
+	fecha_tiempo = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.id
+
 class Almacen(models.Model):
 	anaqueles_por_fila = models.IntegerField()
 	direccion = models.TextField()
