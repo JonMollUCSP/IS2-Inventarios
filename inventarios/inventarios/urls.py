@@ -27,5 +27,7 @@ urlpatterns = [
     url(r'^registrar_proveedor/', views.RegistrarProveedorView, name = 'registrar_proveedor'),
     url(r'^proveedor/', views.ProveedorView, name = 'proveedor'),
     url(r'^almacen/', views.AlmacenView, name = 'almacen'),
-    url(r'^pedido/', views.PedidoView, name = 'pedido')
-]
+    url(r'^pedido/', views.PedidoView, name = 'pedido'),
+    url(r'^proveedorproducto/(?P<id_propro>\d+)/$', views.ProveedorProductoView, name='proveedorproducto') 
+        
+    ]

@@ -84,13 +84,12 @@ def PedidoView(request):
 
 	return render(request, 'pedido.html', contexto)
 
-#-------------------------------ProveedorViewmostrarProductoView
-def ProveedorViewmostrarProductoView(request):
-	proveedores = Proveedor.objects.all()
-	context = { "proveedores" : proveedores }
-        productos = Producto.objects.all()
+def ProveedorProductoView(request,id_propro):
+	productos = Producto.objects.filter(proveedorproducto__producto__id__isnull=False,
+        proveedorproducto__proveedor__id=id_propro)
 	contexto = { "productos" : productos }
-        return render(request,"mostrarProducto.html",contexto)
         
+	return render(request, "proveedorproducto.html", contexto)
+
 
 

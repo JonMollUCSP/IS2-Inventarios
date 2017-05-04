@@ -35,9 +35,19 @@ class AdminPedido(admin.ModelAdmin):
 admin.site.register(Pedido, AdminPedido)
 
 
+class AdminProducto(admin.ModelAdmin):
+	
+	list_display = ["__str__", "nombre", "tipo", "valor"]
+
+	class Meta:
+		model = Producto
+
+admin.site.register(Producto, AdminProducto)
+
+
 class AdminProveedorProducto(admin.ModelAdmin):
 	
-	list_display = ["__str__", "id_proveedor", "id_producto", "fecha_tiempo"]
+	list_display = ["__str__", "proveedor", "producto", "fecha_tiempo"]
 
 	class Meta:
 		model = ProveedorProducto
