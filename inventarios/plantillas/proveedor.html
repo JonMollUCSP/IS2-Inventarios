@@ -13,7 +13,8 @@
 					<th> Telefono </th>
 					<th> Direccion </th>
 					<th> Email </th>
-				</tr>
+					<th> Producto </th>
+			</tr>
 			</thead>
 			<tbody>
 			{% for Proveedor in proveedores %}
@@ -22,6 +23,7 @@
 					<td> {{ Proveedor.telefono }} </td>
 					<td> {{ Proveedor.direccion }} </td>
 					<td> {{ Proveedor.email }} </td>
+					<td><a href="/proveedorproducto/{{Proveedor.id}}/">Ver</a> </td>
 				</tr>
 			{% endfor %}
 	        </tbody>
