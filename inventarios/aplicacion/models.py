@@ -35,7 +35,7 @@ class Pedido(models.Model):
 	fechaRealizada = models.DateField(null = True)
 	fechaPrevista = models.DateField(null = True)
 	fechaRecibida = models.DateField(null = True)
-	cantidad = models.Integer()
+	cantidad = models.IntegerField()
 
 	def _str_(self):
 		return self.cantidad
