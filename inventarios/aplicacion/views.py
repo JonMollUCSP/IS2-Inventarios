@@ -140,3 +140,12 @@ def ReporteProductoView(request):
     
     return render(request, "reporteProducto.html", contexto)
 
+def ProveedorProductoView(request,id_propro):
+	productos = Producto.objects.filter(proveedorproducto__producto__id__isnull=False,
+        proveedorproducto__proveedor__id=id_propro)
+	contexto = { "productos" : productos }
+        
+	return render(request, "proveedorproducto.html", contexto)
+
+
+
