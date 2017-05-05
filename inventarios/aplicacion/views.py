@@ -83,3 +83,28 @@ def PedidoView(request):
 	contexto = { 'pedidos' : pedidos }
 
 	return render(request, 'pedido.html', contexto)
+
+def RegistrarUsuarioView(request):
+    formulario = RegistrarUsuarioForm(request.POST or None)
+    contexto = { "formulario" : formulario }
+
+    if formulario.is_valid():
+        print(formulario.cleaned_data)
+
+        datos_formulario = formulario.cleaned_data
+        nombre_obtenido = datos_formulario.get("nombre_form")
+        contrasena_obtenido=datos_formulario.get("contrasena_form")
+        email_obtenido = datos_formulario.get("email_form")
+
+        objeto_usuario = Usuario.objects.create(nombre = nombre_obtenido, contrasena=contrasena_obtenido, email = email_obtenido)
+
+        return HttpResponseRedirect(reverse('inicio'))
+        
+    return render(request, "usuario_form.html", contexto)
+
+def ReporteProductoView(request):
+    reporte = ReporteProducto.objects.all()
+    contexto = { "reporteProducto" : reporteProducto }
+    
+    return render(request, "reporteProducto.html", contexto)
+

@@ -31,7 +31,7 @@ class Almacen(models.Model):
 
 class Pedido(models.Model):
 	proveedor = models.ForeignKey(Proveedor, on_delete = models.CASCADE)
-	#producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+	producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
 	fechaRealizada = models.DateField(null = True)
 	fechaPrevista = models.DateField(null = True)
 	fechaRecibida = models.DateField(null = True)
@@ -39,3 +39,13 @@ class Pedido(models.Model):
 
 	def _str_(self):
 		return self.cantidad
+
+class ReporteProducto(models.Model):
+	ID = models.CharField(max_length = 20)
+	nombre = models.CharField(max_length = 20)
+	fechaRealizada = models.CharField(max_length = 20)
+	cantidad = models.CharField(max_length = 20)
+	almacen = models.CharField(max_length = 20)
+	tipo = models.CharField(max_length = 20)
+	class Meta:
+		managed = False
