@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import arrow
 from .forms import *
+from datetime import *
 from .models import *
 
 def InicioView(request):
@@ -105,24 +106,15 @@ def RegistrarUsuarioView(request):
     return render(request, "usuario_form.html", contexto)
 
 
-class AnalyticsIndexView(TemplateView):
-    template_name = 'analytics/admin/index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(AnalyticsIndexView, self).get_context_data(**kwargs)
-        context['30_day_registrations'] = self.thirty_day_registrations()
-        return context
-
-    def thirty_day_registrations(self):
-        final_data = []
-
-        date = arrow.now()
-        for day in xrange(1, 30):
-            date = date.replace(days=-1)
-            count = User.objects.filter(
-                date_joined__gte=date.floor('day').datetime,
-                date_joined__lte=date.ceil('day').datetime).count()
-            final_data.append(count)
-
-        return final_data
+def mostrarfechaPedido(request):
+    formulario= PedidoForm(request.POST or None)
+    contexto={"formulario":formulario}
+    if formulario.is_valid():
+        print(formulario.cleaned_data)
+        datos_formulario=formulario.cleaned_data
+        f_inicial=datos_formualrio.get("fechaRealizada")
+        f_cierre=datos_formualrio.get("fechaRealizada")
+        rango_fecha=Pedido.objects.filter(fecha__range=(f_inicial,f_cierre))
+        return HttpResponseRedirect(reverse('inicio'))
+    return render(request,"graficos2.html",contexto)
 
