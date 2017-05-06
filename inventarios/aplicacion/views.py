@@ -86,9 +86,9 @@ def PedidoView(request):
 		datos_formulario = formulario_tipo_de_pedido.cleaned_data
 		tipo_pedido_obtenido = datos_formulario.get("tipo_pedido_form")
 		if tipo_pedido_obtenido == 'pedidos_recibidos':
-			pedidos = Pedido.objects.filter(fechaRecibida__isnull=False)
+			pedidos = Pedido.objects.filter(fecha_recibida__isnull=False)
 		if tipo_pedido_obtenido == 'pedidos_no_recibidos':
-			pedidos = Pedido.objects.filter(fechaRecibida__isnull=True)
+			pedidos = Pedido.objects.filter(fecha_recibida__isnull=True)
 	else:
 		pedidos = Pedido.objects.all()
 
