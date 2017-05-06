@@ -44,9 +44,14 @@ def registrarProductoView(request):
                 nombre_obtenido = datos_formulario.get("nombre_form")
                 tipo_obtenido = datos_formulario.get("tipo_form")
                 valor_obtenido = datos_formulario.get("valor_form")
-                objeto_proveedor = Producto.objects.create(nombre = nombre_obtenido, tipo = tipo_obtenido, valor = valor_obtenido)
+                fecha_obtenido = datos_formulario.get("fecha_form")
+                cantidad_obtenido = datos_formulario.get("cantidad_form")
+                # almacenAsoc_obtenido = datos_formulario.get("almacenAsoc_form")
+                objeto_proveedor = Producto.objects.create(nombre = nombre_obtenido, tipo = tipo_obtenido, valor = valor_obtenido, fecha = fecha_obtenido, cantidad= cantidad_obtenido)
                 return HttpResponseRedirect(reverse('inicio'))	
         return render(request, "registrarProducto.html", contexto)
+
+
 def ProveedorView(request):
 	proveedores = Proveedor.objects.all()
 	contexto = { "proveedores" : proveedores }
@@ -135,6 +140,11 @@ def RegistrarUsuarioView(request):
         return HttpResponseRedirect(reverse('inicio'))
         
     return render(request, "usuario_form.html", contexto)
+
+def ReporteProductoxAlmacenView(request,id_almacen):
+        reporte = Producto.objects.filter(producto__almacenAsoc__id = id_almacen)
+        contexto = {"reporteAlmacen" : reporte}
+        return render(request, "reporteAlmacenxProducto.html", contexto)
 
 def ReporteProductoView(request):
     from django.db import connection
