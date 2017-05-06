@@ -89,6 +89,8 @@ def PedidoView(request):
 			pedidos = Pedido.objects.filter(fecha_recibida__isnull=False)
 		if tipo_pedido_obtenido == 'pedidos_no_recibidos':
 			pedidos = Pedido.objects.filter(fecha_recibida__isnull=True)
+		else:
+			pedidos = Pedido.objects.all()
 	else:
 		pedidos = Pedido.objects.all()
 
