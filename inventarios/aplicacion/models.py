@@ -57,7 +57,7 @@ class Pedido(models.Model):
 	def _str_(self):
 		return self.cantidad
 
-class ReporteProducto(models.Model):
+class ReporteProductoView(models.Model):
 	ID = models.CharField(max_length = 20)
 	nombre = models.CharField(max_length = 20)
 	fechaRealizada = models.CharField(max_length = 20)

@@ -3,8 +3,15 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+
+from random import randint
+from django.views.generic import View
+from django.views.generic import TemplateView
+
+
 import arrow
 from .forms import *
+from datetime import *
 from .models import *
 
 def InicioView(request):
@@ -138,6 +145,23 @@ def RegistrarUsuarioView(request):
 
 
 
+def mostrarfechaPedido(request):
+    formulario= PedidoForm(request.POST or None)
+    contexto={"formulario":formulario}
+    if formulario.is_valid():
+        print(formulario.cleaned_data)
+        datos_formulario=formulario.cleaned_data
+        f_inicial=datos_formulario.get("fechaInicio_form")
+
+        f_cierre=datos_formulario.get("fechaFin_form")
+        rango_fecha=Pedido.objects.filter(fechaRealizada__range=(f_inicial,f_cierre))
+        print(rango_fecha)
+
+        
+    return render(request,"graficos2.html",contexto)
+
+
+
 class AnalyticsIndexView(TemplateView):
     template_name = 'analytics/admin/index.html'
 
@@ -159,10 +183,10 @@ class AnalyticsIndexView(TemplateView):
 
         return final_data
 
+
 def ReporteProductoView(request):
     reporte = ReporteProducto.objects.all()
     contexto = { "reporteProducto" : reporteProducto }
-    
     return render(request, "reporteProducto.html", contexto)
 
 def ProveedorProductoView(request,id_propro):

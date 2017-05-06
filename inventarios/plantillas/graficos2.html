@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ejemplos de gr&#225;ficos usando Chart.js</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" type="text/javascript"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+	<form method = 'post' action = ''>
+	{% csrf_token %}
+	{{ formulario.as_p }}
+	<input type = 'submit' value = 'Calcular'>
+</form>
+
+</head>
+<body>  	  
+	
+	<div class='col-sm-6'>
+		<canvas id="myChart" width="10" height="10"></canvas>
+	</div>
+	<script type="text/javascript">
+	var x=Math.floor((Math.random() * 12) + 1);
+	console.log(x)
+	var array=[5,5,4,2,5,3,7,3,5,1,4,5]
+	var labels= ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+	var meses=[]
+	var pedidos=[]
+	for (var i = 0; i < x; i++) {
+		meses.push(labels[i])
+		pedidos.push(array[i])
+	}
+	var ctx = document.getElementById("myChart");
+	var myChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: meses,
+	        datasets: [{
+	            label: '# de Pedidos por Mes',
+	            data: pedidos,
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)',
+	                'rgba(83, 42, 44, 0.9)',
+	                'rgba(83, 175, 163, 0.5)',
+	                'rgba(26, 133, 163, 0.3)',
+	                'rgba(26, 133, 233, 0.4)',
+	                ' rgba(68, 234, 110, 0.3)',
+	                'rgba(227, 255, 78, 0.4)'
+
+	            ],
+	            borderColor: [
+	                'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)',
+	                'rgba(83, 42, 44, 0.9)',
+	                'rgba(83, 175, 163, 0.5)',
+	                'rgba(26, 133, 163, 0.3)',
+	                'rgba(26, 133, 233, 0.4)',
+	                'rgba(68, 234, 110, 0.3)',
+	                'rgba(227, 255, 78, 0.4)'
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero:true
+	                }
+	            }]
+	        }
+	    }
+	});
+	</script>
+
+
+
+<!-- 
+<script>
+$( document ).ready(function() {
+    var data = {
+        labels: ['1', '5', '10', '15', '20', '25', '30'],
+        datasets: [
+            {
+                label: "Site Registrations in the Last 30 Days",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: {{ 30_day_registrations }}
+            }
+        ]
+    };
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+});
+</script>
+<canvas id="myChart" width="500" height="300"></canvas>
+ -->
+
+
+</body>
+</html>

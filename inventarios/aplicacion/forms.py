@@ -20,6 +20,12 @@ class RegistrarUsuarioForm(forms.Form):
 	contrasena_form=forms.CharField(max_length=20)
 	email_form=forms.EmailField()
 
+
+class PedidoForm(forms.Form):
+	fechaInicio_form = forms.DateField(input_formats=["%Y-%m-%d"])
+	fechaFin_form = forms.DateField(input_formats=["%Y-%m-%d"])
+
+
 class RegistrarPedidoForm(forms.Form):
 	producto_form = forms.CharField(max_length=20)
 	proveedor_form = forms.CharField(max_length=20)
