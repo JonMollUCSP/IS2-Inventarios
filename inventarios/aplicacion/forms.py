@@ -40,3 +40,8 @@ class SeleccionarTipoPedidoForm(forms.Form):
 class RecibirPedidoForm(forms.Form):
 	id_pedido_form = forms.IntegerField()
 	fecha_recibida_form = forms.DateField()
+
+OPCIONES_ANOS = ('2016', '2017')
+OPCIONES_MESES = ('January', 'February','March','April','May')
+class ReporteProductoForm(forms.Form):
+    ano_y_mes = forms.DateField(widget=forms.SelectDateWidget(years=OPCIONES_ANOS))

@@ -47,22 +47,13 @@ class Almacen(models.Model):
 		return self.direccion
 
 class Pedido(models.Model):
+	id = models.AutoField(primary_key=True)
 	proveedor = models.ForeignKey(Proveedor, on_delete = models.CASCADE)
 	producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
-	fechaRealizada = models.DateField(default=date.today, null = True)
-	fechaPrevista = models.DateField(null = True)
-	fechaRecibida = models.DateField(null = True)
-	cantidad = models.IntegerField()
+	fecha_realizada = models.DateField(null = True)
+	fecha_prevista = models.DateField(null = True)
+	fecha_recibida = models.DateField(null = True)
+	cantidad = models.CharField(max_length = 10)
 
 	def _str_(self):
 		return self.cantidad
-
-class ReporteProducto(models.Model):
-	ID = models.CharField(max_length = 20)
-	nombre = models.CharField(max_length = 20)
-	fechaRealizada = models.CharField(max_length = 20)
-	cantidad = models.CharField(max_length = 20)
-	almacen = models.CharField(max_length = 20)
-	tipo = models.CharField(max_length = 20)
-	class Meta:
-		managed = False

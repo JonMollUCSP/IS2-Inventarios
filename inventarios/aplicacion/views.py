@@ -135,10 +135,20 @@ def RegistrarUsuarioView(request):
     return render(request, "usuario_form.html", contexto)
 
 def ReporteProductoView(request):
-    reporte = ReporteProducto.objects.all()
-    contexto = { "reporteProducto" : reporteProducto }
-    
-    return render(request, "reporteProducto.html", contexto)
+    from django.db import connection
+    cursor = connection.cursor()
+
+    formulario = ReporteProductoForm(request.POST)
+  
+    if formulario.is_valid():
+        print(formulario.cleaned_data)
+        datos_formulario = formulario.cleaned_data
+        mes = datos_formulario.get('DateField', 'month')
+        
+    cursor.execute("SELECT aplicacion_producto.nombre, cantidad, fecha_recibida, aplicacion_proveedor.nombre FROM aplicacion_pedido INNER JOIN aplicacion_producto ON aplicacion_pedido.producto_id = aplicacion_producto.id INNER JOIN aplicacion_proveedor ON aplicacion_pedido.proveedor_id = aplicacion_proveedor.id;")
+    productos = cursor.fetchall()
+    contexto = { "formulario" : formulario,"productos":productos }
+    return render(request, "reporteProductos.html", contexto)
 
 def ProveedorProductoView(request,id_propro):
 	productos = Producto.objects.filter(proveedorproducto__producto__id__isnull=False,
