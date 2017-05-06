@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 class Usuario(models.Model):
 	nombre = models.CharField(max_length = 20)
@@ -48,7 +49,7 @@ class Almacen(models.Model):
 class Pedido(models.Model):
 	proveedor = models.ForeignKey(Proveedor, on_delete = models.CASCADE)
 	producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
-	fechaRealizada = models.DateField(null = True)
+	fechaRealizada = models.DateField(default=date.today, null = True)
 	fechaPrevista = models.DateField(null = True)
 	fechaRecibida = models.DateField(null = True)
 	cantidad = models.IntegerField()
