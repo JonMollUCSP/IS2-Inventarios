@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from random import randint
+
 import arrow
 from .forms import *
 from datetime import *
@@ -112,9 +114,16 @@ def mostrarfechaPedido(request):
     if formulario.is_valid():
         print(formulario.cleaned_data)
         datos_formulario=formulario.cleaned_data
-        f_inicial=datos_formualrio.get("fechaRealizada")
-        f_cierre=datos_formualrio.get("fechaRealizada")
-        rango_fecha=Pedido.objects.filter(fecha__range=(f_inicial,f_cierre))
-        return HttpResponseRedirect(reverse('inicio'))
+        f_inicial=datos_formulario.get("fechaInicio_form")
+
+        f_cierre=datos_formulario.get("fechaFin_form")
+        rango_fecha=Pedido.objects.filter(fechaRealizada__range=(f_inicial,f_cierre))
+        print(rango_fecha)
+
+        
     return render(request,"graficos2.html",contexto)
+
+
+
+
 

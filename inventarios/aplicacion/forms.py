@@ -21,4 +21,5 @@ class RegistrarUsuarioForm(forms.Form):
 	email_form=forms.EmailField()
 
 class PedidoForm(forms.Form):
-	fechaRealizada_form = forms.DateField(input_formats='%Y/%m/%d')
+	fechaInicio_form = forms.DateField(input_formats=["%Y-%m-%d"])
+	fechaFin_form = forms.DateField(input_formats=["%Y-%m-%d"])
