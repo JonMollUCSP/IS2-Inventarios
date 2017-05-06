@@ -18,6 +18,7 @@ from django.contrib import admin
 
 from aplicacion import views
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.IniciarSesionView, name = 'iniciar_sesion'),
@@ -30,5 +31,8 @@ urlpatterns = [
     url(r'^pedido/', views.PedidoView, name = 'pedido'),
     url(r'^registrar_usuario/', views.RegistrarUsuarioView, name = 'registrar_usuario'),
     url(r'^graficos2/',views.mostrarfechaPedido,name='graficos2'),
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/rodrigo.castro
 ]
