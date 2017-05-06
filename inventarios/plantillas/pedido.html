@@ -6,6 +6,13 @@ graficos2.html<html>
 	</head>
 	
 	<body>
+
+		<form method = 'post' action = ''>
+			{% csrf_token %}
+			{{ formulario_tipo_de_pedido.as_p }}
+			<input type = 'submit' value = 'Cambiar'r>
+		</form>
+
 		<h1> Pedidos </h1>
 
 		<table class = "table table-hover">
