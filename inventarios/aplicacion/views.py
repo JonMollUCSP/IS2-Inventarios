@@ -3,14 +3,12 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-<<<<<<< HEAD
 from random import randint
-=======
 from django.views.generic import View
 from django.views.generic import TemplateView
->>>>>>> refs/remotes/origin/rodrigo.castro
 
-import arrow
+
+
 from .forms import *
 from datetime import *
 from .models import *
@@ -129,18 +127,8 @@ def mostrarfechaPedido(request):
     return render(request,"graficos2.html",contexto)
 
 
-
-
-
-def mostrarfechaPedido(request):
-    formulario= PedidoForm(request.POST or None)
-    contexto={"formulario":formulario}
-    if formulario.is_valid():
-        print(formulario.cleaned_data)
-        datos_formulario=formulario.cleaned_data
-        f_inicial=datos_formualrio.get("fechaRealizada")
-        f_cierre=datos_formualrio.get("fechaRealizada")
-        rango_fecha=Pedido.objects.filter(fecha__range=(f_inicial,f_cierre))
-        return HttpResponseRedirect(reverse('inicio'))
-    return render(request,"graficos2.html",contexto)
-
+def ReporteProductoView(request):
+    reporte = ReporteProducto.objects.all()
+    contexto = { "reporteProducto" : reporteProducto }
+    
+    return render(request, "reporteProducto.html", contexto)

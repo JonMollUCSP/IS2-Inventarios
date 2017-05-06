@@ -38,11 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'aplicacion',
-<<<<<<< HEAD
-    'datetimewidget'
-=======
->>>>>>> refs/remotes/origin/rodrigo.castro
-    
 ]
 
 MIDDLEWARE = [
