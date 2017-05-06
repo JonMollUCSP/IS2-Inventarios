@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title> Reporte Almacen x Productos </title>
+    <meta charset = "UTF-8">
+    <link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+  </head>
+
+  <body>
+    <h1> Reporte </h1>
+
+    <table class = "table table-hover">
+      <tr>
+        <th> ID </th>
+        <th> Nombre </th>
+        <th> Tipo </th>
+        <th> Fecha </th>
+        <th> Cantidad </th>
+      </tr>
+      {% for item in productos %}
+      <tr>
+        <td> {{ item.id }} </td>
+        <td> {{ item.nombre }} </td>
+        <td> {{ item.tipo }} </td>
+        <td> {{ item.fecha }} </td>
+        <td> {{ item.cantidad }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

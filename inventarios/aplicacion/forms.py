@@ -8,6 +8,9 @@ class RegistrarProductoForm(forms.Form):
         nombre_form = forms.CharField(max_length = 20)
         tipo_form =  forms.CharField(max_length = 20)
         valor_form = forms.IntegerField()
+        fecha_form= forms.DateField()
+        cantidad_form = forms.IntegerField()
+        # almacenAsoc_form =forms.IntegerField()
 
 class RegistrarProveedorForm(forms.Form):
 	nombre_form = forms.CharField(max_length = 20)
