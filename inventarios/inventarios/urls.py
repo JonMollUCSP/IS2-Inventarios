@@ -30,5 +30,5 @@ urlpatterns = [
     url(r'^pedido/', views.PedidoView, name = 'pedido'),
     url(r'^registrar_usuario/', views.RegistrarUsuarioView, name = 'registrar_usuario'),
     url(r'^graficos2/',views.mostrarfechaPedido,name='graficos2'),
-   
+
 ]
