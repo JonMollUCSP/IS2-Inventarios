@@ -27,7 +27,7 @@ class AdminAlmacen(admin.ModelAdmin):
 admin.site.register(Almacen, AdminAlmacen)
 
 class AdminPedido(admin.ModelAdmin):
-	list_display = ["__str__", "proveedor", "fechaRealizada", "fechaPrevista", "fechaRecibida", "cantidad"]
+	list_display = ["__str__", "proveedor", "fecha_realizada", "fecha_prevista", "fecha_recibida", "cantidad"]
 
 	class Meta:
 		model = Pedido
