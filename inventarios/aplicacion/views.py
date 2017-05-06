@@ -94,6 +94,8 @@ def PedidoView(request):
 			pedidos = Pedido.objects.filter(fecha_recibida__isnull=False)
 		if tipo_pedido_obtenido == 'pedidos_no_recibidos':
 			pedidos = Pedido.objects.filter(fecha_recibida__isnull=True)
+		else:
+			pedidos = Pedido.objects.all()
 	else:
 		pedidos = Pedido.objects.all()
 
@@ -115,7 +117,7 @@ def registrarPedidoView(request):
 		producto = Producto.objects.get(nombre=producto_obtenido)
 		proveedor = Proveedor.objects.get(nombre=proveedor_obtenido)
 
-		objecto_pedido = Pedido.objects.create(proveedor=proveedor, producto=producto, fechaPrevista=fecha_prevista_obtenida, cantidad=cantidad_obtenida)
+		objecto_pedido = Pedido.objects.create(proveedor=proveedor, producto=producto, fecha_prevista=fecha_prevista_obtenida, cantidad=cantidad_obtenida)
 
 		return HttpResponseRedirect(reverse('inicio'))
 
