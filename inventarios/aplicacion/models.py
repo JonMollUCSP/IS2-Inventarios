@@ -50,7 +50,7 @@ class Pedido(models.Model):
 	id = models.AutoField(primary_key=True)
 	proveedor = models.ForeignKey(Proveedor, on_delete = models.CASCADE)
 	producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
-	fecha_realizada = models.DateField(null = True)
+	fecha_realizada = models.DateField(default=date.today, null = True)
 	fecha_prevista = models.DateField(null = True)
 	fecha_recibida = models.DateField(null = True)
 	cantidad = models.CharField(max_length = 10)
