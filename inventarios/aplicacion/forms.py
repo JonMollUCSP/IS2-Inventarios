@@ -1,4 +1,6 @@
 from django import forms
+from django.db import models
+from .models import * 
 
 class IniciarSesionForm(forms.Form):
 	nombre_form = forms.CharField(max_length = 20)
@@ -10,7 +12,8 @@ class RegistrarProductoForm(forms.Form):
         valor_form = forms.IntegerField()
         fecha_form= forms.DateField()
         cantidad_form = forms.IntegerField()
-        # almacenAsoc_form =forms.IntegerField()
+        almacenAsoc_form = forms.ModelChoiceField(queryset = Almacen.objects.all()) 
+        descripcion_form = forms.CharField();
 
 class RegistrarProveedorForm(forms.Form):
 	nombre_form = forms.CharField(max_length = 20)
@@ -48,3 +51,8 @@ OPCIONES_ANOS = ('2016', '2017')
 OPCIONES_MESES = ('January', 'February','March','April','May')
 class ReporteProductoForm(forms.Form):
     ano_y_mes = forms.DateField(widget=forms.SelectDateWidget(years=OPCIONES_ANOS))
+    
+
+class registrar_almacen_form(forms.Form):
+        direccion_form = forms.CharField()
+        descripcion_form = forms.CharField()

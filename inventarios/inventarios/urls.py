@@ -31,5 +31,8 @@ urlpatterns = [
     url(r'^registrar_usuario/', views.RegistrarUsuarioView, name = 'registrar_usuario'),
     url(r'^registrar_pedido/', views.registrarPedidoView, name = 'registrar_pedido'),
     url(r'^proveedorproducto/(?P<id_propro>\d+)/$', views.ProveedorProductoView, name='proveedorproducto'),
-    url(r'^reporte_producto/', views.ReporteProductoView, name = 'reporte_producto') 
-    ]
+    url(r'^reporte_producto/', views.ReporteProductoView, name = 'reporte_producto'),
+    url(r'^registrar_almacen/', views.registrar_almacen_view, name = 'registrar_almacen'),
+    url(r'^ReporteProductoxAlmacen/(?P<id_almacen>\d+)/$', views.ReporteProductoxAlmacenView, name = 'ReporteProductoxAlmacen') 
+]
+

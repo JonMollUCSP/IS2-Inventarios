@@ -18,13 +18,13 @@ class AdminProveedor(admin.ModelAdmin):
 
 admin.site.register(Proveedor, AdminProveedor)
 
-class AdminAlmacen(admin.ModelAdmin):
-	list_display = ["__str__", "anaqueles_por_fila", "direccion", "filas"]
+# class AdminAlmacen(admin.ModelAdmin):
+# 	list_display = ["__str__", "anaqueles_por_fila", "direccion", "filas"]
 
-	class Meta:
-		model = Almacen
+# 	class Meta:
+# 		model = Almacen
 
-admin.site.register(Almacen, AdminAlmacen)
+# admin.site.register(Almacen, AdminAlmacen)
 
 class AdminPedido(admin.ModelAdmin):
 	list_display = ["__str__", "proveedor", "fecha_realizada", "fecha_prevista", "fecha_recibida", "cantidad"]

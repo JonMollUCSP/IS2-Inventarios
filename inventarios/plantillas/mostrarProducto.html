@@ -12,6 +12,7 @@
       <table class="table table-hover">
         <thead>
           <tr>
+            <th>Almacen Asocioado</th>
             <th> Nombre </th>
             <th> Tipo </th>
             <th> Valor </th>
@@ -20,6 +21,7 @@
         <tbody>
           {% for Producto in productos %}
           <tr>
+            <td> {{ Producto.almacenAsoc_id }}</td>
             <td> {{ Producto.nombre }} </td>
             <td> {{ Producto.tipo }} </td>
             <td> {{ Producto.valor }} </td>

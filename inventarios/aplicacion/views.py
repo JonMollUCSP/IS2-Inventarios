@@ -46,8 +46,9 @@ def registrarProductoView(request):
                 valor_obtenido = datos_formulario.get("valor_form")
                 fecha_obtenido = datos_formulario.get("fecha_form")
                 cantidad_obtenido = datos_formulario.get("cantidad_form")
-                # almacenAsoc_obtenido = datos_formulario.get("almacenAsoc_form")
-                objeto_proveedor = Producto.objects.create(nombre = nombre_obtenido, tipo = tipo_obtenido, valor = valor_obtenido, fecha = fecha_obtenido, cantidad= cantidad_obtenido)
+                almacenAsoc_obtenido = datos_formulario.get("almacenAsoc_form")
+                descripcion_obtenido = datos_formulario.get("descripcion_form")
+                objeto_proveedor = Producto.objects.create(nombre = nombre_obtenido, tipo = tipo_obtenido, valor = valor_obtenido, fecha = fecha_obtenido, cantidad= cantidad_obtenido, almacenAsoc = almacenAsoc_obtenido , descripcion = descripcion_obtenido)
                 return HttpResponseRedirect(reverse('inicio'))	
         return render(request, "registrarProducto.html", contexto)
 
@@ -77,11 +78,27 @@ def RegistrarProveedorView(request):
 		
 	return render(request, "registrar_proveedor.html", contexto)
 
+def registrar_almacen_view(request):
+        formulario = registrar_almacen_form(request.POST or None)
+        contexto = { "formulario" : formulario }
+
+        if formulario.is_valid():
+                print(formulario.cleaned_data)
+                datos_formulario = formulario.cleaned_data
+                descripcion_obtenido = datos_formulario.get("descripcion_form")
+                direccion_obtenido = datos_formulario.get("direccion_form")
+                objeto_almacen = Almacen.objects.create(direccion = direccion_obtenido, descripcion = descripcion_obtenido)
+
+                return HttpResponseRedirect(reverse('inicio'))
+        
+        return render(request, "registrar_almacen.html", contexto)
+
 def AlmacenView(request):
     almacenes = Almacen.objects.all()
     contexto = { "almacenes" : almacenes }
 
     return render(request, "almacen.html", contexto)
+
 
 def PedidoView(request):
 	formulario_tipo_de_pedido = SeleccionarTipoPedidoForm(request.POST or None)
@@ -142,8 +159,10 @@ def RegistrarUsuarioView(request):
     return render(request, "usuario_form.html", contexto)
 
 def ReporteProductoxAlmacenView(request,id_almacen):
-        reporte = Producto.objects.filter(producto__almacenAsoc__id = id_almacen)
-        contexto = {"reporteAlmacen" : reporte}
+        productos = Producto.objects.filter(almacenAsoc_id=id_almacen)
+        # productos = Producto.objects.all()
+        print(id_almacen)
+        contexto = { "productos" : productos }
         return render(request, "reporteAlmacenxProducto.html", contexto)
 
 def ReporteProductoView(request):
