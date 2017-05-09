@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title> Almacenes </title>
+		<meta charset = "UTF-8">
+	</head>
+	<body>
+	    <h1> Almacenes </h1>
+		<table>
+			<thead>
+				<tr>
+					<th> Anaqueles </th>
+					<th> Direccion </th>
+					<th> Filas </th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for Almacen in almacenes %}
+				<tr>
+					<td> {{ Almacen.anaqueles_por_fila }} </td>
+					<td> {{ Almacen.direccion }} </td>
+					<td> {{ Almacen.filas }} </td>
+				</tr>
+				{% endfor %}
+	        </tbody>
+	      </table>
+	</body>
+</html>
