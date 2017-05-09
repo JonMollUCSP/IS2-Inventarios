@@ -1,5 +1,5 @@
 *.pyc
-settings.py
+inventarios/settings.py
 
 # Django Recommended
 *.egg-info
