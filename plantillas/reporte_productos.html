@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title> Reporte de productos </title>
+		<meta charset = "UTF-8">
+	</head>
+	
+	<body>
+		<h1> Reporte Producto </h1>
+		<form method = 'post' action = ''>
+			{% csrf_token %}
+			{{ formulario.as_table }}
+
+			<input type = 'submit' value = 'Buscar'>
+		</form>
+
+		<table>
+	    	<tr>
+	    		<th> Producto </th>
+	        	<th> Cantidad </th>
+	        	<th> Fecha Recibida </th>
+	        	<th> Proveedor </th>
+	    	</tr>
+	    	{% for item in productos %}
+	    	<tr> 
+	        	<td> {{ item.0 }} </td>
+	        	<td> {{ item.1 }} </td>
+	        	<td> {{ item.2 }} </td>
+	        	<td> {{ item.3 }} </td>
+	    	</tr>
+	    	{% endfor %}
+		</table>
+	</body>
+</html>

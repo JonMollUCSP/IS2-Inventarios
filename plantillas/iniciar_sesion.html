@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<title> Iniciar sesion </title>
+		<meta charset = "UTF-8">
+	</head>
+	
+	<body>
+		<h1> Bienvenido </h1>
+
+		<form method = 'post' action = ''>
+			{% csrf_token %}
+			{{ formulario.as_p }}
+
+			<input type = 'submit' value = 'Iniciar sesion'>
+		</form>
+	</body>
+</html>
