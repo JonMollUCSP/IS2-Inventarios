@@ -65,7 +65,6 @@ class Almacen(models.Model):
 	def __str__(self):
 		return self.direccion
 
-
 class ProveedorProducto(models.Model):
 	id = models.AutoField(primary_key = True)
 	proveedor = models.ForeignKey(Proveedor, on_delete = models.SET_NULL, null=True)
@@ -114,12 +113,3 @@ class Orden(models.Model):
 
 	def __str__(self):
 		return self.producto.nombre
-
-
-
-
-
-
-
-
-
