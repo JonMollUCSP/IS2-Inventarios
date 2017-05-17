@@ -1,48 +1,46 @@
 from django import forms
 
-class IniciarSesionForm(forms.Form):
-	nombre_form = forms.CharField(max_length = 20)
-	contrasena_form = forms.CharField(max_length = 20)
+class iniciarSesionForm(forms.Form):
+	nombre = forms.CharField(max_length = 20)
+	contrasena = forms.CharField(max_length = 20)
 
-class RegistrarProductoForm(forms.Form):
-        nombre_form = forms.CharField(max_length = 20)
-        tipo_form =  forms.CharField(max_length = 20)
-        valor_form = forms.IntegerField()
+class registrarProductoForm(forms.Form):
+	nombre = forms.CharField(max_length = 20)
+	tipo = forms.CharField(max_length = 20)
+	valor = forms.IntegerField()
 
-class RegistrarProveedorForm(forms.Form):
-	nombre_form = forms.CharField(max_length = 20)
-	telefono_form = forms.IntegerField()
-	direccion_form = forms.CharField()
-	email_form = forms.EmailField()
+class registrarProveedorForm(forms.Form):
+	nombre = forms.CharField(max_length = 20)
+	telefono = forms.IntegerField()
+	direccion = forms.CharField()
+	correo = forms.EmailField()
 
-class RegistrarUsuarioForm(forms.Form):
-	nombre_form=forms.CharField(max_length=20)
-	contrasena_form=forms.CharField(max_length=20)
-	email_form=forms.EmailField()
+class registrarUsuarioForm(forms.Form):
+	nombre = forms.CharField(max_length = 20)
+	contrasena = forms.CharField(max_length = 20)
+	correo = forms.EmailField()
 
+class registrarPedidoForm(forms.Form):
+	producto = forms.CharField(max_length = 20)
+	proveedor = forms.CharField(max_length = 20)
+	cantidad = forms.IntegerField()
 
-class PedidoForm(forms.Form):
-	fechaInicio_form = forms.DateField(input_formats=["%Y-%m-%d"])
-	fechaFin_form = forms.DateField(input_formats=["%Y-%m-%d"])
-
-
-class RegistrarPedidoForm(forms.Form):
-	producto_form = forms.CharField(max_length=20)
-	proveedor_form = forms.CharField(max_length=20)
-	cantidad_form = forms.IntegerField()
-	fecha_prevista_form = forms.DateField()
-
-class SeleccionarTipoPedidoForm(forms.Form):
+class seleccionarTipoPedidoForm(forms.Form):
 	todos = 'todos_los_pedidos'
 	no_recibido = 'pedidos_no_recibidos'
 	recibido = 'pedidos_recibidos'
-	pedido_choice = (
-		(todos, u"Todos los pedidos"),
-		(no_recibido, u"Pedidos no recibidos"),
-		(recibido, u"Pedidos recibidos")
-	)
-	tipo_pedido_form = forms.ChoiceField(choices=pedido_choice)
 
-class RecibirPedidoForm(forms.Form):
-	id_pedido_form = forms.IntegerField()
-	fecha_recibida_form = forms.DateField()
+	pedido_choice = ((todos, u"Todos los pedidos"),
+                     (no_recibido, u"Pedidos no recibidos"),
+                     (recibido, u"Pedidos recibidos"))
+
+	tipo_pedido = forms.ChoiceField(choices = pedido_choice)
+
+class recibirPedidoForm(forms.Form):
+	id_pedido = forms.IntegerField()
+	fecha_recibida = forms.DateField()
+
+OPCIONES_ANOS = ('2016', '2017')
+OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
+class reporteProductoForm(forms.Form):
+	ano_y_mes = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))

@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title> Productos </title>
+        <meta charset = "UTF-8">
+    </head>
+    <body>
+        <h1> Productos </h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th> Nombre </th>
+                        <th> Tipo </th>
+                        <th> Valor </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Producto in productos %}
+                    <tr>
+                        <td> {{ Producto.nombre }} </td>
+                        <td> {{ Producto.tipo }} </td>
+                        <td> {{ Producto.valor }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </body>
+</html>

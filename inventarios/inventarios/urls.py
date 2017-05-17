@@ -18,20 +18,53 @@ from django.contrib import admin
 
 from aplicacion import views
 
+urlpatterns = [url(r'^admin/',
+                   admin.site.urls),
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', views.IniciarSesionView, name = 'iniciar_sesion'),
-    url(r'^inicio/', views.InicioView, name = 'inicio'),
-    url(r'^mostrarProducto/', views.mostrarProductoView, name = 'mostrarProducto'),
-    url(r'^registrarProducto/', views.registrarProductoView, name = 'registrarProducto'),
-    url(r'^registrar_proveedor/', views.RegistrarProveedorView, name = 'registrar_proveedor'),
-    url(r'^proveedor/', views.ProveedorView, name = 'proveedor'),
-    url(r'^almacen/', views.AlmacenView, name = 'almacen'),
-    url(r'^pedido/', views.PedidoView, name = 'pedido'),
-    url(r'^registrar_usuario/', views.RegistrarUsuarioView, name = 'registrar_usuario'),
-    url(r'^graficos2/',views.mostrarfechaPedido,name='graficos2'),
-    url(r'^registrar_pedido/', views.registrarPedidoView, name = 'registrar_pedido'),
-    url(r'^proveedorproducto/(?P<id_propro>\d+)/$', views.ProveedorProductoView, name='proveedorproducto') 
-]
+               url(r'^$',
+                   views.iniciarSesionView,
+                   name = 'iniciar_sesion'),
 
+               url(r'^inicio/',
+                   views.inicioView,
+                   name = 'inicio'),
+
+               url(r'^productos/',
+                   views.mostrarProductoView,
+                   name = 'productos'),
+
+               url(r'^registrar_producto/',
+                   views.registrarProductoView,
+                   name = 'registrar_producto'),
+
+               url(r'^registrar_proveedor/',
+                   views.registrarProveedorView,
+                   name = 'registrar_proveedor'),
+
+               url(r'^proveedores/',
+                   views.proveedorView,
+                   name = 'proveedores'),
+
+               url(r'^almacenes/',
+                   views.almacenView,
+                   name = 'almacenes'),
+
+               url(r'^pedidos/',
+                   views.pedidoView,
+                   name = 'pedidos'),
+
+               url(r'^registrar_usuario/',
+                   views.registrarUsuarioView,
+                   name = 'registrar_usuario'),
+
+               url(r'^registrar_pedido/',
+                   views.registrarPedidoView,
+                   name = 'registrar_pedido'),
+
+               url(r'^proveedor_producto/(?P<id_propro>\d+)/$',
+                   views.proveedorProductoView,
+                   name = 'proveedor_producto'),
+
+               url(r'^reporte_productos/',
+                   views.reporteProductoView,
+                   name = 'reporte_productos')]

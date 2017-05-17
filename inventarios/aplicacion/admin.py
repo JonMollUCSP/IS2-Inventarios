@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import *
 
 class AdminUsuario(admin.ModelAdmin):
-	list_display = ["__str__", "nombre", "contrasena", "email"]
+	list_display = ["__str__", "nombre", "contrasena", "correo"]
 
 	class Meta:
 		model = Usuario
@@ -11,7 +11,7 @@ class AdminUsuario(admin.ModelAdmin):
 admin.site.register(Usuario, AdminUsuario)
 
 class AdminProveedor(admin.ModelAdmin):
-	list_display = ["__str__", "nombre", "telefono","direccion","email"]
+	list_display = ["__str__", "nombre", "telefono","direccion","correo"]
 
 	class Meta:
 		model = Proveedor
@@ -27,7 +27,7 @@ class AdminAlmacen(admin.ModelAdmin):
 admin.site.register(Almacen, AdminAlmacen)
 
 class AdminPedido(admin.ModelAdmin):
-	list_display = ["__str__", "proveedor", "fechaRealizada", "fechaPrevista", "fechaRecibida", "cantidad"]
+	list_display = ["__str__", "proveedor", "fecha_realizada", "fecha_prevista", "fecha_recibida", "cantidad"]
 
 	class Meta:
 		model = Pedido
@@ -37,7 +37,7 @@ admin.site.register(Pedido, AdminPedido)
 
 class AdminProducto(admin.ModelAdmin):
 	
-	list_display = ["__str__", "nombre", "tipo", "valor"]
+	list_display = ["__str__", "nombre", "codigo", "valor"]
 
 	class Meta:
 		model = Producto

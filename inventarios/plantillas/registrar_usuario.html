@@ -1,10 +1,12 @@
 <html>
 	<head>
-		<title> Registrar pedido </title>
+		<title> Registrar usuario </title>
 		<meta charset = "UTF-8">
 	</head>
+	
 	<body>
-		<h1> Registrar pedido </h1>
+		<h1> Registrar usuario </h1>
+
 		<form method = 'post' action = ''>
 			{% csrf_token %}
 			{{ formulario.as_p }}
