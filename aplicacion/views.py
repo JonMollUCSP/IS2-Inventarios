@@ -161,6 +161,14 @@ def registrarUsuarioView(request):
                                                 correo = correo_obtenido)
 
 	return render(request, "registrar_usuario.html", contexto)
+def proveedorProductoView(request, id_propro):
+	productos = Producto.objects.filter(proveedorproducto__producto__id__isnull = False,
+                                        proveedorproducto__proveedor__id = id_propro)
+
+	contexto = {"productos": productos}
+
+	return render(request, "proveedor_producto.html", contexto)
+
 
 def reporteProductoView(request):
 	from django.db import connection
@@ -179,10 +187,18 @@ def reporteProductoView(request):
 
 	return render(request, "reporte_productos.html", contexto)
 
-def proveedorProductoView(request, id_propro):
-	productos = Producto.objects.filter(proveedorproducto__producto__id__isnull = False,
+def reporteProveedorView(request, id_propro):
+	proveedor = Proveedor.objects.filter(proveedorproducto__producto__id__isnull = False,
                                         proveedorproducto__proveedor__id = id_propro)
 
-	contexto = {"productos": productos}
+	contexto = {"proveedor": Proveedor}
 
-	return render(request, "proveedor_producto.html", contexto)
+	return render(request, "reporte_proveedor.html", contexto)
+
+def pedidosProveedor(request, id_propro):
+	pedidos = pedidos.objects.filter(pedidosproducto__producto__id__isnull = False,
+                                        pedidosproducto__pedidos__id = id_propro)
+
+	contexto = {"pedidos": pedidos}
+
+	return render(request, "pedidos_proveedor.html", contexto)
