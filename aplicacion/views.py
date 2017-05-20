@@ -195,6 +195,8 @@ def proveedorProductoView(request, id_propro):
         return render(request, "proveedor_producto.html", contexto)
 
 def reporteMovimientoView(request):
+	from decimal import Decimal
+	formulario = seleccionarTipoReporteMovimiento(request.POST or None)
 	productos = Producto.objects.all()
 	for producto in productos:
 		movimiento=Decimal(0)
@@ -203,5 +205,5 @@ def reporteMovimientoView(request):
 		for pedido in pedidos:
 			movimiento=movimiento+Decimal(pedido.cantidad)*valor
 		producto.movimiento=movimiento
-	contexto = {"productos": productos}
+	contexto = {"productos": productos,"formulario": formulario}
 	return render(request, "reporte_movimiento.html", contexto)

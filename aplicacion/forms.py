@@ -46,3 +46,16 @@ class registrarProductoForm(forms.Form):
         codigo = forms.CharField(max_length = 20)
         valor = forms.IntegerField()
         fecha_ingreso = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
+class seleccionarTipoReporteMovimiento(forms.Form):
+	diario = 'diario'
+	mensual = 'mensual'
+	anual = 'anual'
+
+	reporte_choice = ((diario, u"Reporte diario"),
+                     (mensual, u"Reporte mensual"),
+                     (anual, u"Reporte anual"))
+	tipo_reporte = forms.ChoiceField(choices = reporte_choice)
+	fecha_inicial = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+	fecha_final = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
