@@ -37,7 +37,7 @@ admin.site.register(Pedido, AdminPedido)
 
 class AdminProducto(admin.ModelAdmin):
 	
-	list_display = ["__str__", "nombre", "tipo", "valor"]
+	list_display = ["__str__", "nombre", "codigo", "valor"]
 
 	class Meta:
 		model = Producto
