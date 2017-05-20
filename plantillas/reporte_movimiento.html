@@ -10,25 +10,41 @@
 					{{ formulario.as_p }}
 					<input type = 'submit' value = 'Generar'>
 				</form>
-            <table>
-                <thead>
-                    <tr>
-                        <th> Nombre </th>
-                        <th> Tipo </th>
-                        <th> Valor </th>
-												<th> Movimiento </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for Producto in productos %}
-                    <tr>
-                        <td> {{ Producto.nombre }} </td>
-                        <td> {{ Producto.tipo }} </td>
-                        <td> {{ Producto.valor }} </td>
-                        <td> {{ Producto.movimiento }} </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+					{% if productos %}
+        <table>
+						<thead>
+							<tr>
+								<th> Nombre </th>
+								<th> Movimiento </th>
+							</tr>
+						</thead>
+					<tbody>
+					{% for Producto in productos %}
+					<tr>
+						<td> {{ Producto.nombre }} </td>
+						<td> {{ Producto.movimiento }} </td>
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+						{% else %}
+				<table>
+							<h1> Reporte de {{ producto_reporte.nombre }} </h1>
+							<thead>
+								<tr>
+									<th> Fecha </th>
+									<th> Movimiento </th>
+								</tr>
+							</thead>
+							<tbody>
+							{% for movimiento in movimientos %}
+							<tr>
+								<td> {{ movimiento.fecha_recibida }} </td>
+								<td> {{ movimiento.dcount }} </td>
+							</tr>
+							{% endfor %}
+							</tbody>
+						{% endif %}
+				</table>
     </body>
 </html>
