@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Lugares en Almacen</title>
+</head>
+<body>
+    <h1> Almacen</h1>
+	<table class=>
+		<thead>
+			<tr>
+				<th>Lugar</th>
+				<th>Cantidad</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+	{% for Almacen in almacen %}
+			<tr>
+				<td>{{ Almacen.anaqueles_por_fila }}</td>
+				<td>{{ Almacen.direccion }}</td>
+			</tr>
+	{% endfor %}
+        </tbody>
+      </table>
+</body>
+</html>
