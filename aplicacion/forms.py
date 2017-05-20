@@ -15,10 +15,12 @@ class registrarUsuarioForm(forms.Form):
 	contrasena = forms.CharField(max_length = 20)
 	correo = forms.EmailField()
 
+OPCIONES_ANOS = ('2016', '2017') #añadido para probar pedidos
 class registrarPedidoForm(forms.Form):
 	producto = forms.CharField(max_length = 20)
 	proveedor = forms.CharField(max_length = 20)
 	cantidad = forms.IntegerField()
+	fecha_prevista = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS)) #añadido para probar pedidos
 
 class seleccionarTipoPedidoForm(forms.Form):
 	todos = 'todos_los_pedidos'
