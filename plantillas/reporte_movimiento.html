@@ -1,50 +1,50 @@
 <html>
-    <head>
-        <title> Reporte de Movimiento de Productos </title>
-        <meta charset = "UTF-8">
-    </head>
-    <body>
-        <h1> Reporte de Movimiento por Productos </h1>
-				<form method = 'post' action = ''>
-					{% csrf_token %}
-					{{ formulario.as_p }}
-					<input type = 'submit' value = 'Generar'>
-				</form>
-					{% if productos %}
-        <table>
-						<thead>
-							<tr>
-								<th> Nombre </th>
-								<th> Movimiento </th>
-							</tr>
-						</thead>
-					<tbody>
-					{% for Producto in productos %}
-					<tr>
-						<td> {{ Producto.nombre }} </td>
-						<td> {{ Producto.movimiento }} </td>
-					</tr>
-					{% endfor %}
-					</tbody>
-				</table>
-						{% else %}
-				<table>
-							<h1> Reporte de {{ producto_reporte.nombre }} </h1>
-							<thead>
-								<tr>
-									<th> Fecha </th>
-									<th> Movimiento </th>
-								</tr>
-							</thead>
-							<tbody>
-							{% for movimiento in movimientos %}
-							<tr>
-								<td> {{ movimiento.fecha_recibida }} </td>
-								<td> {{ movimiento.dcount }} </td>
-							</tr>
-							{% endfor %}
-							</tbody>
-						{% endif %}
-				</table>
-    </body>
+  <head>
+    <title> Reporte de Movimiento de Productos </title>
+    <meta charset = "UTF-8">
+  </head>
+  <body>
+    <h1> Reporte de Movimiento por Productos </h1>
+    <form method = 'post' action = ''>
+      {% csrf_token %}
+      {{ formulario.as_p }}
+      <input type = 'submit' value = 'Generar'>
+    </form>
+    {% if productos %}
+    <table>
+      <thead>
+        <tr>
+          <th> Nombre </th>
+          <th> Movimiento </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for Producto in productos %}
+        <tr>
+          <td> {{ Producto.nombre }} </td>
+          <td> {{ Producto.movimiento }} </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <table>
+      <h1> Reporte de {{ producto_reporte.nombre }} </h1>
+      <thead>
+        <tr>
+          <th> Fecha </th>
+          <th> Movimiento </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for movimiento in movimientos %}
+        <tr>
+          <td> {{ movimiento.fecha_recibida }} </td>
+          <td> {{ movimiento.dcount }} </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% endif %}
+    </table>
+  </body>
 </html>

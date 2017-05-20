@@ -1,21 +1,15 @@
 <html>
   <head>
-    <title> Llega de Pedidos </title>
+    <title> Llegada de Pedidos </title>
     <meta charset = "UTF-8">
   </head>
 
   <body>
-    <ul>
-      {% for choice in form.my_choice_field.field.choices %}
-      <li>
-        <input type="radio" name="my_choice_field" value="{{choice.0}}"
-               {% ifequal form.my_choice_field.data choice.0 %}
-               checked="checked"
-               {% endifequal %}/>
-        <label for="">{{choice.1}}</label>
-      </li>
-      {% endfor %}
-    </ul>
+    <form method = 'post' action = ''>
+      {% csrf_token %}
+      {{ formulario.as_p }}
+      <input type = 'submit' value = 'Generar'>
+    </form>
     <h1> Pedidos </h1>
     <table>
       <tr>

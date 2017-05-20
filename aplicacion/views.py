@@ -87,19 +87,20 @@ def almacenView(request):
         return render(request, "almacenes.html", contexto)
 
 def tiempo_pedido_view(request):
-        formulario = tiempo_pedido_form(request.POST or None)
-        contexto = {"formulario": formulario}
-        # if formulario.is_valid():
-        #         datos_formulario = formulario_recibir_pedido.cleaned_data
-        #         opcion = datos_formulario.get("opcion_tiempo")
-        #         if opcion == "Con retraso":
-        #                 pedidos = Pedido.objects.filter( fecha_recibida > fecha_prevista)
-        #         else:
-        #                 pedidos = Pedido.objects.filter( fecha_recibida <= fecha_prevista)
-        # else:
-        #         pedidos = Pedido.objects.all()
-        pedidos = Pedido.objects.all()
-        # contexto = {"pedidos",pedidos}
+        from django.db.models import F
+        formulario = tiempo_pedido_form(request.POST)
+        if formulario.is_valid():
+                datos_formulario = formulario.cleaned_data
+                opcion = datos_formulario.get("opcion_tiempo")
+                print(opcion)
+                if opcion == "conretraso":
+                        pedidos = Pedido.objects.filter(fecha_recibida__gt=F('fecha_prevista'))
+                else:
+                        pedidos = Pedido.objects.filter(fecha_recibida__lt=F('fecha_prevista'))
+        else:
+                pedidos = Pedido.objects.all()
+        # pedidos = Pedido.objects.all()
+        contexto = {"formulario": formulario,"pedidos":pedidos}
         return render(request, "tiempo_pedidos.html", contexto)
 
 def pedidoView(request):

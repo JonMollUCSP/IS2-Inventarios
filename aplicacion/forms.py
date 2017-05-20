@@ -71,6 +71,8 @@ class seleccionarTipoReporteMovimiento(forms.Form):
 	fecha_final = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
 
 class tiempo_pedido_form(forms.Form):
-        lista = ['A tiempo', 'Con Retraso']
-        opcion_tiempo = forms.ChoiceField(choices=lista)
+        a_tiempo = "atiempo"
+        con_retraso="conretraso"
+        reporte_choice = ((a_tiempo, u"Llego a tiempo"),(con_retraso, u"Llego con retraso"))
+        opcion_tiempo = forms.ChoiceField(choices=reporte_choice)
 
