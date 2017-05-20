@@ -4,11 +4,6 @@ class iniciarSesionForm(forms.Form):
 	nombre = forms.CharField(max_length = 20)
 	contrasena = forms.CharField(max_length = 20)
 
-class registrarProductoForm(forms.Form):
-	nombre = forms.CharField(max_length = 20)
-	tipo = forms.CharField(max_length = 20)
-	valor = forms.IntegerField()
-
 class registrarProveedorForm(forms.Form):
 	nombre = forms.CharField(max_length = 20)
 	telefono = forms.IntegerField()
@@ -43,7 +38,15 @@ class recibirPedidoForm(forms.Form):
 OPCIONES_ANOS = ('2016', '2017')
 OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 class reporteProductoForm(forms.Form):
-	ano_y_mes = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+        inicio = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+        fin = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
 
 class reporteProveedorForm(forms.Form):
-	ano_y_mes = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+        inicio = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+        fin = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
+class registrarProductoForm(forms.Form):
+        nombre = forms.CharField(max_length = 20)
+        codigo = forms.CharField(max_length = 20)
+        valor = forms.IntegerField()
+        fecha_ingreso = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))

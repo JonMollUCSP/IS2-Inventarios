@@ -194,7 +194,7 @@ def proveedorProductoView(request, id_propro):
 
 def reporteProveedorView(request):
         from django.db import connection
-        
+
         formulario = reporteProveedorForm(request.POST)
 
         if formulario.is_valid():
@@ -204,7 +204,7 @@ def reporteProveedorView(request):
                 proveedores = Proveedor.objects.filter(fecha_ingreso__range=[inicio_obtenido,fin_obtenido])
                 contexto = {"formulario": formulario, "proveedores":proveedores}
         else:
-                proveedores = Proveedor.objects.filter(fecha_ingreso__range=["2016-01-01", "2016-01-31"])
+                proveedores = Proveedor.objects.filter(fecha_ingreso__range=["2011-01-01", "2011-01-31"])
                 contexto = {"formulario": formulario, "proveedores":proveedores}
-
         return render(request, "reporte_proveedores.html", contexto)
+
