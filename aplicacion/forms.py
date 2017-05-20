@@ -1,5 +1,8 @@
 from django import forms
 
+OPCIONES_ANOS = ('2016', '2017','2018','2019','2020','2021')
+OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
+
 class iniciarSesionForm(forms.Form):
 	nombre = forms.CharField(max_length = 20)
 	contrasena = forms.CharField(max_length = 20)
@@ -15,7 +18,7 @@ class registrarUsuarioForm(forms.Form):
 	contrasena = forms.CharField(max_length = 20)
 	correo = forms.EmailField()
 
-OPCIONES_ANOS = ('2016', '2017') #añadido para probar pedidos
+# OPCIONES_ANOS = ('2016', '2017') #añadido para probar pedidos
 class registrarPedidoForm(forms.Form):
 	producto = forms.CharField(max_length = 20)
 	proveedor = forms.CharField(max_length = 20)
@@ -37,8 +40,6 @@ class recibirPedidoForm(forms.Form):
 	id_pedido = forms.IntegerField()
 	fecha_recibida = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
 
-OPCIONES_ANOS = ('2016', '2017')
-OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 class reporteProductoForm(forms.Form):
         inicio = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
         fin = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
