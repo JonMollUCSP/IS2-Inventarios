@@ -44,3 +44,6 @@ OPCIONES_ANOS = ('2016', '2017')
 OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 class reporteProductoForm(forms.Form):
 	ano_y_mes = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
+class reporteProveedorForm(forms.Form):
+	ano_y_mes = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))

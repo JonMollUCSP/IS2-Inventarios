@@ -67,4 +67,8 @@ urlpatterns = [url(r'^admin/',
 
                url(r'^reporte_productos/',
                    views.reporteProductoView,
-                   name = 'reporte_productos')]
+                   name = 'reporte_productos'),
+               
+               url(r'^reporte_proveedores/',
+                   views.reporteProveedorView,
+                   name = 'reporte_proveedores')]
