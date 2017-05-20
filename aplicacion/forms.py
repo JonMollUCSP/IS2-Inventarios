@@ -55,6 +55,7 @@ class seleccionarTipoReporteMovimiento(forms.Form):
 	reporte_choice = ((diario, u"Reporte diario"),
                      (mensual, u"Reporte mensual"),
                      (anual, u"Reporte anual"))
+	producto = forms.CharField(max_length = 20)
 	tipo_reporte = forms.ChoiceField(choices = reporte_choice)
 	fecha_inicial = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
 	fecha_final = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
