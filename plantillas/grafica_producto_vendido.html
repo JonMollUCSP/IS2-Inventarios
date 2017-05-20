@@ -2,8 +2,28 @@
 	<head>
 		<title> Inicio </title>
 		<meta charset = "UTF-8">
-	</head>
+		<script>
+		{% block jquery %}
+		var endpoint = '/grafica_producto_vendido' //url
 
+		$.ajax({
+			method: "GET",
+			url: endpoint,
+			success: function(data){
+				console.log(data)
+			},
+			error: function(error_data){
+				console.log("error")
+				console.log(error_data)
+			}
+		})
+		{% endblock %}
+		</script>
+	</head>
+	
+
+
+	
 	<body>
 		<h1> Bienvenido </h1>
 		<a href = "../registrar_proveedor"> Registrar proveedor </a> <br>
@@ -16,5 +36,7 @@
 		<a href = "../productos"> Productos </a> <br>
 		<a href = "../reporte_productos"> Reporte de productos </a> <br>
 		<a href = "../grafica_producto_vendido"> Graficas de los productos </a><br>
+
+	
 	</body>
 </html>

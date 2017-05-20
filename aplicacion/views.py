@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.http import JsonResponse
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from .forms import *
 from .models import *
@@ -191,3 +195,19 @@ def proveedorProductoView(request, id_propro):
         contexto = {"productos": productos}
 
         return render(request, "proveedor_producto.html", contexto)
+
+
+def chartDataView(request):
+        data = {
+            "sales": 100,
+            "customers": 10,
+        }
+        return JsonResponse(data)
+
+
+
+
+
+
+
+
