@@ -118,8 +118,7 @@ def registrarPedidoView(request):
 
                 producto = Producto.objects.get(nombre = producto_obtenido)
                 proveedor = Proveedor.objects.get(nombre = proveedor_obtenido)
-								#Modificación para guardar pedido en Base de Datos
-								objeto_pedido = Pedido.objects.create( producto=producto,proveedor=proveedor,cantidad=cantidad_obtenida)
+                objeto_pedido = Pedido.objects.create( producto=producto,proveedor=proveedor,cantidad=cantidad_obtenida)
 
                 administrador = Usuario.objects.get(nombre = 'administrador')
 
