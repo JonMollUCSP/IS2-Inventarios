@@ -65,6 +65,14 @@ urlpatterns = [url(r'^admin/',
                    views.proveedorProductoView,
                    name = 'proveedor_producto'),
 
+               url(r'^reporte_movimiento/',
+                   views.reporteMovimientoView,
+                   name = 'reporte_movimiento'),
+
                url(r'^reporte_productos/',
                    views.reporteProductoView,
-                   name = 'reporte_productos')]
+                   name = 'reporte_productos'),
+               
+               url(r'^reporte_proveedores/',
+                  views.reporteProveedorView,
+                  name = 'reporte_proveedores')]
