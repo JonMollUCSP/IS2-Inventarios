@@ -24,6 +24,9 @@ class registrarPedidoForm(forms.Form):
 	proveedor = forms.CharField(max_length = 20)
 	cantidad = forms.IntegerField()
 	fecha_prevista = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS)) #añadido para probar pedidos
+	fecha_recibida = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS)) #añadido para probar pedidos
+	fecha_realizada = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS)) #añadido para probar pedidos
+        
 
 class seleccionarTipoPedidoForm(forms.Form):
 	todos = 'todos_los_pedidos'
@@ -66,4 +69,8 @@ class seleccionarTipoReporteMovimiento(forms.Form):
 	tipo_reporte = forms.ChoiceField(choices = reporte_choice)
 	fecha_inicial = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
 	fecha_final = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
+class tiempo_pedido_form(forms.Form):
+        lista = ['A tiempo', 'Con Retraso']
+        opcion_tiempo = forms.ChoiceField(choices=lista)
 

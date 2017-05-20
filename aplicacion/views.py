@@ -86,6 +86,22 @@ def almacenView(request):
 
         return render(request, "almacenes.html", contexto)
 
+def tiempo_pedido_view(request):
+        formulario = tiempo_pedido_form(request.POST or None)
+        contexto = {"formulario": formulario}
+        # if formulario.is_valid():
+        #         datos_formulario = formulario_recibir_pedido.cleaned_data
+        #         opcion = datos_formulario.get("opcion_tiempo")
+        #         if opcion == "Con retraso":
+        #                 pedidos = Pedido.objects.filter( fecha_recibida > fecha_prevista)
+        #         else:
+        #                 pedidos = Pedido.objects.filter( fecha_recibida <= fecha_prevista)
+        # else:
+        #         pedidos = Pedido.objects.all()
+        pedidos = Pedido.objects.all()
+        # contexto = {"pedidos",pedidos}
+        return render(request, "tiempo_pedidos.html", contexto)
+
 def pedidoView(request):
         formulario_tipo_pedido = seleccionarTipoPedidoForm(request.POST or None)
         formulario_recibir_pedido = recibirPedidoForm(request.POST or None)
@@ -121,11 +137,13 @@ def registrarPedidoView(request):
                 producto_obtenido = datos_formulario.get("producto")
                 proveedor_obtenido = datos_formulario.get("proveedor")
                 fecha_prevista_obtenida = datos_formulario.get("fecha_prevista") #agregado para probar pedido
+                fecha_recibida_obtenida = datos_formulario.get("fecha_prevista") #agregado para probar pedido
+                fecha_realizada_obtenida = datos_formulario.get("fecha_prevista") #agregado para probar pedido
                 cantidad_obtenida = datos_formulario.get("cantidad")
 
                 producto = Producto.objects.get(nombre = producto_obtenido)
                 proveedor = Proveedor.objects.get(nombre = proveedor_obtenido)
-                objeto_pedido = Pedido.objects.create(producto=producto, proveedor=proveedor, fecha_prevista=fecha_prevista_obtenida,cantidad=cantidad_obtenida) #agregado para probar pedido
+                objeto_pedido = Pedido.objects.create(producto=producto, proveedor=proveedor, fecha_prevista=fecha_prevista_obtenida, fecha_realizada = fecha_realizada_obtenida , fecha_recibida = fecha_recibida_obtenida,cantidad=cantidad_obtenida) #agregado para probar pedido
 
                 administrador = Usuario.objects.get(nombre = 'administrador')
 
