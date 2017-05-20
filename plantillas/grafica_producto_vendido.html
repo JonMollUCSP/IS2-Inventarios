@@ -4,7 +4,7 @@
 		<meta charset = "UTF-8">
 		<script>
 		{% block jquery %}
-		var endpoint = '/grafica_producto_vendido' //url
+		var endpoint = '/grafica_producto_vendido/' //url
 
 		$.ajax({
 			method: "GET",
@@ -36,7 +36,9 @@
 		<a href = "../productos"> Productos </a> <br>
 		<a href = "../reporte_productos"> Reporte de productos </a> <br>
 		<a href = "../grafica_producto_vendido"> Graficas de los productos </a><br>
-
+	<div class="primero" url_endpoint='{% url "grafica_producto_vendido"}'>
+		<h2>hello world</h2>
+	</div>
 	
 	</body>
 </html>

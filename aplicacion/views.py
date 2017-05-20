@@ -206,6 +206,14 @@ def chartDataView(request):
 
 
 
+def probandoView(request):
+    if request.method == 'POST':
+        print (request.body)
+        data = request.body
+        return HttpResponse(json.dumps(data))
+
+
+
 
 
 

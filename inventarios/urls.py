@@ -71,4 +71,18 @@ urlpatterns = [url(r'^admin/',
 
                url(r'^grafica_producto_vendido/',
                    views.chartDataView,
-                   name = 'grafica_producto_vendido')]
+                   name = 'grafica_producto_vendido'),
+
+               url(r'^probandoView/',
+                   views.probandoView,
+                   name = 'probandoView')]
+
+
+
+
+
+
+
+
+
+
