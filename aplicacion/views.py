@@ -194,6 +194,22 @@ def proveedorProductoView(request, id_propro):
 
         return render(request, "proveedor_producto.html", contexto)
 
+def reporteProveedorView(request):
+        from django.db import connection
+
+        formulario = reporteProveedorForm(request.POST)
+
+        if formulario.is_valid():
+                datos_formulario = formulario.cleaned_data
+                inicio_obtenido = datos_formulario.get('inicio');
+                fin_obtenido = datos_formulario.get('fin');
+                proveedores = Proveedor.objects.filter(fecha_ingreso__range=[inicio_obtenido,fin_obtenido])
+                contexto = {"formulario": formulario, "proveedores":proveedores}
+        else:
+                proveedores = Proveedor.objects.filter(fecha_ingreso__range=["2011-01-01", "2011-01-31"])
+                contexto = {"formulario": formulario, "proveedores":proveedores}
+        return render(request, "reporte_proveedores.html", contexto)
+
 def reporteMovimientoView(request):
 	productos = Producto.objects.all()
 	for producto in productos:
@@ -205,3 +221,4 @@ def reporteMovimientoView(request):
 		producto.movimiento=movimiento
 	contexto = {"productos": productos}
 	return render(request, "reporte_movimiento.html", contexto)
+

@@ -41,6 +41,10 @@ class reporteProductoForm(forms.Form):
         inicio = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
         fin = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
 
+class reporteProveedorForm(forms.Form):
+        inicio = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+        fin = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
 class registrarProductoForm(forms.Form):
         nombre = forms.CharField(max_length = 20)
         codigo = forms.CharField(max_length = 20)
