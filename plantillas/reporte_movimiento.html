@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title> Reporte de Movimiento de Productos </title>
+        <meta charset = "UTF-8">
+    </head>
+    <body>
+        <h1> Reporte de Movimiento por Productos </h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th> Nombre </th>
+                        <th> Tipo </th>
+                        <th> Valor </th>
+												<th> Movimiento </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Producto in productos %}
+                    <tr>
+                        <td> {{ Producto.nombre }} </td>
+                        <td> {{ Producto.tipo }} </td>
+                        <td> {{ Producto.valor }} </td>
+                        <td> {{ Producto.movimiento }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </body>
+</html>

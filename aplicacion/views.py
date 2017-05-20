@@ -118,6 +118,9 @@ def registrarPedidoView(request):
 
                 producto = Producto.objects.get(nombre = producto_obtenido)
                 proveedor = Proveedor.objects.get(nombre = proveedor_obtenido)
+								#Modificación para guardar pedido en Base de Datos
+								objeto_pedido = Pedido.objects.create( producto=producto,proveedor=proveedor,cantidad=cantidad_obtenida)
+
                 administrador = Usuario.objects.get(nombre = 'administrador')
 
                 correo_emisor = administrador.correo
@@ -156,7 +159,7 @@ def registrarUsuarioView(request):
                 datos_formulario = formulario.cleaned_data
                 nombre_obtenido = datos_formulario.get("nombre")
                 contrasena_obtenida = datos_formulario.get("contrasena")
-                correo_obtenido = datos_formulario.get("email")
+                correo_obtenido = datos_formulario.get("correo")#cambié de email a correo
 
                 objeto_usuario = Usuario.objects.create(nombre = nombre_obtenido,
                                                         contrasena = contrasena_obtenida,
@@ -191,3 +194,15 @@ def proveedorProductoView(request, id_propro):
         contexto = {"productos": productos}
 
         return render(request, "proveedor_producto.html", contexto)
+
+def reporteMovimientoView(request):
+	productos = Producto.objects.all()
+	for producto in productos:
+		movimiento=Decimal(0)
+		pedidos = Pedido.objects.filter(producto = producto.id)
+		valor=Decimal(producto.valor);
+		for pedido in pedidos:
+			movimiento=movimiento+Decimal(pedido.cantidad)*valor
+		producto.movimiento=movimiento
+	contexto = {"productos": productos}
+	return render(request, "reporte_movimiento.html", contexto)
