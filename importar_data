@@ -1,0 +1,22 @@
+Pasos para importar la data a la BD:
+	1. Agregar lo siguiente a 'settings.py'
+
+	FIXTURE_DIRS = (
+   		'/path/to/myapp/IS2-inventarios/aplicacion/fixtures/',
+	)
+
+	en 'path/to/my/app/' agreguen el path completo donde tienen la carpeta 'IS2-inventarios'
+
+	2. Borrar la base de datos
+
+		python manage.py flush
+
+	3. 
+		python manage.py makemigrations
+
+	4.
+		python manage.pt migrate
+
+	5. Importar la data
+
+		python manage.py loaddata data_sprint3_01
