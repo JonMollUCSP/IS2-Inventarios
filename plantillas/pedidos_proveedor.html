@@ -11,16 +11,9 @@
 
 			<input type = 'submit' value = 'Cambiar'r>
 		</form>
-		{% if formulario_recibir_pedido %}	
-		<h1> Recibir Pedido </h1>
-		<form method = 'post' action = ''>
-			{% csrf_token %}
-			{{ formulario_recibir_pedido.as_p }}
-			<input type = 'submit' value = 'Cambiar'r>
-		</form>
-		{% endif %}
 
 		<h1> Pedidos </h1>
+
 		<table>
 	    	<tr>
 	    		<th> ID </th>

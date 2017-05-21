@@ -15,10 +15,12 @@ class registrarUsuarioForm(forms.Form):
 	contrasena = forms.CharField(max_length = 20)
 	correo = forms.EmailField()
 
+OPCIONES_ANOS = ('2016', '2017') #añadido para probar pedidos
 class registrarPedidoForm(forms.Form):
 	producto = forms.CharField(max_length = 20)
 	proveedor = forms.CharField(max_length = 20)
 	cantidad = forms.IntegerField()
+	fecha_prevista = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS)) #añadido para probar pedidos
 
 class seleccionarTipoPedidoForm(forms.Form):
 	todos = 'todos_los_pedidos'
@@ -33,11 +35,15 @@ class seleccionarTipoPedidoForm(forms.Form):
 
 class recibirPedidoForm(forms.Form):
 	id_pedido = forms.IntegerField()
-	fecha_recibida = forms.DateField()
+	fecha_recibida = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
 
 OPCIONES_ANOS = ('2016', '2017')
 OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 class reporteProductoForm(forms.Form):
+        inicio = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+        fin = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
+class reporteProveedorForm(forms.Form):
         inicio = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
         fin = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
 
@@ -46,3 +52,17 @@ class registrarProductoForm(forms.Form):
         codigo = forms.CharField(max_length = 20)
         valor = forms.IntegerField()
         fecha_ingreso = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
+class seleccionarTipoReporteMovimiento(forms.Form):
+	diario = 'diario'
+	mensual = 'mensual'
+	anual = 'anual'
+
+	reporte_choice = ((diario, u"Reporte diario"),
+                     (mensual, u"Reporte mensual"),
+                     (anual, u"Reporte anual"))
+	producto = forms.CharField(max_length = 20)
+	tipo_reporte = forms.ChoiceField(choices = reporte_choice)
+	fecha_inicial = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+	fecha_final = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
