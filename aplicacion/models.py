@@ -109,8 +109,8 @@ class Orden(models.Model):
 
         fecha = models.DateField(default = date.today)
         cantidad = models.IntegerField()
-        precio_unidad = models.DecimalField(max_digits = 10, decimal_places = 2)
-        precio_total = models.DecimalField(max_digits = 10, decimal_places = 2)
+        precio_unidad = models.DecimalField(max_digits = 10, decimal_places = 2, null = True)
+        precio_total = models.DecimalField(max_digits = 10, decimal_places = 2, null = True)
 
         def __str__(self):
                 return self.producto.nombre
