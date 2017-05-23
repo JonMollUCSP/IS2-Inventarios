@@ -1,5 +1,4 @@
 *.pyc
-inventarios/settings.py
 aplicacion/migrations/
 
 # Django Recommended
