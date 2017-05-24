@@ -65,6 +65,10 @@ urlpatterns = [url(r'^admin/',
                    views.proveedorProductoView,
                    name = 'proveedor_producto'),
 
+               url(r'^verificar_producto/',
+                   views.mostrarLugarView,
+                   name = 'verificar_producto'),
+
                url(r'^reporte_productos/',
                    views.reporteProductoView,
                    name = 'reporte_productos')]

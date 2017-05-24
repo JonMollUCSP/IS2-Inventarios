@@ -154,7 +154,7 @@ def registrarUsuarioView(request):
 		datos_formulario = formulario.cleaned_data
 		nombre_obtenido = datos_formulario.get("nombre")
 		contrasena_obtenida = datos_formulario.get("contrasena")
-		correo_obtenido = datos_formulario.get("email")
+		correo_obtenido = datos_formulario.get("correo")
 
 		objeto_usuario = Usuario.objects.create(nombre = nombre_obtenido,
                                                 contrasena = contrasena_obtenida,
@@ -186,3 +186,21 @@ def proveedorProductoView(request, id_propro):
 	contexto = {"productos": productos}
 
 	return render(request, "proveedor_producto.html", contexto)
+
+
+def mostrarLugarView(request):
+	from django.db import connection
+	cursor = connection.cursor()
+
+	formulario = mostrarPedidoForm(request.POST)
+
+	if formulario.is_valid():
+		datos_formulario=formulario.cleaned_data
+		pedido = datos_formulario.get("pedido")
+
+	cursor.execute("SELECT aplicacion_anaquelproducto.candidad_producto, aplicacion_producto.nombre FROM aplicacion_producto INNER JOIN aplicacion_anaquelproducto WHERE aplicacion_anaquelproducto.id == aplicacion_producto.id")
+	productos=cursos.fetchall()
+
+	contexto = {"formulario": formulario}
+
+	return render(request,"verificar_producto.html", contexto)
