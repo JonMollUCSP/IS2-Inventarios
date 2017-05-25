@@ -15,6 +15,11 @@ class registrarProveedorForm(forms.Form):
     direccion = forms.CharField()
     correo = forms.EmailField()
 
+class registrarProveedorProductoForm(forms.Form):
+    nombre = forms.CharField(max_length=20)
+    telefono = forms.IntegerField()
+    direccion = forms.CharField()
+    correo = forms.EmailField()
 
 class registrarUsuarioForm(forms.Form):
     nombre = forms.CharField(max_length=20)
