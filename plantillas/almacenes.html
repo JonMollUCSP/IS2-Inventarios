@@ -1,27 +1,104 @@
 <html>
 	<head>
-		<title> Almacenes </title>
+		<title> Inicio </title>
 		<meta charset = "UTF-8">
+
+		<link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+		<link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
 	</head>
+
 	<body>
-	    <h1> Almacenes </h1>
-		<table>
-			<thead>
-				<tr>
-					<th> Anaqueles </th>
-					<th> Direccion </th>
-					<th> Filas </th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for Almacen in almacenes %}
-				<tr>
-					<td> {{ Almacen.anaqueles_por_fila }} </td>
-					<td> {{ Almacen.direccion }} </td>
-					<td> {{ Almacen.filas }} </td>
-				</tr>
-				{% endfor %}
-	        </tbody>
-	      </table>
+		<div class = 'container'>
+			<div class = 'row'>
+				<div class = 'col-sm-4'> </div>
+				
+				<div class = 'col-sm-4' align = 'center'>
+					<br>
+					<img src = "https://s26.postimg.org/t0zn98nhl/logo3.png" class = "img-responsive"> 
+					<br>
+				</div>
+				
+				<div class = 'col-sm-4'> </div>
+			</div>
+		</div>
+
+		<div class = 'container'>
+			<div class = 'row'>
+				<div class = 'col-sm-3'  align = 'center'>
+					<div class = 'color-black'>
+						<br>
+						<h1> Ver </h1>
+						<br>
+					</div>
+					<a href = "../tiempo_pedidos" class = "btn btn-info btn-block"> 
+						Tiempo de llegada pedidos 
+					</a>
+					<a href = "../reporte_productos" class = "btn btn-info btn-block"> 
+						Reporte de productos 
+					</a>
+					<a href = "../proveedores" class = "btn btn-info btn-block"> 
+						Proveedores 
+					</a>
+					<a href = "../almacenes" class = "btn btn-info btn-block"> 
+						Almacenes 
+					</a>
+					<a href = "../pedidos" class = "btn btn-info btn-block"> 
+						Pedidos 
+					</a>
+
+					<a href = "../productos" class = "btn btn-info btn-block"> 
+						Productos 
+					</a>
+					<br>
+
+					<div class = 'color-black'>
+						<br>
+						<h1> Registrar </h1>
+						<br>
+					</div>
+					<a href = "../registrar_usuario" class = "btn btn-info btn-block"> 
+						Usuario 
+					</a>
+					<a href = "../registrar_proveedor" class = "btn btn-info btn-block"> 
+						Proveedor 
+					</a>					
+					<a href = "../registrar_pedido" class = "btn btn-info btn-block"> 
+						Pedido 
+					</a>
+					<a href = "../registrar_producto" class = "btn btn-info btn-block"> 
+						Producto 
+					</a>
+					<br>	
+				</div>
+				<div class = 'col-sm-9 full' align = 'center'>
+					<br>
+					<div class = 'color-orange'>
+						<br>
+						<h1> Almacenes </h1>
+						<br>
+					</div>
+
+					<br>
+					 <div class = "table-responsive">
+  						<table class = "table">
+							<tr>
+								<th class = 'color-orange'> Anaqueles </th>
+								<th class = 'color-orange'> Direccion </th>
+								<th class = 'color-orange'> Filas </th>
+							</tr>
+						
+							{% for Almacen in almacenes %}
+							<tr>
+								<td> {{ Almacen.anaqueles_por_fila }} </td>
+								<td> {{ Almacen.direccion }} </td>
+								<td> {{ Almacen.filas }} </td>
+							</tr>
+							{% endfor %}
+				    	</table>
+					</div> 
+					
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

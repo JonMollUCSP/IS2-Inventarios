@@ -72,9 +72,9 @@
                 </div>
                 <div class = 'col-sm-9 full' align = 'center'>
                     <br>
-                    <div class = 'color-green'>
+                    <div class = 'color-orange'>
                         <br>
-                        <h1> Registrar producto </h1>
+                        <h1> Tiempo de llegado de los pedidos </h1>
                         <br>
                     </div>
 
@@ -83,9 +83,35 @@
                     <form method = 'post' action = ''>
                         {% csrf_token %}
                         {{ formulario.as_p }}
-
-                        <input type = 'submit' value = 'Registrar'>
+                        
+                        <input type = 'submit' value = 'Generar'>
                     </form>
+                        
+                    <div class = "table-responsive">
+                        <table>
+                            <tr>
+                                <th class = 'color-orange'> ID </th>
+                                <th class = 'color-orange'> Producto </th>
+                                <th class = 'color-orange'> Fecha Realizada </th>
+                                <th class = 'color-orange'> Fecha Prevista </th>
+                                <th class = 'color-orange'> Fecha Recibida </th>
+                                <th class = 'color-orange'> Cantidad </th>
+                                <th class = 'color-orange'> Proveedor </th>
+                            </tr>
+                            
+                            {% for item in pedidos %}
+                            <tr>
+                                <td> {{ item.id }} </td>
+                                <td> {{ item.producto }} </td>
+                                <td> {{ item.fecha_realizada }} </td>
+                                <td> {{ item.fecha_prevista }} </td>
+                                <td> {{ item.fecha_recibida }} </td>
+                                <td> {{ item.cantidad }} </td>
+                                <td> {{ item.proveedor_id }} </td>
+                            </tr>
+                            {% endfor %}
+                        </table>    
+                    </div> 
                 </div>
             </div>
         </div>
