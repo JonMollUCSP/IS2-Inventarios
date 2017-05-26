@@ -1,4 +1,5 @@
 from django import forms
+from .models import *
 
 OPCIONES_ANOS = ('2016', '2017', '2018', '2019', '2020', '2021')
 OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
@@ -15,7 +16,14 @@ class registrarProveedorForm(forms.Form):
     direccion = forms.CharField()
     correo = forms.EmailField()
 
-
+class registrarProveedorProductoForm(forms.Form):
+    
+    proveedor = forms.ModelChoiceField(queryset= Proveedor.objects.all())
+    producto = forms.ModelChoiceField(queryset= Producto.objects.all())
+    fecha_tiempo= forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
+            
 class registrarUsuarioForm(forms.Form):
     nombre = forms.CharField(max_length=20)
     contrasena = forms.CharField(max_length=20)

@@ -41,6 +41,10 @@ urlpatterns = [url(r'^admin/',
                    views.registrarProveedorView,
                    name = 'registrar_proveedor'),
 
+               url(r'^registrar_proveedor_producto/',
+                   views.registrarProveedorProductoView,
+                   name = 'registrar_proveedor_producto'),
+
                url(r'^proveedores/',
                    views.proveedorView,
                    name = 'proveedores'),
