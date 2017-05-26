@@ -100,7 +100,7 @@ def registrarProveedorProductoView(request):
         objeto_ProveedorProducto = ProveedorProducto.objects.create(
             proveedor=proveedor_obtenido,
             producto=producto_obtenido,
-            fecha_tiempo=fecha_obtenida)
+            fecha_tiempo=fecha_obtenido)
 
         return HttpResponseRedirect(reverse('inicio'))
 
