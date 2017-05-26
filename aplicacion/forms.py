@@ -16,11 +16,12 @@ class registrarProveedorForm(forms.Form):
     correo = forms.EmailField()
 
 class registrarProveedorProductoForm(forms.Form):
-    nombre = forms.CharField(max_length=20)
-    telefono = forms.IntegerField()
-    direccion = forms.CharField()
-    correo = forms.EmailField()
-
+    producto = forms.CharField(max_length=20)
+    proveedor = forms.CharField(max_length=20)
+    fecha_tiempo= forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
+            
 class registrarUsuarioForm(forms.Form):
     nombre = forms.CharField(max_length=20)
     contrasena = forms.CharField(max_length=20)
