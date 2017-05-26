@@ -3,12 +3,14 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import JsonResponse
 
+
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import authentication, permissions
 
 from .forms import *
 from .models import *
@@ -160,11 +162,12 @@ def registrarUsuarioView(request):
                 datos_formulario = formulario.cleaned_data
                 nombre_obtenido = datos_formulario.get("nombre")
                 contrasena_obtenida = datos_formulario.get("contrasena")
-                correo_obtenido = datos_formulario.get("email")
+                correo_obtenido = datos_formulario.get("correo")
 
                 objeto_usuario = Usuario.objects.create(nombre = nombre_obtenido,
                                                         contrasena = contrasena_obtenida,
                                                         correo = correo_obtenido)
+                return HttpResponseRedirect(reverse('inicio'))
 
         return render(request, "registrar_usuario.html", contexto)
 
@@ -196,7 +199,6 @@ def proveedorProductoView(request, id_propro):
 
         return render(request, "proveedor_producto.html", contexto)
 
-
 def chartDataView(request):
         data = {
             "sales": 100,
@@ -204,13 +206,21 @@ def chartDataView(request):
         }
         return JsonResponse(data)
 
+class ProbandoView(APIView):
+    authentication_classes = []
+    permission_classes = []
 
-
-def probandoView(request):
-    if request.method == 'POST':
-        print (request.body)
-        data = request.body
-        return HttpResponse(json.dumps(data))
+    def get(self, request, format=None):
+        """
+        Return a list of all users.
+        """
+        usernames = [user.username for user in User.objects.all()]
+        return Response(usernames)
+# def probandoView(request):
+#     if request.method == 'POST':
+#         print (request.body)
+#         data = request.body
+#         return HttpResponse(json.dumps(data))
 
 
 
