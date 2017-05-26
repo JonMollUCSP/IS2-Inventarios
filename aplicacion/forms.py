@@ -16,8 +16,8 @@ class registrarProveedorForm(forms.Form):
     correo = forms.EmailField()
 
 class registrarProveedorProductoForm(forms.Form):
-    producto = forms.CharField(max_length=20)
-    proveedor = forms.CharField(max_length=20)
+    producto = forms.CharField(widget=forms.Select())
+    proveedor = forms.lsCharField(widget=forms.Select())
     fecha_tiempo= forms.DateField(
         widget=forms.SelectDateWidget(
             years=OPCIONES_ANOS))

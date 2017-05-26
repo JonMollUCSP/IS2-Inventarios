@@ -98,8 +98,8 @@ def registrarProveedorProductoView(request):
         fecha_obtenido = datos_formulario.get("fecha_tiempo")
 
         objeto_ProveedorProducto = ProveedorProducto.objects.create(
-            proveedor=nombre_obtenido,
-            producto=telefono_obtenido,
+            proveedor=proveedor_obtenido,
+            producto=producto_obtenido,
             fecha_tiempo=fecha_obtenida)
 
         return HttpResponseRedirect(reverse('inicio'))
