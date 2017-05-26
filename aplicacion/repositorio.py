@@ -17,13 +17,10 @@ class PedidoRepositorio():
             fecha_recibida=fecha_recibida)
 
 
-    def getPedidosNoRecibidos(self, producto):
-        return Pedido.objects.filter(producto=producto.id, fecha_recibida__isnull=True)
-
     def getPedidosNoRecibidos(self):
         return Pedido.objects.filter(fecha_recibida__isnull=True)
 
-    def getPedidosRecibidos(self, producto):
+    def getPedidosRecibidosProducto(self, producto):
         return Pedido.objects.filter(producto=producto.id, fecha_recibida__isnull=False)
 
     def getPedidosRecibidos(self):

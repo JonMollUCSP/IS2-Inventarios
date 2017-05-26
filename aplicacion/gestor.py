@@ -51,7 +51,7 @@ class GestorReporte:
         productos = productoRepositorio.getProductos()
         for producto in productos:
             monto_total = Decimal(0)
-            pedidos = pedidoRepositorio.getPedidosRecibidos(producto)
+            pedidos = pedidoRepositorio.getPedidosRecibidosProducto(producto)
             for pedido in pedidos:
                 monto_total = monto_total + Decimal(pedido.cantidad) * Decimal(producto.valor)
             producto.monto_total = "$" + str(monto_total)
