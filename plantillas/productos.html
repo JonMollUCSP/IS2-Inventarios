@@ -1,8 +1,7 @@
 <html>
-    <head>
-        <title> Inicio </title>
-        <meta charset = "UTF-8">
-
+  <head>
+    <title> Productos </title>
+    <meta charset = "UTF-8">
         <link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
         <link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
     </head>
@@ -87,13 +86,12 @@
                                 <th class = 'color-orange'> Valor </th>
                                 <th class = 'color-orange'> Fecha de Ingreso </th>
                             </tr>
-                            
                             {% for Producto in productos %}
                             <tr>
-                                <td> {{ Producto.nombre }} </td>
-                                <td> {{ Producto.codigo }} </td>
-                                <td> {{ Producto.valor }} </td>
-                                <td> {{ Producto.fecha_ingreso }} </td>
+                              <td> {{ Producto.nombre }} </td>
+                              <td> {{ Producto.codigo }} </td>
+                              <td> {{ Producto.valor }} </td>
+                              <td> {{ Producto.fecha_ingreso }} </td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -103,3 +101,4 @@
         </div>
     </body>
 </html>
+

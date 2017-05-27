@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title> Inicio </title>
+		<title> Registrar proveedor producto </title>
 		<meta charset = "UTF-8">
 		<link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 		<link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
@@ -71,21 +71,20 @@
 				</div>
 				<div class = 'col-sm-9 full' align = 'center'>
 					<br>
-					<div class = 'color-orange'>
+					<div class = 'color-green'>
 						<br>
-						<h1> Ultima actividad </h1>
+						<h1> Registrar producto-proveedor </h1>
 						<br>
 					</div>
 
 					<br>
-					<div class = "table-responsive">
-  						<table class = "table">
-  							<tr>
-  								<th class = 'color-orange'> Entradas </th>
-  								<th class = 'color-orange'> Salidas </th>
-  							</tr>
-						</table>
-					</div> 
+					
+					<form method = 'post' action = ''>
+						{% csrf_token %}
+						{{ formulario.as_p }}
+
+						<input type = 'submit' value = 'Registrar'>
+					</form>
 				</div>
 			</div>
 		</div>

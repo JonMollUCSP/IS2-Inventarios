@@ -87,6 +87,25 @@ def registrarProveedorView(request):
 
     return render(request, "registrar_proveedor.html", contexto)
 
+def registrarProveedorProductoView(request):
+    formulario = registrarProveedorProductoForm(request.POST or None)
+    contexto = {"formulario": formulario}
+
+    if formulario.is_valid():
+        datos_formulario = formulario.cleaned_data
+        proveedor_obtenido = datos_formulario.get("proveedor")
+        producto_obtenido = datos_formulario.get("producto")
+        fecha_obtenido = datos_formulario.get("fecha_tiempo")
+
+        objeto_ProveedorProducto = ProveedorProducto.objects.create(
+            proveedor=proveedor_obtenido,
+            producto=producto_obtenido,
+            fecha_tiempo=fecha_obtenido)
+
+        return HttpResponseRedirect(reverse('inicio'))
+
+    return render(request, "registrar_proveedor_producto.html", contexto)
+
 
 def almacenView(request):
     almacenes = Almacen.objects.all()

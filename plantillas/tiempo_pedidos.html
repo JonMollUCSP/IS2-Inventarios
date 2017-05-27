@@ -1,8 +1,7 @@
 <html>
-    <head>
-        <title> Inicio </title>
-        <meta charset = "UTF-8">
-
+  <head>
+    <title> Llegada de Pedidos </title>
+    <meta charset = "UTF-8">
         <link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
         <link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
     </head>
@@ -81,35 +80,32 @@
                     <br>
                     
                     <form method = 'post' action = ''>
-                        {% csrf_token %}
-                        {{ formulario.as_p }}
-                        
-                        <input type = 'submit' value = 'Generar'>
+                      {% csrf_token %}
+                      {{ formulario.as_p }}
+                      <input type = 'submit' value = 'Generar'>
                     </form>
-                        
                     <div class = "table-responsive">
-                        <table>
-                            <tr>
-                                <th class = 'color-orange'> ID </th>
-                                <th class = 'color-orange'> Producto </th>
-                                <th class = 'color-orange'> Fecha Realizada </th>
-                                <th class = 'color-orange'> Fecha Prevista </th>
-                                <th class = 'color-orange'> Fecha Recibida </th>
-                                <th class = 'color-orange'> Cantidad </th>
-                                <th class = 'color-orange'> Proveedor </th>
-                            </tr>
-                            
-                            {% for item in pedidos %}
-                            <tr>
-                                <td> {{ item.id }} </td>
-                                <td> {{ item.producto }} </td>
-                                <td> {{ item.fecha_realizada }} </td>
-                                <td> {{ item.fecha_prevista }} </td>
-                                <td> {{ item.fecha_recibida }} </td>
-                                <td> {{ item.cantidad }} </td>
-                                <td> {{ item.proveedor_id }} </td>
-                            </tr>
-                            {% endfor %}
+                        <table class = "table">
+                          <tr>
+                            <th> ID </th>
+                            <th> Producto </th>
+                            <th> Fecha Realizada </th>
+                            <th> Fecha Prevista </th>
+                            <th> Fecha Recibida </th>
+                            <th> Cantidad </th>
+                            <th> Proveedor </th>
+                          </tr>
+                          {% for item in pedidos %}
+                          <tr>
+                            <td> {{ item.id }} </td>
+                            <td> {{ item.producto }} </td>
+                            <td> {{ item.fecha_realizada }} </td>
+                            <td> {{ item.fecha_prevista }} </td>
+                            <td> {{ item.fecha_recibida }} </td>
+                            <td> {{ item.cantidad }} </td>
+                            <td> {{ item.proveedor_id }} </td>
+                          </tr>
+                          {% endfor %}
                         </table>    
                     </div> 
                 </div>
