@@ -69,14 +69,14 @@ urlpatterns = [url(r'^admin/',
                    views.reporteProductoView,
                    name = 'reporte_productos'),
 
-               url(r'^grafica_producto_vendido/',
-                   views.chartDataView,
-                   name = 'grafica_producto_vendido')
-               # ,
+               url(r'^charts/',
+                   views.HomeView.as_view(),
+                   name = 'grafica_producto_vendido'),
 
-               # url(r'^probandoView/',
-               #     views.probandoView,
-               #     name = 'probandoView')
+               url(r'^api/chart/data/$',
+                   views.ChartData.as_view()), 
+
+               url(r'^api/data/$', views.get_data, name='api-data'),
                ]
 
 

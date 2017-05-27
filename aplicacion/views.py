@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import JsonResponse
+from django.views.generic import View
+from django.contrib.auth import get_user_model
 
 
 import smtplib
@@ -14,6 +16,8 @@ from rest_framework import authentication, permissions
 
 from .forms import *
 from .models import *
+
+User = get_user_model()
 
 def inicioView(request):
         return render(request, "inicio.html", {})
@@ -179,8 +183,8 @@ def reporteProductoView(request):
 
         if formulario.is_valid():
                 datos_formulario = formulario.cleaned_data
-                inicio_obtenido = datos_formulario.get('inicio');
-                fin_obtenido = datos_formulario.get('fin');
+                inicio_obtenido = datos_formulario.get('inicio')
+                fin_obtenido = datos_formulario.get('fin')
                 productos = Producto.objects.filter(fecha_ingreso__range=[inicio_obtenido,fin_obtenido])
                 contexto = {"formulario": formulario, "productos":productos}
         else:
@@ -203,24 +207,34 @@ def chartDataView(request):
         data = {
             "sales": 100,
             "customers": 10,
+            "user": 5,
         }
         return JsonResponse(data)
+        
+class HomeView(View):
+        def get(self, request, *args, **kwargs):
+                return render(request, 'charts.html', {"customers": 10})
 
-class ProbandoView(APIView):
-    authentication_classes = []
-    permission_classes = []
+def get_data(request, *args, **kwargs):
+        data = {
+                "sales": 100,
+                "customers": 10,
+        }
+        return JsonResponse(data) # http response
 
-    def get(self, request, format=None):
-        """
-        Return a list of all users.
-        """
-        usernames = [user.username for user in User.objects.all()]
-        return Response(usernames)
-# def probandoView(request):
-#     if request.method == 'POST':
-#         print (request.body)
-#         data = request.body
-#         return HttpResponse(json.dumps(data))
+class ChartData(APIView):
+        authentication_classes = []
+        permission_classes = []
+
+        def get(self, request, format=None):
+                labels = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio","Agosto","Septiembre", "Octubre", "Noviembre", "Diciembre"]
+                default_items = [2, 10, 2, 3, 12, 2, 5, 3, 2, 6, 7, 2]
+                data = {
+                        "labels": labels,
+                        "default": default_items,
+                }
+                return Response(data)
+
 
 
 

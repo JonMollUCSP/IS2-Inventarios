@@ -46,3 +46,10 @@ class registrarProductoForm(forms.Form):
         codigo = forms.CharField(max_length = 20)
         valor = forms.IntegerField()
         fecha_ingreso = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
+class graficarProductoForm(forms.Form):
+		inicio = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+
+
+		
+
