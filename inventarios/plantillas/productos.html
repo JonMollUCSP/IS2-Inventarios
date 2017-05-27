@@ -1,27 +1,29 @@
 <html>
-    <head>
-        <title> Productos </title>
-        <meta charset = "UTF-8">
-    </head>
-    <body>
-        <h1> Productos </h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th> Nombre </th>
-                        <th> Tipo </th>
-                        <th> Valor </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for Producto in productos %}
-                    <tr>
-                        <td> {{ Producto.nombre }} </td>
-                        <td> {{ Producto.tipo }} </td>
-                        <td> {{ Producto.valor }} </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-    </body>
+  <head>
+    <title> Productos </title>
+    <meta charset = "UTF-8">
+  </head>
+  <body>
+    <h1> Productos </h1>
+    <table>
+      <thead>
+        <tr>
+          <th> Nombre </th>
+          <th> Codigo </th>
+          <th> Valor </th>
+          <th> Fecha de Ingreso </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for Producto in productos %}
+        <tr>
+          <td> {{ Producto.nombre }} </td>
+          <td> {{ Producto.codigo }} </td>
+          <td> {{ Producto.valor }} </td>
+          <td> {{ Producto.fecha_ingreso }} </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
 </html>

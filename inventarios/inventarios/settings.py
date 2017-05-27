@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'aplicacion',
-    'datetimewidget'
-    
 ]
 
 MIDDLEWARE = [
@@ -87,6 +85,11 @@ DATABASES = {
     }
 }
 
+# Fixtures dir
+
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR,"fixtures"),
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

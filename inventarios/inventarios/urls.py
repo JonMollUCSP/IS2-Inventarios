@@ -41,6 +41,10 @@ urlpatterns = [url(r'^admin/',
                    views.registrarProveedorView,
                    name = 'registrar_proveedor'),
 
+               url(r'^registrar_proveedor_producto/',
+                   views.registrarProveedorProductoView,
+                   name = 'registrar_proveedor_producto'),
+
                url(r'^proveedores/',
                    views.proveedorView,
                    name = 'proveedores'),
@@ -65,10 +69,24 @@ urlpatterns = [url(r'^admin/',
                    views.proveedorProductoView,
                    name = 'proveedor_producto'),
 
+               url(r'^reporte_movimiento/',
+                   views.reporteMovimientoView,
+                   name = 'reporte_movimiento'),
+
+               url(r'^reporte_productos/',
+                   views.reporteProductoView,
+                   name = 'reporte_productos'),
+               
+               url(r'^reporte_proveedores/',
+                  views.reporteProveedorView,
+                  name = 'reporte_proveedores'),
+
                url(r'^verificar_producto/',
                    views.mostrarLugarView,
                    name = 'verificar_producto'),
 
-               url(r'^reporte_productos/',
-                   views.reporteProductoView,
-                   name = 'reporte_productos')]
+               url(r'^tiempo_pedidos/',
+                   views.tiempo_pedido_view,
+                   name = 'tiempo_pedidos'),
+
+]

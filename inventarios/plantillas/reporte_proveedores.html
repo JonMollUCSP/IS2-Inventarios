@@ -1,11 +1,11 @@
 <html>
 	<head>
-		<title> Verificar productos </title>
+		<title> Reporte de proveedores </title>
 		<meta charset = "UTF-8">
 	</head>
 	
 	<body>
-		<h1> Verificar Producto </h1>
+		<h1> Reporte Proveedor </h1>
 		<form method = 'post' action = ''>
 			{% csrf_token %}
 			{{ formulario.as_table }}
@@ -15,20 +15,17 @@
 
 		<table>
 	    	<tr>
-	    		<th> Producto </th>
+	    		<th> Proveedor </th>
 	        	<th> Cantidad </th>
-	        	
+	        	<th> Fecha Recibida </th>
+	        	<th> Proveedor </th>
 	    	</tr>
-	    	{% for item in productos %}
+	    	{% for item in proveedores %}
 	    	<tr> 
 	        	<td> {{ item.0 }} </td>
 	        	<td> {{ item.1 }} </td>
-	        	{% if item.1 < 10%}
-	        		<script> 
-					alert("MENSAJE"); 
-					</script> 
-	        	{% endif %}
-	        	
+	        	<td> {{ item.2 }} </td>
+	        	<td> {{ item.3 }} </td>
 	    	</tr>
 	    	{% endfor %}
 		</table>

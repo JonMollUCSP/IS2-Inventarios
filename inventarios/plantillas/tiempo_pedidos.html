@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title> Llegada de Pedidos </title>
+    <meta charset = "UTF-8">
+  </head>
+
+  <body>
+    <form method = 'post' action = ''>
+      {% csrf_token %}
+      {{ formulario.as_p }}
+      <input type = 'submit' value = 'Generar'>
+    </form>
+    <h1> Pedidos </h1>
+    <table>
+      <tr>
+        <th> ID </th>
+        <th> Producto </th>
+        <th> Fecha Realizada </th>
+        <th> Fecha Prevista </th>
+        <th> Fecha Recibida </th>
+        <th> Cantidad </th>
+        <th> Proveedor </th>
+      </tr>
+      {% for item in pedidos %}
+      <tr>
+        <td> {{ item.id }} </td>
+        <td> {{ item.producto }} </td>
+        <td> {{ item.fecha_realizada }} </td>
+        <td> {{ item.fecha_prevista }} </td>
+        <td> {{ item.fecha_recibida }} </td>
+        <td> {{ item.cantidad }} </td>
+        <td> {{ item.proveedor_id }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
