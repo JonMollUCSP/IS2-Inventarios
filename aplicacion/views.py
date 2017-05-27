@@ -87,6 +87,7 @@ def registrarProveedorView(request):
 
     return render(request, "registrar_proveedor.html", contexto)
 
+
 def registrarProveedorProductoView(request):
     formulario = registrarProveedorProductoForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -146,7 +147,8 @@ def pedidoView(request):
         datos_formulario = formulario_recibir_pedido.cleaned_data
         id_pedido_obtenido = datos_formulario.get("id_pedido")
         fecha_recibida_obtenido = datos_formulario.get("fecha_recibida")
-        GestorDePedidos().updateFechaRecibidaId(id_pedido_obtenido, fecha_recibida_obtenido) 
+        GestorDePedidos().updateFechaRecibidaId(
+            id_pedido_obtenido, fecha_recibida_obtenido)
     tipo_pedido = "todos_los_pedidos"
     if formulario_tipo_pedido.is_valid():
         datos_formulario = formulario_tipo_pedido.cleaned_data
@@ -309,9 +311,10 @@ def reporteMovimientoView(request):
         tipo_reporte = datos_formulario.get('tipo_reporte')
         fecha_inicial = datos_formulario.get('fecha_inicial')
         fecha_final = datos_formulario.get('fecha_final')
-        producto = Producto.objects.get(nombre = producto_obtenido)
+        producto = Producto.objects.get(nombre=producto_obtenido)
         contexto['producto_reporte'] = producto
-        contexto['movimientos'] = reporte_generador.getMovimientos(producto, fecha_inicial, fecha_final, tipo_reporte)
+        contexto['movimientos'] = reporte_generador.getMovimientos(
+            producto, fecha_inicial, fecha_final, tipo_reporte)
     else:
         contexto['productos'] = reporte_generador.getProductosConMovimiento()
 
