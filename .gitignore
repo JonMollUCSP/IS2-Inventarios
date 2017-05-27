@@ -1,0 +1,26 @@
+*.pyc
+aplicacion/migrations/
+
+# Django Recommended
+*.egg-info
+*.pot
+*.py[co]
+__pycache__
+MANIFEST
+dist/
+docs/_build/
+docs/locale/
+node_modules/
+tests/coverage_html/
+tests/.coverage
+build/
+tests/report/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Los que en mi mac se joden solo por abrir el proyecto
+.DS_Store
+aplicacion/migrations/0004_pedido.py
