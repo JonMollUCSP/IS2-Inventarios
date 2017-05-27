@@ -135,6 +135,7 @@ def tiempo_pedido_view(request):
         if opcion == "conretraso":
             pedidos = Pedido.objects.filter(
                 fecha_recibida__gte=F('fecha_prevista'))
+
         else:
             pedidos = Pedido.objects.filter(
                 fecha_recibida__lt=F('fecha_prevista'))
@@ -184,6 +185,7 @@ def registrarPedidoView(request):
             "fecha_recibida")  # agregado para probar pedido
         fecha_realizada_obtenida = datos_formulario.get(
             "fecha_realizada")  # agregado para probar pedido
+
         cantidad_obtenida = datos_formulario.get("cantidad")
 
         producto = Producto.objects.get(nombre=producto_obtenido)
