@@ -22,7 +22,7 @@
         {% for Producto in productos %}
         <tr>
           <td> {{ Producto.nombre }} </td>
-          <td> {{ Producto.movimiento }} </td>
+          <td> {{ Producto.monto_total }} </td>
         </tr>
         {% endfor %}
       </tbody>
@@ -40,7 +40,7 @@
         {% for movimiento in movimientos %}
         <tr>
           <td> {{ movimiento.fecha_recibida }} </td>
-          <td> {{ movimiento.dcount }} </td>
+          <td> {{ movimiento.monto_total }} </td>
         </tr>
         {% endfor %}
       </tbody>

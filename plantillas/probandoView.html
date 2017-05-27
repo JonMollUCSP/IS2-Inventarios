@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#mySelect").change(function(){
+        selected = $("#mySelect option:selected").text()
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            url: '/view/',
+            data: {
+                   'fruit': selected
+                  },
+            success: function(result) {
+                    document.write(result)
+                    }
+    });
+  });
+});
+</script>
+</head>
+<body>
+
+<form>
+    {{data}}
+    <br>
+Select your favorite fruit:
+<select id="mySelect">
+  <option value="apple" selected >Select fruit</option>
+  <option value="apple">Apple</option>
+  <option value="orange">Orange</option>
+  <option value="pineapple">Pineapple</option>
+  <option value="banana">Banana</option>
+</select>
+</form>
+</body>
+</html>
