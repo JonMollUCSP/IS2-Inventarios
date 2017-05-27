@@ -136,33 +136,26 @@ def tiempo_pedido_view(request):
 
 
 def pedidoView(request):
+    from .gestor import GestorDePedidos
     formulario_tipo_pedido = seleccionarTipoPedidoForm(request.POST or None)
     formulario_recibir_pedido = recibirPedidoForm(request.POST or None)
+    contexto = {
+        "formulario_tipo_pedido": formulario_tipo_pedido,
+        "formulario_recibir_pedido": formulario_recibir_pedido,
+        "pedidos": None}
     if formulario_recibir_pedido.is_valid():
         datos_formulario = formulario_recibir_pedido.cleaned_data
         id_pedido_obtenido = datos_formulario.get("id_pedido")
         fecha_recibida_obtenido = datos_formulario.get("fecha_recibida")
-        Pedido.objects.filter(
-            id=id_pedido_obtenido).update(
-            fecha_recibida=fecha_recibida_obtenido)
+        GestorDePedidos().updateFechaRecibidaId(
+            id_pedido_obtenido, fecha_recibida_obtenido)
+    tipo_pedido = "todos_los_pedidos"
     if formulario_tipo_pedido.is_valid():
         datos_formulario = formulario_tipo_pedido.cleaned_data
-        tipo_pedido_obtenido = datos_formulario.get("tipo_pedido")
-
-        if tipo_pedido_obtenido == 'todos_los_pedidos':
-            pedidos = Pedido.objects.all()
-        if tipo_pedido_obtenido == 'pedidos_recibidos':
-            pedidos = Pedido.objects.filter(fecha_recibida__isnull=False)
-            formulario_recibir_pedido = None
-        if tipo_pedido_obtenido == 'pedidos_no_recibidos':
-            pedidos = Pedido.objects.filter(fecha_recibida__isnull=True)
-    else:
-        pedidos = Pedido.objects.all()
-
-    contexto = {
-        "formulario_tipo_pedido": formulario_tipo_pedido,
-        "pedidos": pedidos,
-        "formulario_recibir_pedido": formulario_recibir_pedido}
+        tipo_pedido = datos_formulario.get("tipo_pedido")
+        if tipo_pedido == 'pedidos_recibidos':
+            contexto['formulario_recibir_pedido'] = None
+    contexto['pedidos'] = GestorDePedidos().obtenerPedidosTipo(tipo_pedido)
 
     return render(request, "pedidos.html", contexto)
 
@@ -304,34 +297,25 @@ def reporteProveedorView(request):
 
 
 def reporteMovimientoView(request):
-    from decimal import Decimal
+    from .gestor import GestorReporte
     formulario = seleccionarTipoReporteMovimiento(request.POST or None)
-    productos = Producto.objects.all()
-    producto_reporte = None
-    movimientos = None
+    contexto = {
+        "productos": None,
+        "formulario": formulario,
+        "producto_reporte": None,
+        "movimientos": None}
+    reporte_generador = GestorReporte()
     if formulario.is_valid():
-        productos = None
         datos_formulario = formulario.cleaned_data
         producto_obtenido = datos_formulario.get('producto')
+        tipo_reporte = datos_formulario.get('tipo_reporte')
         fecha_inicial = datos_formulario.get('fecha_inicial')
         fecha_final = datos_formulario.get('fecha_final')
         producto = Producto.objects.get(nombre=producto_obtenido)
-        producto_reporte = producto
-        movimientos = Pedido.objects.values('fecha_recibida').filter(
-            producto=producto.id, fecha_recibida__isnull=False, fecha_recibida__range=(
-                fecha_inicial, fecha_final)).order_by('-fecha_recibida').annotate(
-            dcount=models.Count('fecha_recibida'))
+        contexto['producto_reporte'] = producto
+        contexto['movimientos'] = reporte_generador.getMovimientos(
+            producto, fecha_inicial, fecha_final, tipo_reporte)
     else:
-        for producto in productos:
-            movimiento = Decimal(0)
-            pedidos = Pedido.objects.filter(producto=producto.id)
-            valor = Decimal(producto.valor)
-            for pedido in pedidos:
-                movimiento = movimiento + Decimal(pedido.cantidad) * valor
-            producto.movimiento = "$" + str(movimiento)
-    contexto = {
-        "productos": productos,
-        "formulario": formulario,
-        "movimientos": movimientos,
-        "producto_reporte": producto_reporte}
+        contexto['productos'] = reporte_generador.getProductosConMovimiento()
+
     return render(request, "reporte_movimiento.html", contexto)
