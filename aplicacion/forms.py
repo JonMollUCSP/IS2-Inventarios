@@ -91,6 +91,18 @@ class registrarProductoForm(forms.Form):
             years=OPCIONES_ANOS))
 
 
+class graficarProductoForm(forms.Form):
+    inicio = forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
+    nombre = forms.CharField(max_length=20)
+    codigo = forms.CharField(max_length=20)
+    valor = forms.IntegerField()
+    fecha_ingreso = forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
+
+
 class seleccionarTipoReporteMovimiento(forms.Form):
     diario = 'diario'
     mensual = 'mensual'
