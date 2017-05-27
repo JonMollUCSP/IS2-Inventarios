@@ -16,14 +16,16 @@ class registrarProveedorForm(forms.Form):
     direccion = forms.CharField()
     correo = forms.EmailField()
 
+
 class registrarProveedorProductoForm(forms.Form):
-    
-    proveedor = forms.ModelChoiceField(queryset= Proveedor.objects.all())
-    producto = forms.ModelChoiceField(queryset= Producto.objects.all())
-    fecha_tiempo= forms.DateField(
+
+    proveedor = forms.ModelChoiceField(queryset=Proveedor.objects.all())
+    producto = forms.ModelChoiceField(queryset=Producto.objects.all())
+    fecha_tiempo = forms.DateField(
         widget=forms.SelectDateWidget(
             years=OPCIONES_ANOS))
-            
+
+
 class registrarUsuarioForm(forms.Form):
     nombre = forms.CharField(max_length=20)
     contrasena = forms.CharField(max_length=20)

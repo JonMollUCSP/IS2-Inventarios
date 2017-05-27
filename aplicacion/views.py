@@ -87,6 +87,7 @@ def registrarProveedorView(request):
 
     return render(request, "registrar_proveedor.html", contexto)
 
+
 def registrarProveedorProductoView(request):
     formulario = registrarProveedorProductoForm(request.POST or None)
     contexto = {"formulario": formulario}
