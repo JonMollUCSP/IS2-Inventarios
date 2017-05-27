@@ -147,7 +147,7 @@ def pedidoView(request):
         id_pedido_obtenido = datos_formulario.get("id_pedido")
         fecha_recibida_obtenido = datos_formulario.get("fecha_recibida")
         GestorDePedidos().updateFechaRecibidaId(id_pedido_obtenido, fecha_recibida_obtenido) 
-    tipo_pedido="todos_los_pedidos"
+    tipo_pedido = "todos_los_pedidos"
     if formulario_tipo_pedido.is_valid():
         datos_formulario = formulario_tipo_pedido.cleaned_data
         tipo_pedido = datos_formulario.get("tipo_pedido")
@@ -302,14 +302,14 @@ def reporteMovimientoView(request):
         "formulario": formulario,
         "producto_reporte": None,
         "movimientos": None}
-    reporte_generador=GestorReporte()
+    reporte_generador = GestorReporte()
     if formulario.is_valid():
         datos_formulario = formulario.cleaned_data
         producto_obtenido = datos_formulario.get('producto')
         tipo_reporte = datos_formulario.get('tipo_reporte')
         fecha_inicial = datos_formulario.get('fecha_inicial')
         fecha_final = datos_formulario.get('fecha_final')
-        producto = Producto.objects.get(nombre=producto_obtenido)
+        producto = Producto.objects.get(nombre = producto_obtenido)
         contexto['producto_reporte'] = producto
         contexto['movimientos'] = reporte_generador.getMovimientos(producto, fecha_inicial, fecha_final, tipo_reporte)
     else:
