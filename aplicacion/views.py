@@ -87,6 +87,7 @@ def registrarProveedorView(request):
 
     return render(request, "registrar_proveedor.html", contexto)
 
+
 def registrarProveedorProductoView(request):
     formulario = registrarProveedorProductoForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -123,7 +124,7 @@ def tiempo_pedido_view(request):
         print(opcion)
         if opcion == "conretraso":
             pedidos = Pedido.objects.filter(
-                fecha_recibida__gt=F('fecha_prevista'))
+                fecha_recibida__gte=F('fecha_prevista'))
         else:
             pedidos = Pedido.objects.filter(
                 fecha_recibida__lt=F('fecha_prevista'))
@@ -177,9 +178,9 @@ def registrarPedidoView(request):
         fecha_prevista_obtenida = datos_formulario.get(
             "fecha_prevista")  # agregado para probar pedido
         fecha_recibida_obtenida = datos_formulario.get(
-            "fecha_prevista")  # agregado para probar pedido
+            "fecha_recibida")  # agregado para probar pedido
         fecha_realizada_obtenida = datos_formulario.get(
-            "fecha_prevista")  # agregado para probar pedido
+            "fecha_realizada")  # agregado para probar pedido
         cantidad_obtenida = datos_formulario.get("cantidad")
 
         producto = Producto.objects.get(nombre=producto_obtenido)
