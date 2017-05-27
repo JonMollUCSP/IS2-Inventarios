@@ -124,7 +124,7 @@ def tiempo_pedido_view(request):
         print(opcion)
         if opcion == "conretraso":
             pedidos = Pedido.objects.filter(
-            fecha_recibida__gte=F('fecha_prevista'))
+                fecha_recibida__gte=F('fecha_prevista'))
 
         else:
             pedidos = Pedido.objects.filter(
