@@ -19,6 +19,7 @@ from .models import *
 
 User = get_user_model()
 
+
 def inicioView(request):
     return render(request, "inicio.html", {})
 
@@ -95,6 +96,7 @@ def registrarProveedorView(request):
         return HttpResponseRedirect(reverse('inicio'))
 
     return render(request, "registrar_proveedor.html", contexto)
+
 
 def registrarProveedorProductoView(request):
     formulario = registrarProveedorProductoForm(request.POST or None)
@@ -239,88 +241,107 @@ def registrarPedidoView(request):
 
 
 def registrarUsuarioView(request):
-        formulario = registrarUsuarioForm(request.POST or None)
-        contexto = {"formulario": formulario}
+    formulario = registrarUsuarioForm(request.POST or None)
+    contexto = {"formulario": formulario}
 
-        if formulario.is_valid():
-                datos_formulario = formulario.cleaned_data
-                nombre_obtenido = datos_formulario.get("nombre")
-                contrasena_obtenida = datos_formulario.get("contrasena")
-                correo_obtenido = datos_formulario.get("correo")
+    if formulario.is_valid():
+        datos_formulario = formulario.cleaned_data
+        nombre_obtenido = datos_formulario.get("nombre")
+        contrasena_obtenida = datos_formulario.get("contrasena")
+        correo_obtenido = datos_formulario.get("correo")
 
-                objeto_usuario = Usuario.objects.create(nombre = nombre_obtenido,
-                                                        contrasena = contrasena_obtenida,
-                                                        correo = correo_obtenido)
-                return HttpResponseRedirect(reverse('inicio'))
-        if formulario.is_valid():
-                datos_formulario = formulario.cleaned_data
-                nombre_obtenido = datos_formulario.get("nombre")
-                contrasena_obtenida = datos_formulario.get("contrasena")
-                correo_obtenido = datos_formulario.get(
-                "correo")  # cambié de email a correo
+        objeto_usuario = Usuario.objects.create(nombre=nombre_obtenido,
+                                                contrasena=contrasena_obtenida,
+                                                correo=correo_obtenido)
+        return HttpResponseRedirect(reverse('inicio'))
+    if formulario.is_valid():
+        datos_formulario = formulario.cleaned_data
+        nombre_obtenido = datos_formulario.get("nombre")
+        contrasena_obtenida = datos_formulario.get("contrasena")
+        correo_obtenido = datos_formulario.get(
+            "correo")  # cambié de email a correo
 
-                objeto_usuario = Usuario.objects.create(nombre=nombre_obtenido,
-                                                        contrasena=contrasena_obtenida,
-                                                        correo=correo_obtenido)
-        return render(request, "registrar_usuario.html", contexto)
+        objeto_usuario = Usuario.objects.create(nombre=nombre_obtenido,
+                                                contrasena=contrasena_obtenida,
+                                                correo=correo_obtenido)
+    return render(request, "registrar_usuario.html", contexto)
 
+    formulario = reporteProductoForm(request.POST)
 
-        formulario = reporteProductoForm(request.POST)
-
-        if formulario.is_valid():
-                datos_formulario = formulario.cleaned_data
-                inicio_obtenido = datos_formulario.get('inicio')
-                fin_obtenido = datos_formulario.get('fin')
-                productos = Producto.objects.filter(fecha_ingreso__range=[inicio_obtenido,fin_obtenido])
-                contexto = {"formulario": formulario, "productos":productos}
-        else:
-                productos = Producto.objects.filter(fecha_ingreso__range=["2011-01-01", "2011-01-31"])
-                contexto = {"formulario": formulario, "productos":productos}
-        return render(request, "reporte_productos.html", contexto)
-        # cursor.execute("SELECT aplicacion_producto.nombre, cantidad, fecha_recibida, aplicacion_proveedor.nombre FROM aplicacion_pedido INNER JOIN aplicacion_producto ON aplicacion_pedido.producto_id = aplicacion_producto.id INNER JOIN aplicacion_proveedor ON aplicacion_pedido.proveedor_id = aplicacion_proveedor.id;")
-        # productos = cursor.fetchall()
+    if formulario.is_valid():
+        datos_formulario = formulario.cleaned_data
+        inicio_obtenido = datos_formulario.get('inicio')
+        fin_obtenido = datos_formulario.get('fin')
+        productos = Producto.objects.filter(
+            fecha_ingreso__range=[
+                inicio_obtenido, fin_obtenido])
+        contexto = {"formulario": formulario, "productos": productos}
+    else:
+        productos = Producto.objects.filter(
+            fecha_ingreso__range=[
+                "2011-01-01", "2011-01-31"])
+        contexto = {"formulario": formulario, "productos": productos}
+    return render(request, "reporte_productos.html", contexto)
+    # cursor.execute("SELECT aplicacion_producto.nombre, cantidad, fecha_recibida, aplicacion_proveedor.nombre FROM aplicacion_pedido INNER JOIN aplicacion_producto ON aplicacion_pedido.producto_id = aplicacion_producto.id INNER JOIN aplicacion_proveedor ON aplicacion_pedido.proveedor_id = aplicacion_proveedor.id;")
+    # productos = cursor.fetchall()
 
 
 def proveedorProductoView(request, id_propro):
-        productos = Producto.objects.filter(proveedorproducto__producto__id__isnull = False,
-                                            proveedorproducto__proveedor__id = id_propro)
+    productos = Producto.objects.filter(
+        proveedorproducto__producto__id__isnull=False,
+        proveedorproducto__proveedor__id=id_propro)
 
-        contexto = {"productos": productos}
+    contexto = {"productos": productos}
 
-        return render(request, "proveedor_producto.html", contexto)
+    return render(request, "proveedor_producto.html", contexto)
+
 
 def chartDataView(request):
-        data = {
-            "sales": 100,
-            "customers": 10,
-            "user": 5,
-        }
-        return JsonResponse(data)
-        
+    data = {
+        "sales": 100,
+        "customers": 10,
+        "user": 5,
+    }
+    return JsonResponse(data)
+
+
 class HomeView(View):
-        def get(self, request, *args, **kwargs):
-                return render(request, 'charts.html', {"customers": 10})
+    def get(self, request, *args, **kwargs):
+        return render(request, 'charts.html', {"customers": 10})
+
 
 def get_data(request, *args, **kwargs):
-        data = {
-                "sales": 100,
-                "customers": 10,
-        }
-        return JsonResponse(data) # http response
+    data = {
+        "sales": 100,
+        "customers": 10,
+    }
+    return JsonResponse(data)  # http response
+
 
 class ChartData(APIView):
-        authentication_classes = []
-        permission_classes = []
+    authentication_classes = []
+    permission_classes = []
 
-        def get(self, request, format=None):
-                labels = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio","Agosto","Septiembre", "Octubre", "Noviembre", "Diciembre"]
-                default_items = [2, 10, 2, 3, 12, 2, 5, 3, 2, 6, 7, 2]
-                data = {
-                        "labels": labels,
-                        "default": default_items,
-                }
-                return Response(data)
-
+    def get(self, request, format=None):
+        labels = [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"]
+        default_items = [2, 10, 2, 3, 12, 2, 5, 3, 2, 6, 7, 2]
+        data = {
+            "labels": labels,
+            "default": default_items,
+        }
+        return Response(data)
 
 
 def reporteProductoView(request):
