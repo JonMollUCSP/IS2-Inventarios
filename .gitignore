@@ -23,4 +23,4 @@ __pycache__/
 
 # Los que en mi mac se joden solo por abrir el proyecto
 .DS_Store
-aplicacion/migrations/0004_pedido.py
+
