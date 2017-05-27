@@ -6,35 +6,35 @@ OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 
 
 class iniciarSesionForm(forms.Form):
-    nombre = forms.CharField(max_length = 20)
-    contrasena = forms.CharField(max_length = 20)
+    nombre = forms.CharField(max_length=20)
+    contrasena = forms.CharField(max_length=20)
 
 
 class registrarProveedorForm(forms.Form):
-    nombre = forms.CharField(max_length = 20)
+    nombre = forms.CharField(max_length=20)
     telefono = forms.IntegerField()
     direccion = forms.CharField()
     correo = forms.EmailField()
 
 class registrarProveedorProductoForm(forms.Form):
     
-    proveedor = forms.ModelChoiceField(queryset = Proveedor.objects.all())
-    producto = forms.ModelChoiceField(queryset = Producto.objects.all())
-    fecha_tiempo = forms.DateField(
-        widget = forms.SelectDateWidget(
-            years = OPCIONES_ANOS))
+    proveedor = forms.ModelChoiceField(queryset= Proveedor.objects.all())
+    producto = forms.ModelChoiceField(queryset= Producto.objects.all())
+    fecha_tiempo= forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
             
 class registrarUsuarioForm(forms.Form):
-    nombre = forms.CharField(max_length = 20)
-    contrasena = forms.CharField(max_length = 20)
+    nombre = forms.CharField(max_length=20)
+    contrasena = forms.CharField(max_length=20)
     correo = forms.EmailField()
 
 # OPCIONES_ANOS = ('2016', '2017') #añadido para probar pedidos
 
 
 class registrarPedidoForm(forms.Form):
-    producto = forms.CharField(max_length = 20)
-    proveedor = forms.CharField(max_length = 20)
+    producto = forms.CharField(max_length=20)
+    proveedor = forms.CharField(max_length=20)
     cantidad = forms.IntegerField()
     fecha_prevista = forms.DateField(
         widget=forms.SelectDateWidget(
@@ -56,37 +56,37 @@ class seleccionarTipoPedidoForm(forms.Form):
                      (no_recibido, u"Pedidos no recibidos"),
                      (recibido, u"Pedidos recibidos"))
 
-    tipo_pedido = forms.ChoiceField(choices = pedido_choice)
+    tipo_pedido = forms.ChoiceField(choices=pedido_choice)
 
 
 class recibirPedidoForm(forms.Form):
     id_pedido = forms.IntegerField()
     fecha_recibida = forms.DateField(
-        widget = forms.SelectDateWidget(
-            years = OPCIONES_ANOS))
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
 
 
 class reporteProductoForm(forms.Form):
     inicio = forms.DateField(
-        widget = forms.SelectDateWidget(
-            years = OPCIONES_ANOS))
-    fin = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
+    fin = forms.DateField(widget=forms.SelectDateWidget(years=OPCIONES_ANOS))
 
 
 class reporteProveedorForm(forms.Form):
     inicio = forms.DateField(
-        widget = forms.SelectDateWidget(
-            years = OPCIONES_ANOS))
-    fin = forms.DateField(widget = forms.SelectDateWidget(years = OPCIONES_ANOS))
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
+    fin = forms.DateField(widget=forms.SelectDateWidget(years=OPCIONES_ANOS))
 
 
 class registrarProductoForm(forms.Form):
-    nombre = forms.CharField(max_length = 20)
-    codigo = forms.CharField(max_length = 20)
+    nombre = forms.CharField(max_length=20)
+    codigo = forms.CharField(max_length=20)
     valor = forms.IntegerField()
     fecha_ingreso = forms.DateField(
-        widget = forms.SelectDateWidget(
-            years = OPCIONES_ANOS))
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
 
 
 class seleccionarTipoReporteMovimiento(forms.Form):
@@ -97,14 +97,14 @@ class seleccionarTipoReporteMovimiento(forms.Form):
     reporte_choice = ((diario, u"Reporte diario"),
                       (mensual, u"Reporte mensual"),
                       (anual, u"Reporte anual"))
-    producto = forms.CharField(max_length = 20)
-    tipo_reporte = forms.ChoiceField(choices = reporte_choice)
+    producto = forms.CharField(max_length=20)
+    tipo_reporte = forms.ChoiceField(choices=reporte_choice)
     fecha_inicial = forms.DateField(
-        widget = forms.SelectDateWidget(
-            years = OPCIONES_ANOS))
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
     fecha_final = forms.DateField(
-        widget = forms.SelectDateWidget(
-            years = OPCIONES_ANOS))
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
 
 
 class tiempo_pedido_form(forms.Form):
@@ -112,7 +112,7 @@ class tiempo_pedido_form(forms.Form):
     con_retraso = "conretraso"
     reporte_choice = ((a_tiempo, u"Llego a tiempo"),
                       (con_retraso, u"Llego con retraso"))
-    opcion_tiempo = forms.ChoiceField(choices = reporte_choice)
+    opcion_tiempo = forms.ChoiceField(choices=reporte_choice)
 
 class mostrarPedidoForm(forms.Form):
     producto = forms.CharField(max_length = 20)
