@@ -127,3 +127,7 @@ class tiempo_pedido_form(forms.Form):
     reporte_choice = ((a_tiempo, u"Llego a tiempo"),
                       (con_retraso, u"Llego con retraso"))
     opcion_tiempo = forms.ChoiceField(choices=reporte_choice)
+
+
+class mostrarPedidoForm(forms.Form):
+    producto = forms.CharField(max_length=20)
