@@ -41,6 +41,10 @@ urlpatterns = [url(r'^admin/',
                    views.registrarProveedorView,
                    name = 'registrar_proveedor'),
 
+               url(r'^registrar_proveedor_producto/',
+                   views.registrarProveedorProductoView,
+                   name = 'registrar_proveedor_producto'),
+
                url(r'^proveedores/',
                    views.proveedorView,
                    name = 'proveedores'),
@@ -71,4 +75,30 @@ urlpatterns = [url(r'^admin/',
 
                url(r'^reporte_productos/',
                    views.reporteProductoView,
-                   name = 'reporte_productos')]
+                   name = 'reporte_productos'),
+
+               url(r'^charts/',
+                   views.HomeView.as_view(),
+                   name = 'grafica_producto_vendido'),
+
+               url(r'^api/chart/data/$',
+                   views.ChartData.as_view()), 
+
+               url(r'^api/data/$', 
+                   views.get_data, 
+                   name='api-data'),
+                   
+               url(r'^reporte_proveedores/',
+                  views.reporteProveedorView,
+                  name = 'reporte_proveedores'),
+
+	       url(r'^verificar_producto/',
+                   views.mostrarLugarView,
+                   name = 'verificar_producto'),
+
+               url(r'^tiempo_pedidos/',
+                   views.tiempo_pedido_view,
+                   name = 'tiempo_pedidos'),
+
+            ]
+
