@@ -92,6 +92,10 @@ urlpatterns = [url(r'^admin/',
                   views.reporteProveedorView,
                   name = 'reporte_proveedores'),
 
+	       url(r'^verificar_producto/',
+                   views.mostrarLugarView,
+                   name = 'verificar_producto'),
+
                url(r'^tiempo_pedidos/',
                    views.tiempo_pedido_view,
                    name = 'tiempo_pedidos'),
