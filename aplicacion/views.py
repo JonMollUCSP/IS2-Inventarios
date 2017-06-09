@@ -168,7 +168,34 @@ def pedidoView(request):
             contexto['formulario_recibir_pedido'] = None
     contexto['pedidos'] = GestorDePedidos().obtenerPedidosTipo(tipo_pedido)
 
-    return render(request, "pedidos.html", contexto)
+    return render(request, "ordenes.html", contexto)
+
+
+def registrarOrdenView(request):
+    formulario = registrarOrdenForm(request.POST or None)
+    contexto = {"formulario": formulario}
+
+    if formulario.is_valid():
+        datos_formulario = formulario.cleaned_data
+        producto_obtenido = datos_formulario.get("producto")
+        fecha_obtenida = datos_formulario.get(
+            "fecha")  # agregado para probar pedido
+
+        cantidad_obtenida = datos_formulario.get("cantidad")
+        precio_unidad_obtenida = datos_formulario.get("precio_unidad")
+        precio_total_obtenida = datos_formulario.get("precio_total")
+
+        producto = Producto.objects.get(nombre=producto_obtenido)
+        objeto_pedido = Pedido.objects.create(
+            producto=producto,
+            fecha=fecha_obtenida,
+            cantidad=cantidad_obtenida,
+            precio_unidad=precio_unidad_obtenida,
+            precio_total=precio_total_obtenida)
+
+        return HttpResponseRedirect(reverse('inicio'))
+
+    return render(request, "registrar_orden.html", contexto)
 
 
 def registrarPedidoView(request):
