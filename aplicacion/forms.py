@@ -49,6 +49,16 @@ class registrarPedidoForm(forms.Form):
             years=OPCIONES_ANOS))  # añadido para probar pedidos
 
 
+class registrarOrdenForm(forms.Form):
+    producto = forms.CharField(max_length=20)
+    cantidad = forms.IntegerField()
+    fecha = forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
+    precio_unidad = forms.IntegerField()
+    precio_total = forms.IntegerField()
+
+
 class seleccionarTipoPedidoForm(forms.Form):
     todos = 'todos_los_pedidos'
     no_recibido = 'pedidos_no_recibidos'
