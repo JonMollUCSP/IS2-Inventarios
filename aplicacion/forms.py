@@ -54,7 +54,7 @@ class registrarOrdenForm(forms.Form):
     cantidad = forms.IntegerField()
     fecha = forms.DateField(
         widget=forms.SelectDateWidget(
-            years=OPCIONES_ANOS))  # añadido para probar pedidos
+            years=OPCIONES_ANOS))
     precio_unidad = forms.IntegerField()
     precio_total = forms.IntegerField()
 

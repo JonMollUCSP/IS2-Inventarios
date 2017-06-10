@@ -179,7 +179,7 @@ def registrarOrdenView(request):
         datos_formulario = formulario.cleaned_data
         producto_obtenido = datos_formulario.get("producto")
         fecha_obtenida = datos_formulario.get(
-            "fecha")  # agregado para probar pedido
+            "fecha")
 
         cantidad_obtenida = datos_formulario.get("cantidad")
         precio_unidad_obtenida = datos_formulario.get("precio_unidad")
