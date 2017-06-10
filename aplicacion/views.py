@@ -186,7 +186,7 @@ def registrarOrdenView(request):
         precio_total_obtenida = datos_formulario.get("precio_total")
 
         producto = Producto.objects.get(nombre=producto_obtenido)
-        objeto_pedido = Pedido.objects.create(
+        objeto_orden = Orden.objects.create(
             producto=producto,
             fecha=fecha_obtenida,
             cantidad=cantidad_obtenida,
