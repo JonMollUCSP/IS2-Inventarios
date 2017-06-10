@@ -168,7 +168,7 @@ def pedidoView(request):
             contexto['formulario_recibir_pedido'] = None
     contexto['pedidos'] = GestorDePedidos().obtenerPedidosTipo(tipo_pedido)
 
-    return render(request, "ordenes.html", contexto)
+    return render(request, "pedidos.html", contexto)
 
 
 def registrarOrdenView(request):
