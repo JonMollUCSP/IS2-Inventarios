@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title> Registrar Orden </title>
+		<meta charset = "UTF-8">
+	</head>
+	<body>
+		<h1> Registrar orden </h1>
+		<form method = 'post' action = ''>
+			{% csrf_token %}
+			{{ formulario.as_p }}
+			<input type = 'submit' value = 'Registrar'>
+			</form>
+	</body>
+</html>
