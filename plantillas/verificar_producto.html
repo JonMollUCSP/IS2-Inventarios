@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title> Reporte de proveedores </title>
+		<title> Verificar productos </title>
 		<meta charset = "UTF-8">
 
 		<link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
@@ -18,7 +18,7 @@
                     <br>
                     <div class = 'color-orange'>
                         <br>
-                        <h1> Reporte proveedor </h1>
+                        <h1> Verificar producto </h1>
                         <br>
                     </div>
 
@@ -34,17 +34,18 @@
 					<div class = "table-responsive">
                         <table class = "table">
                         	<tr>
-					    		<th class = 'color-orange'> Proveedor </th>
+					    		<th class = 'color-orange'> Producto </th>
 					        	<th class = 'color-orange'> Cantidad </th>
-					        	<th class = 'color-orange'> Fecha Recibida </th>
-					        	<th class = 'color-orange'> Proveedor </th>
 					    	</tr>
-					    	{% for item in proveedores %}
+					    	{% for item in productos %}
 					    	<tr> 
 					        	<td> {{ item.0 }} </td>
 					        	<td> {{ item.1 }} </td>
-					        	<td> {{ item.2 }} </td>
-					        	<td> {{ item.3 }} </td>
+					        	{% if item.1 < 10%}
+					        		<script> 
+									alert("MENSAJE"); 
+									</script> 
+					        	{% endif %}					        	
 					    	</tr>
 					    	{% endfor %}
 						</table>

@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'inventarios',
         'USER': 'scrum',
-        'PASSWORD': 'scrum1234',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -88,7 +88,7 @@ DATABASES = {
 # Fixtures dir
 
 FIXTURE_DIRS = (
-    os.path.join(BASE_DIR,"fixtures"),
+    os.path.join(BASE_DIR, "fixtures"),
 )
 
 # Password validation

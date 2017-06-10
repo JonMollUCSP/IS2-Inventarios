@@ -417,3 +417,21 @@ def reporteMovimientoView(request):
         contexto['productos'] = reporte_generador.getProductosConMovimiento()
 
     return render(request, "reporte_movimiento.html", contexto)
+
+
+def mostrarLugarView(request):
+    from django.db import connection
+    cursor = connection.cursor()
+
+    formulario = mostrarPedidoForm(request.POST)
+
+    if formulario.is_valid():
+        datos_formulario = formulario.cleaned_data
+        pedido = datos_formulario.get("pedido")
+
+    cursor.execute("SELECT aplicacion_anaquelproducto.candidad_producto, aplicacion_producto.nombre FROM aplicacion_producto INNER JOIN aplicacion_anaquelproducto ON aplicacion_anaquelproducto.id = aplicacion_producto.id;")
+    productos = cursor.fetchall()
+
+    contexto = {"formulario": formulario}
+
+    return render(request, "verificar_producto.html", contexto)
