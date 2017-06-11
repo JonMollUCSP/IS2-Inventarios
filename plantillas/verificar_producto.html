@@ -1,36 +1,57 @@
 <html>
 	<head>
-		<title> Verificar productos </title>
-		<meta charset = "UTF-8">
+	    <title> Verificar productos </title>
+		  <meta charset = "UTF-8">
+
+		  <link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+      <link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
 	</head>
 	
 	<body>
-		<h1> Verificar Producto </h1>
-		<form method = 'post' action = ''>
-			{% csrf_token %}
-			{{ formulario.as_table }}
+	    {% include 'base/cabecera.html' %}
 
-			<input type = 'submit' value = 'Buscar'>
-		</form>
+        <div class = 'container'>
+            <div class = 'row'>
+                {% include 'base/menu.html' %}
+                
+                <div class = 'col-sm-9 full' align = 'center'>
+                    <br>
+                    <div class = 'color-orange'>
+                        <br>
+                        <h1> Verificar producto </h1>
+                        <br>
+                    </div>
 
-		<table>
-	    	<tr>
-	    		<th> Producto </th>
-	        	<th> Cantidad </th>
-	        	
-	    	</tr>
-	    	{% for item in productos %}
-	    	<tr> 
-	        	<td> {{ item.0 }} </td>
-	        	<td> {{ item.1 }} </td>
-	        	{% if item.1 < 10%}
-	        		<script> 
-					alert("MENSAJE"); 
-					</script> 
-	        	{% endif %}
-	        	
-	    	</tr>
-	    	{% endfor %}
-		</table>
+                    <br>
+
+                    <form method = 'post' action = ''>
+						{% csrf_token %}
+						{{ formulario.as_table }}
+
+						<input type = 'submit' value = 'Buscar'>
+					</form>
+
+					<div class = "table-responsive">
+                        <table class = "table">
+                        	<tr>
+					    		<th class = 'color-orange'> Producto </th>
+					        	<th class = 'color-orange'> Cantidad </th>
+					    	</tr>
+					    	{% for item in productos %}
+					    	<tr> 
+					        	<td> {{ item.0 }} </td>
+					        	<td> {{ item.1 }} </td>
+					        	{% if item.1 < 10%}
+					        		<script> 
+									alert("MENSAJE"); 
+									</script> 
+					        	{% endif %}					        	
+					    	</tr>
+					    	{% endfor %}
+						</table>
+					</div>
+                </div>
+            </div>
+        </div>
 	</body>
 </html>
