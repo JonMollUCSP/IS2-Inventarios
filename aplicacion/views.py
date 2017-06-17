@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.http import JsonResponse
 from django.views.generic import View
 from django.contrib.auth import get_user_model
+from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
 
 
 import smtplib
@@ -18,11 +20,9 @@ from .forms import *
 from .models import *
 
 User = get_user_model()
-
-
+   
 def inicioView(request):
-    return render(request, "inicio.html", {})
-
+    return render(request,'inicio.html', {})
 
 def iniciarSesionView(request):
     formulario = iniciarSesionForm(request.POST or None)
@@ -40,7 +40,7 @@ def iniciarSesionView(request):
 
     return render(request, "iniciar_sesion.html", contexto)
 
-
+@login_required
 def mostrarProductoView(request):
     productos = Producto.objects.all()
     contexto = {"productos": productos}

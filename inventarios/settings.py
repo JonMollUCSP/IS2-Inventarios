@@ -70,6 +70,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'inventarios.wsgi.application'
 
+LOGIN_URL = '/ '
+
+# # redirect authenticated users
+LOGIN_REDIRECT_URL = '/inicio'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -79,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'inventarios',
         'USER': 'postgres',
-        'PASSWORD': '12ggwp12',
+        'PASSWORD': 'scrum1234',
         'HOST': 'localhost',
         'PORT': '',
     }
