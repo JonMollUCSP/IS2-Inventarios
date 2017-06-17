@@ -435,3 +435,28 @@ def mostrarLugarView(request):
     contexto = {"formulario": formulario}
 
     return render(request, "verificar_producto.html", contexto)
+
+
+def reporteOrdenesView(request):
+    from django.db import connection
+    ordenes = Orden.objects.all()
+    cursor = connection.cursor()
+
+    formulario_orden_analisis = seleccionarAnalisisOrdenForm(request.POST or None)
+
+    contexto = {
+        "formulario_orden_analisis": formulario_orden_analisis,
+        "ordenes": ordenes}
+    
+    if formulario_orden_analisis.is_valid():
+        datos_formulario = formulario_orden_analisis.cleaned_data
+        analisis_ordenes = datos_formulario.get("analisis_ordenes")
+        if analisis_ordenes == 'ordenes':
+            ordenes = Orden.objects.all()
+            contexto['ordenes'] = ordenes
+        else:
+            cursor.execute("SELECT producto.nombre,analisis.cantidad,analisis.ventas_corrientes_pct, CASE WHEN ventas_corrientes_pct<=0.8 THEN 'A' ELSE (CASE WHEN ventas_corrientes_pct<=0.95 THEN 'B' ELSE 'C' END) END AS GrupoABC FROM (SELECT *, SUM(cantidad::double precision) OVER (ORDER BY cantidad DESC)/(SUM(cantidad) OVER()) AS ventas_corrientes_pct FROM aplicacion_orden) AS analisis INNER JOIN aplicacion_producto AS producto ON analisis.id = producto.id")
+            analisis = cursor.fetchall()
+            contexto['ordenes'] = analisis
+
+    return render(request, "ordenes.html", contexto)

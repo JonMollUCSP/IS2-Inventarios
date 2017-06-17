@@ -131,3 +131,13 @@ class tiempo_pedido_form(forms.Form):
 
 class mostrarPedidoForm(forms.Form):
     producto = forms.CharField(max_length=20)
+
+
+class seleccionarAnalisisOrdenForm(forms.Form):
+    ordenes = 'ordenes'
+    analisis = 'analisis'
+
+    orden_analisis_choice = ((ordenes, u"Todas las Ordenes"),
+                            (analisis, u"Analisis ABC"))
+
+    ver = forms.ChoiceField(choices=orden_analisis_choice)
