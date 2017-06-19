@@ -31,11 +31,17 @@
 						<br>
 						<h1> Bienvenido </h1>
 
-						<form method = 'post' action = ''>
+						<!--<form method="post" action=".?next={{ redirect_to }}">
 							{% csrf_token %}
 							{{ formulario.as_p }}
-
 							<input type = 'submit' value = 'Iniciar sesion'>
+						</form>-->
+
+						<form method="post" action=".?next={{ redirect_to }}"> {% csrf_token %}
+							<input type="text" name="username" placeholder="Usuario"/>
+							
+							<input type="password" name="password" placeholder="Contrasena"/>
+							<input type="submit" value="Iniciar Sesion"/>
 						</form>
 						
 						<br>

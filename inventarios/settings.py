@@ -70,10 +70,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'inventarios.wsgi.application'
 
-LOGIN_URL = '/ '
+LOGIN_URL = '/iniciar_sesion'
 
-# # redirect authenticated users
-LOGIN_REDIRECT_URL = '/inicio'
+# LOGIN_REDIRECT_URL = ' '
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
