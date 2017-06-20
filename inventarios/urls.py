@@ -24,7 +24,7 @@ urlpatterns = [url(r'^admin/',
                url(r'^iniciar_sesion/',
                    views.iniciarSesionView,
                    name='iniciar_sesion'),
-               
+
                url(r'^$',
                    views.iniciarView,
                    name='iniciar'),
@@ -47,7 +47,7 @@ urlpatterns = [url(r'^admin/',
 
                url(r'^registrar_orden/',
                    views.registrarOrdenView,
-                   name = 'registrar_orden'),
+                   name='registrar_orden'),
 
                url(r'^registrar_proveedor/',
                    views.registrarProveedorView,

@@ -21,13 +21,16 @@ from .models import *
 
 User = get_user_model()
 
+
 @login_required
 def inicioView(request):
     return render(request, "inicio.html", {})
 
+
 def iniciarView(request):
     return HttpResponseRedirect(settings.LOGIN_URL)
- 
+
+
 def iniciarSesionView(request):
     next = request.GET.get('next', '/inicio/')
     if request.method == "POST":
@@ -295,8 +298,8 @@ def registrarUsuarioView(request):
         correo_obtenido = datos_formulario.get("correo")
 
         objeto_usuario = User.objects.create(username=nombre_obtenido,
-                                                password=contrasena_obtenida,
-                                                email=correo_obtenido)
+                                             password=contrasena_obtenida,
+                                             email=correo_obtenido)
         return HttpResponseRedirect(reverse('inicio'))
     if formulario.is_valid():
         datos_formulario = formulario.cleaned_data
@@ -352,6 +355,7 @@ def chartDataView(request):
 
 
 class HomeView(View):
+
     def get(self, request, *args, **kwargs):
         return render(request, 'charts.html', {"customers": 10})
 
@@ -485,7 +489,8 @@ def mostrarLugarView(request):
         datos_formulario = formulario.cleaned_data
         pedido = datos_formulario.get("pedido")
 
-    cursor.execute("SELECT aplicacion_anaquelproducto.candidad_producto, aplicacion_producto.nombre FROM aplicacion_producto INNER JOIN aplicacion_anaquelproducto ON aplicacion_anaquelproducto.id = aplicacion_producto.id;")
+    cursor.execute(
+        "SELECT aplicacion_anaquelproducto.candidad_producto, aplicacion_producto.nombre FROM aplicacion_producto INNER JOIN aplicacion_anaquelproducto ON aplicacion_anaquelproducto.id = aplicacion_producto.id;")
     productos = cursor.fetchall()
 
     contexto = {"formulario": formulario}
