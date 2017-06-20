@@ -81,8 +81,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'inventarios',
-        'USER': 'postgres',
-        'PASSWORD': 'scrum1234',
+        'USER': 'scrum',
+        'PASSWORD': 'scrum12341234',
         'HOST': 'localhost',
         'PORT': '',
     }

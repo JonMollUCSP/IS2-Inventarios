@@ -192,7 +192,6 @@ def pedidoView(request):
 
     return render(request, "pedidos.html", contexto)
 
-
 @login_required
 def registrarOrdenView(request):
     formulario = registrarOrdenForm(request.POST or None)
