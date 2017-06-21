@@ -104,4 +104,8 @@ urlpatterns = [url(r'^admin/',
                    views.reporteOrdenesView,
                    name='ordenes'),
 
+               url(r'^analisisabc/',
+                   views.analisisAbcView,
+                   name='analisisabc'),
+
                ]

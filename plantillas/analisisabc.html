@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title> Ordenes </title>
+    <title> Analisis </title>
     <meta charset = "UTF-8">
         <link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
         <link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
@@ -73,30 +73,28 @@
                     <br>
                     <div class = 'color-orange'>
                         <br>
-                        <h1> Ordenes </h1>
+                        <h1> Analisis ABC </h1>
                         <br>
                     </div>
                     <br>
 
                     <div align = 'left'>
-                    <a class="btn btn-default" href="{% url 'analisisabc' %}">Mostrar Analisis ABC</a>   
+                    <a class="btn btn-default" href="{% url 'ordenes' %}">Mostrar Ordenes</a>   
                     </div>    
                     <div class = "table-responsive">
                         <table border="1" class = "table">
                             <tr>
-                                <th class = 'color-orange'> Fecha </th>
-                                <th class = 'color-orange'> Cantidad </th>
-                                <th class = 'color-orange'> Precio por Unidad </th>
-                                <th class = 'color-orange'> Precio Total </th>
                                 <th class = 'color-orange'> Producto </th>
+                                <th class = 'color-orange'> Cantidad </th>
+                                <th class = 'color-orange'> Porcentaje Acum.</th>
+                                <th class = 'color-orange'> Clasif. </th>
                             </tr>
                             {% for Orden in ordenes %}
                             <tr>
-                              <td> {{ Orden.fecha }} </td>
-                              <td> {{ Orden.cantidad }} </td>
-                              <td> {{ Orden.precio_unidad }} </td>
-                              <td> {{ Orden.precio_total }} </td>
-                              <td> {{ Orden }} </td>
+                              <td> {{ Orden.0 }} </td>
+                              <td> {{ Orden.1 }} </td>
+                              <td> {{ Orden.2 }} </td>
+                              <td> {{ Orden.3 }} </td>
                             </tr>
                             {% endfor %}
                         </table>
