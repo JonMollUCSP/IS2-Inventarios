@@ -453,4 +453,4 @@ def analisisAbcView(request):
     analisis = cursor.fetchall()
     contexto = {"ordenes": analisis}
 
-    return render(request,"analisisabc.html", contexto)
+    return render(request, "analisisabc.html", contexto)

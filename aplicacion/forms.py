@@ -138,6 +138,6 @@ class seleccionarAnalisisOrdenForm(forms.Form):
     analisis = 'analisis'
 
     orden_analisis_choice = ((ordenes, u"Todas las Ordenes"),
-                            (analisis, u"Analisis ABC"))
+                             (analisis, u"Analisis ABC"))
 
     ver = forms.ChoiceField(choices=orden_analisis_choice)
