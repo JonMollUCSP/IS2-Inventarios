@@ -5,11 +5,6 @@ OPCIONES_ANOS = ('2016', '2017', '2018', '2019', '2020', '2021')
 OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 
 
-class iniciarSesionForm(forms.Form):
-    nombre = forms.CharField(max_length=20)
-    contrasena = forms.CharField(max_length=20)
-
-
 class registrarProveedorForm(forms.Form):
     nombre = forms.CharField(max_length=20)
     telefono = forms.IntegerField()
