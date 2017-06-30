@@ -21,9 +21,17 @@ from aplicacion import views
 urlpatterns = [url(r'^admin/',
                    admin.site.urls),
 
-               url(r'^$',
+               url(r'^iniciar_sesion/',
                    views.iniciarSesionView,
                    name='iniciar_sesion'),
+
+               url(r'^$',
+                   views.iniciarView,
+                   name='iniciar'),
+
+               url(r'^cerrar_sesion/',
+                   views.cerrarSesionView,
+                   name='cerrar_sesion'),
 
                url(r'^inicio/',
                    views.inicioView,
@@ -36,6 +44,10 @@ urlpatterns = [url(r'^admin/',
                url(r'^registrar_producto/',
                    views.registrarProductoView,
                    name='registrar_producto'),
+
+               url(r'^registrar_orden/',
+                   views.registrarOrdenView,
+                   name='registrar_orden'),
 
                url(r'^registrar_proveedor/',
                    views.registrarProveedorView,
