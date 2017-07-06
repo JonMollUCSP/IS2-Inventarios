@@ -24,28 +24,20 @@
 
                     <br>
 
-                    <form method = 'post' action = ''>
-						{% csrf_token %}
-						{{ formulario.as_table }}
-
-						<input type = 'submit' value = 'Buscar'>
-					</form>
-
 					<div class = "table-responsive">
                         <table class = "table">
-                        	<tr>
-					    		<th class = 'color-orange'> Proveedor </th>
-					        	<th class = 'color-orange'> Cantidad </th>
-					        	<th class = 'color-orange'> Fecha Recibida </th>
+							<tr>
+					        	<th class = 'color-orange'> ID </th>-->
 					        	<th class = 'color-orange'> Proveedor </th>
+					        	<th class = 'color-orange'> Cantidad de Productos </th>-->
 					    	</tr>
 					    	{% for item in proveedores %}
 					    	<tr> 
 					        	<td> {{ item.0 }} </td>
 					        	<td> {{ item.1 }} </td>
-					        	<td> {{ item.2 }} </td>
-					        	<td> {{ item.3 }} </td>
+								<td> {{ item.2 }} </td>-->
 					    	</tr>
+					  
 					    	{% endfor %}
 						</table>
 					</div>

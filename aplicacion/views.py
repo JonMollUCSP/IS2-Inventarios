@@ -18,6 +18,7 @@ from rest_framework import authentication, permissions
 
 from .forms import *
 from .models import *
+from django.db.models import Count
 
 User = get_user_model()
 
@@ -434,21 +435,15 @@ def proveedorProductoView(request, id_propro):
 @login_required
 def reporteProveedorView(request):
     from django.db import connection
+    cursor = connection.cursor()
+    # proveedoresTmp=Pedido.objects.values('proveedor').annotate(dcount=Count('id'))
+    # proveedores = Proveedor.objects.filter(id__proveedoresTmp__id)
+    cursor.execute("select pr.id, pr.nombre, count(p.producto_id) from aplicacion_pedido p, aplicacion_proveedor pr WHERE p.proveedor_id=pr.id GROUP BY pr.id, pr.nombre ORDER BY pr.id;")
+    proveedores = cursor.fetchall()
+    contexto = {"proveedores": proveedores}
 
-    formulario = reporteProveedorForm(request.POST)
-
-    if formulario.is_valid():
-        datos_formulario = formulario.cleaned_data
-        inicio_obtenido = datos_formulario.get('inicio')
-        fin_obtenido = datos_formulario.get('fin')
-        proveedores = Proveedor.objects.filter(
-            fecha_ingreso__range=[inicio_obtenido, fin_obtenido])
-        contexto = {"formulario": formulario, "proveedores": proveedores}
-    else:
-        proveedores = Proveedor.objects.filter(
-            fecha_ingreso__range=["2011-01-01", "2011-01-31"])
-        contexto = {"formulario": formulario, "proveedores": proveedores}
     return render(request, "reporte_proveedores.html", contexto)
+    
 
 
 @login_required
