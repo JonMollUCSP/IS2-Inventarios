@@ -310,12 +310,12 @@ class HomeView(View):
         return render(request, 'charts.html', {"customers": 10})
 
 
-def get_data(request, *args, **kwargs):
-    data = {
-        "sales": 100,
-        "customers": 10,
-    }
-    return JsonResponse(data)  # http response
+# def get_data(request, *args, **kwargs):
+#     data = {
+#         "sales": 100,
+#         "customers": 10,
+#     }
+#     return JsonResponse(data)  # http response
 
 
 class ChartData(APIView):
