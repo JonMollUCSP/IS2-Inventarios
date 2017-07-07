@@ -112,4 +112,12 @@ urlpatterns = [url(r'^admin/',
                    views.tiempo_pedido_view,
                    name='tiempo_pedidos'),
 
+               url(r'^ordenes/',
+                   views.reporteOrdenesView,
+                   name='ordenes'),
+
+               url(r'^analisisabc/',
+                   views.analisisAbcView,
+                   name='analisisabc'),
+
                ]
