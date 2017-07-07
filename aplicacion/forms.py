@@ -23,7 +23,7 @@ class registrarProveedorProductoForm(forms.Form):
 
 class registrarUsuarioForm(forms.Form):
     nombre = forms.CharField(max_length=20)
-    contrasena = forms.CharField(max_length=20)
+    contrasena = forms.CharField(max_length=20,widget=forms.PasswordInput())
     correo = forms.EmailField()
 
 # OPCIONES_ANOS = ('2016', '2017') #añadido para probar pedidos

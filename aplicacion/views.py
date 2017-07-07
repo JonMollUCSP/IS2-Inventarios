@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views.generic import View
@@ -15,13 +16,13 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
+from ratelimit.decorators import ratelimit
 
 from .forms import *
 from .models import *
 from django.db.models import Count
 
 User = get_user_model()
-
 
 @login_required
 def inicioView(request):
@@ -31,12 +32,16 @@ def inicioView(request):
 def iniciarView(request):
     return HttpResponseRedirect(settings.LOGIN_URL)
 
-
+@ratelimit(key='ip', rate='5/m')
 def iniciarSesionView(request):
+    was_limited = getattr(request, 'limited', False)
+    if was_limited:
+        return HttpResponse("IP Bloqueada!.")
     next = request.GET.get('next', '/inicio/')
     if request.method == "POST":
         usuarionombre = request.POST['username']
         contrasena = request.POST['password']
+
         usuario = authenticate(username=usuarionombre, password=contrasena)
 
         if usuario is not None:
@@ -286,7 +291,6 @@ def registrarPedidoView(request):
     return render(request, "registrar_pedido.html", contexto)
 
 
-@login_required
 def registrarUsuarioView(request):
     formulario = registrarUsuarioForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -297,9 +301,9 @@ def registrarUsuarioView(request):
         contrasena_obtenida = datos_formulario.get("contrasena")
         correo_obtenido = datos_formulario.get("correo")
 
-        objeto_usuario = User.objects.create(username=nombre_obtenido,
-                                             password=contrasena_obtenida,
-                                             email=correo_obtenido)
+        objeto_usuario = User.objects.create_user(nombre_obtenido,
+                                                     correo_obtenido,
+                                                     contrasena_obtenida)
         return HttpResponseRedirect(reverse('inicio'))
     if formulario.is_valid():
         datos_formulario = formulario.cleaned_data
@@ -307,10 +311,9 @@ def registrarUsuarioView(request):
         contrasena_obtenida = datos_formulario.get("contrasena")
         correo_obtenido = datos_formulario.get(
             "correo")  # cambié de email a correo
-
-        objeto_usuario = Usuario.objects.create(username=nombre_obtenido,
-                                                password=contrasena_obtenida,
-                                                email=correo_obtenido)
+        objeto_usuario = Usuario.objects.create_user(nombre_obtenido,
+                                                     correo_obtenido,
+                                                     contrasena_obtenida)
     return render(request, "registrar_usuario.html", contexto)
 
     formulario = reporteProductoForm(request.POST)
