@@ -40,14 +40,6 @@ INSTALLED_APPS = (
     'aplicacion'
 )
 
-
-# MIDDLEWARE_CLASSES = [
-#     'django.middleware.common.CommonMiddleware',
-#     'django.contrib.sessions.middleware.SessionMiddleware',
-#     'django.contrib.auth.middleware.AuthenticationMiddleware',
-#     'defender.middleware.FailedLoginMiddleware',
-# ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

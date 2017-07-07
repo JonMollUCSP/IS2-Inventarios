@@ -24,6 +24,7 @@ from django.db.models import Count
 
 User = get_user_model()
 
+
 @login_required
 def inicioView(request):
     return render(request, "inicio.html", {})
@@ -31,6 +32,7 @@ def inicioView(request):
 
 def iniciarView(request):
     return HttpResponseRedirect(settings.LOGIN_URL)
+
 
 @ratelimit(key='ip', rate='5/m')
 def iniciarSesionView(request):
@@ -198,6 +200,7 @@ def pedidoView(request):
 
     return render(request, "pedidos.html", contexto)
 
+
 @login_required
 def registrarOrdenView(request):
     formulario = registrarOrdenForm(request.POST or None)
@@ -302,8 +305,8 @@ def registrarUsuarioView(request):
         correo_obtenido = datos_formulario.get("correo")
 
         objeto_usuario = User.objects.create_user(nombre_obtenido,
-                                                     correo_obtenido,
-                                                     contrasena_obtenida)
+                                                  correo_obtenido,
+                                                  contrasena_obtenida)
         return HttpResponseRedirect(reverse('inicio'))
     if formulario.is_valid():
         datos_formulario = formulario.cleaned_data
@@ -446,7 +449,6 @@ def reporteProveedorView(request):
     contexto = {"proveedores": proveedores}
 
     return render(request, "reporte_proveedores.html", contexto)
-    
 
 
 @login_required
