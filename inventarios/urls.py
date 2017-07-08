@@ -100,12 +100,6 @@ urlpatterns = [url(r'^admin/',
                url(r'^api/chart/data/$',
                    views.ChartData.as_view()),
 
-
-            #    url(r'^api/data/$', 
-            #        views.get_data, 
-            #        name='api-data'),
-                   
-
                url(r'^api/data/$',
                    views.get_data,
                    name='api-data'),
