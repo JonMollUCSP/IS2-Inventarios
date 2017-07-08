@@ -84,13 +84,10 @@ urlpatterns = [url(r'^admin/',
                url(r'^proveedor_producto/(?P<id_propro>\d+)/$',
                    views.proveedorProductoView,
                    name='proveedor_producto'),
-<<<<<<< HEAD
 
                url(r'^eliminar_proveedor/(?P<id_proveedor>\d+)/$',
                    views.deleteProveedorView,
                    name='eliminar_proveedor'),
-=======
->>>>>>> refs/remotes/origin/sprint4
 
                url(r'^reporte_movimiento/',
                    views.reporteMovimientoView,
