@@ -1,7 +1,7 @@
 from django import forms
 from .models import *
 
-OPCIONES_ANOS = ('2016', '2017', '2018', '2019', '2020', '2021')
+OPCIONES_ANOS = ('2012','2013','2014','2015','2016', '2017', '2018', '2019', '2020', '2021')
 OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 
 
@@ -64,6 +64,16 @@ class seleccionarTipoPedidoForm(forms.Form):
                      (recibido, u"Pedidos recibidos"))
 
     tipo_pedido = forms.ChoiceField(choices=pedido_choice)
+
+
+class eliminarPedidosForm(forms.Form):
+    eliminar = 'eliminar'
+    corregir = 'corregir'
+
+    solucion_pedidos_choice = ((eliminar, u"Eliminar"),
+                               (corregir, u"Corregir"))
+
+    solucion_pedidos = forms.ChoiceField(choices=solucion_pedidos_choice)
 
 
 class recibirPedidoForm(forms.Form):
