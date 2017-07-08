@@ -5,11 +5,6 @@ OPCIONES_ANOS = ('2016', '2017', '2018', '2019', '2020', '2021')
 OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 
 
-class iniciarSesionForm(forms.Form):
-    nombre = forms.CharField(max_length=20)
-    contrasena = forms.CharField(max_length=20)
-
-
 class registrarProveedorForm(forms.Form):
     nombre = forms.CharField(max_length=20)
     telefono = forms.IntegerField()
@@ -28,7 +23,7 @@ class registrarProveedorProductoForm(forms.Form):
 
 class registrarUsuarioForm(forms.Form):
     nombre = forms.CharField(max_length=20)
-    contrasena = forms.CharField(max_length=20)
+    contrasena = forms.CharField(max_length=20, widget=forms.PasswordInput())
     correo = forms.EmailField()
 
 # OPCIONES_ANOS = ('2016', '2017') #añadido para probar pedidos
@@ -47,6 +42,16 @@ class registrarPedidoForm(forms.Form):
     fecha_realizada = forms.DateField(
         widget=forms.SelectDateWidget(
             years=OPCIONES_ANOS))  # añadido para probar pedidos
+
+
+class registrarOrdenForm(forms.Form):
+    producto = forms.CharField(max_length=20)
+    cantidad = forms.IntegerField()
+    fecha = forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
+    precio_unidad = forms.IntegerField()
+    precio_total = forms.IntegerField()
 
 
 class seleccionarTipoPedidoForm(forms.Form):
@@ -131,3 +136,13 @@ class tiempo_pedido_form(forms.Form):
 
 class mostrarPedidoForm(forms.Form):
     producto = forms.CharField(max_length=20)
+
+
+class seleccionarAnalisisOrdenForm(forms.Form):
+    ordenes = 'ordenes'
+    analisis = 'analisis'
+
+    orden_analisis_choice = ((ordenes, u"Todas las Ordenes"),
+                             (analisis, u"Analisis ABC"))
+
+    ver = forms.ChoiceField(choices=orden_analisis_choice)

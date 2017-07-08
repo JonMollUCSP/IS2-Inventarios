@@ -1,0 +1,7 @@
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h1>¿Desea eliminar el proveedor seleccionado de {{ Proveedor.nombre}}?</h1>
+    <button class= "btm btn-danger" type="submit">Sí,eliminar</button>
+</form>
+{% endblock %}

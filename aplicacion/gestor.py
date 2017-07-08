@@ -6,6 +6,7 @@ from decimal import Decimal
 
 
 class GestorReporte:
+
     def getFecha(self, movimiento, tipo_reporte):
         year = movimiento.get('fecha_recibida').year
         if tipo_reporte == 'anual':
@@ -51,7 +52,8 @@ class GestorReporte:
                 movimientos, tipo_reporte)
         for movimiento in movimientos:
             movimiento['monto_total'] = "$" + \
-                str(Decimal(movimiento.get('cantidad_parcial')) * Decimal(producto.valor))
+                str(Decimal(movimiento.get('cantidad_parcial'))
+                    * Decimal(producto.valor))
         return movimientos
 
     def getProductosConMovimiento(self):
@@ -69,16 +71,19 @@ class GestorReporte:
 
 
 class TodosLosPedidos():
+
     def obtenerPedidos(self):
         return PedidoRepositorio().getPedidos()
 
 
 class PedidosRecibidos():
+
     def obtenerPedidos(self):
         return PedidoRepositorio().getPedidosRecibidos()
 
 
 class PedidosNoRecibidos():
+
     def obtenerPedidos(self):
         return PedidoRepositorio().getPedidosNoRecibidos()
 
