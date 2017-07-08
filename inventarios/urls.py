@@ -107,14 +107,14 @@ urlpatterns = [url(r'^admin/',
                url(r'^reporte_proveedores/',
                    views.reporteProveedorView,
                    name='reporte_proveedores'),
-              
-              url(r'^eliminar_producto/(?P<id_producto>\d+)/$',
-                   views.deleteProductoView,
-                   name='eliminar_producto'), 
 
                url(r'^verificar_producto/',
                    views.mostrarLugarView,
                    name='verificar_producto'),
+
+               url(r'^eliminar_producto/(?P<id_producto>\d+)/$',
+                   views.deleteProductoView,
+                   name='eliminar_producto'),
 
                url(r'^tiempo_pedidos/',
                    views.tiempo_pedido_view,
