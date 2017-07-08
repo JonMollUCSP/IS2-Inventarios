@@ -521,8 +521,4 @@ def analisisAbcView(request):
     contexto = {"ordenes": analisis}
 
     return render(request, "analisisabc.html", contexto)
-<<<<<<< HEAD
 
-
-=======
->>>>>>> refs/remotes/origin/sprint4
