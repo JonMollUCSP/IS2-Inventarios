@@ -1,36 +1,54 @@
 <html>
-  <head>
-    <title> Reporte de productos </title>
-    <meta charset = "UTF-8">
-  </head>
+    <head>
+        <title> Reporte de productos </title>
+        <meta charset = "UTF-8">
 
-  <body>
-    <h1> Reporte Producto </h1>
-    <form method = 'post' action = ''>
-      {% csrf_token %}
-      {{ formulario.as_table }}
+        <link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+        <link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
+    </head>
+    <body>
+        {% include 'base/cabecera.html' %}
 
-      <input type = 'submit' value = 'Buscar'>
-    </form>
-    <table>
-      <thead>
-        <tr>
-          <th> Nombre </th>
-          <th> Codigo </th>
-          <th> Valor </th>
-          <th> Fecha de Ingreso </th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for Producto in productos %}
-        <tr>
-          <td> {{ Producto.nombre }} </td>
-          <td> {{ Producto.codigo }} </td>
-          <td> {{ Producto.valor }} </td>
-          <td> {{ Producto.fecha_ingreso }} </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </body>
+        <div class = 'container'>
+            <div class = 'row'>
+                {% include 'base/menu.html' %}
+               
+                <div class = 'col-sm-9 full' align = 'center'>
+                    <br>
+                    <div class = 'color-orange'>
+                        <br>
+                        <h1> Reporte de productos </h1>
+                        <br>
+                    </div>
+
+                    <br>
+                    
+                    <form method = 'post' action = ''>
+                        {% csrf_token %}
+                        {{ formulario.as_table }}
+
+                        <input type = 'submit' value = 'Buscar'>
+                    </form>
+                    <div class = "table-responsive">
+                        <table class = "table">
+                            <tr>
+                                <th class = 'color-orange'> Nombre </th>
+                                <th class = 'color-orange'> Codigo </th>
+                                <th class = 'color-orange'> Valor </th>
+                                <th class = 'color-orange'> Fecha de Ingreso </th>
+                            </tr>
+                            {% for Producto in productos %}
+                            <tr>
+                                <td> {{ Producto.nombre }} </td>
+                                <td> {{ Producto.codigo }} </td>
+                                <td> {{ Producto.valor }} </td>
+                                <td> {{ Producto.fecha_ingreso }} </td>
+                            </tr>
+                            {% endfor %}
+                        </table>    
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

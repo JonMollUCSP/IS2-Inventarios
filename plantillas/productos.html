@@ -1,29 +1,51 @@
 <html>
-  <head>
-    <title> Productos </title>
-    <meta charset = "UTF-8">
-  </head>
-  <body>
-    <h1> Productos </h1>
-    <table>
-      <thead>
-        <tr>
-          <th> Nombre </th>
-          <th> Codigo </th>
-          <th> Valor </th>
-          <th> Fecha de Ingreso </th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for Producto in productos %}
-        <tr>
-          <td> {{ Producto.nombre }} </td>
-          <td> {{ Producto.codigo }} </td>
-          <td> {{ Producto.valor }} </td>
-          <td> {{ Producto.fecha_ingreso }} </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </body>
+    <head>
+        <title> Productos </title>
+        <meta charset = "UTF-8">
+
+        <link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+        <link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
+    </head>
+
+    <body>
+        {% include 'base/cabecera.html' %}
+
+        <div class = 'container'>
+            <div class = 'row'>
+                {% include 'base/menu.html' %}
+                
+              <div class = 'col-sm-9 full' align = 'center'>
+                    <br>
+                    <div class = 'color-orange'>
+                        <br>
+                        <h1> Productos </h1>
+                        <br>
+                    </div>
+
+                    <br>
+
+                    <div class = "table-responsive">
+                        <table class = "table">
+                            <tr>
+                                <th class = 'color-orange'> Nombre </th>
+                                <th class = 'color-orange'> Codigo </th>
+                                <th class = 'color-orange'> Valor </th>
+                                <th class = 'color-orange'> Fecha de Ingreso </th>
+                            </tr>
+                            {% for Producto in productos %}
+                            <tr>
+                                <td> {{ Producto.nombre }} </td>
+                                <td> {{ Producto.codigo }} </td>
+                                <td> {{ Producto.valor }} </td>
+                                <td> {{ Producto.fecha_ingreso }} </td>
+                                <td><a class= "btn btn-danger" href="/eliminar_producto/{{Producto.id}}/"> Eliminar</a>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
+

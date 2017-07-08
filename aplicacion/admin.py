@@ -3,14 +3,14 @@ from django.contrib import admin
 from .models import *
 
 
-class AdminUsuario(admin.ModelAdmin):
-    list_display = ["__str__", "nombre", "contrasena", "correo"]
+# class AdminUsuario(admin.ModelAdmin):
+#     list_display = ["__str__", "nombre", "contrasena", "correo"]
 
-    class Meta:
-        model = Usuario
+#     class Meta:
+#         model = Usuario
 
 
-admin.site.register(Usuario, AdminUsuario)
+# admin.site.register(Usuario, AdminUsuario)
 
 
 class AdminProveedor(admin.ModelAdmin):

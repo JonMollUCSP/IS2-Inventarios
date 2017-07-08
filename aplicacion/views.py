@@ -4,11 +4,13 @@ from django.urls import reverse
 from django.http import JsonResponse
 from django.views.generic import View
 from django.contrib.auth import get_user_model
-
+from django.contrib.auth.decorators import login_required
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from inventarios import settings
+from django.contrib.auth import authenticate, login, logout
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -20,27 +22,40 @@ from .models import *
 User = get_user_model()
 
 
+@login_required
 def inicioView(request):
     return render(request, "inicio.html", {})
 
 
+def iniciarView(request):
+    return HttpResponseRedirect(settings.LOGIN_URL)
+
+
 def iniciarSesionView(request):
-    formulario = iniciarSesionForm(request.POST or None)
-    contexto = {"formulario": formulario}
+    next = request.GET.get('next', '/inicio/')
+    if request.method == "POST":
+        usuarionombre = request.POST['username']
+        contrasena = request.POST['password']
+        usuario = authenticate(username=usuarionombre, password=contrasena)
 
-    if formulario.is_valid():
-        datos_formulario = formulario.cleaned_data
-        nombre_obtenido = datos_formulario.get("nombre")
-        contrasena_obtenida = datos_formulario.get("contrasena")
+        if usuario is not None:
+            if usuario.is_active:
+                login(request, usuario)
+                return HttpResponseRedirect(next)
+            else:
+                return HttpResponse("Usuario inactivo.")
+        else:
+            return HttpResponseRedirect(settings.LOGIN_URL)
 
-        objeto_usuario = Usuario.objects.get(nombre=nombre_obtenido)
-
-        if contrasena_obtenida == objeto_usuario.contrasena:
-            return HttpResponseRedirect(reverse('inicio'))
-
-    return render(request, "iniciar_sesion.html", contexto)
+    return render(request, "iniciar_sesion.html", {'redirect_to': next})
 
 
+def cerrarSesionView(request):
+    logout(request)
+    return HttpResponseRedirect(settings.LOGIN_URL)
+
+
+@login_required
 def mostrarProductoView(request):
     productos = Producto.objects.all()
     contexto = {"productos": productos}
@@ -48,6 +63,7 @@ def mostrarProductoView(request):
     return render(request, "productos.html", contexto)
 
 
+@login_required
 def registrarProductoView(request):
     formulario = registrarProductoForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -69,6 +85,7 @@ def registrarProductoView(request):
     return render(request, "registrar_producto.html", contexto)
 
 
+@login_required
 def proveedorView(request):
     proveedores = Proveedor.objects.all()
     contexto = {"proveedores": proveedores}
@@ -76,6 +93,7 @@ def proveedorView(request):
     return render(request, "proveedores.html", contexto)
 
 
+@login_required
 def registrarProveedorView(request):
     formulario = registrarProveedorForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -98,6 +116,7 @@ def registrarProveedorView(request):
     return render(request, "registrar_proveedor.html", contexto)
 
 
+@login_required
 def registrarProveedorProductoView(request):
     formulario = registrarProveedorProductoForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -118,6 +137,7 @@ def registrarProveedorProductoView(request):
     return render(request, "registrar_proveedor_producto.html", contexto)
 
 
+@login_required
 def almacenView(request):
     almacenes = Almacen.objects.all()
     contexto = {"almacenes": almacenes}
@@ -125,6 +145,7 @@ def almacenView(request):
     return render(request, "almacenes.html", contexto)
 
 
+@login_required
 def tiempo_pedido_view(request):
     from django.db.models import F
     formulario = tiempo_pedido_form(request.POST)
@@ -134,7 +155,8 @@ def tiempo_pedido_view(request):
         print(opcion)
         if opcion == "conretraso":
             pedidos = Pedido.objects.filter(
-                fecha_recibida__gt=F('fecha_prevista'))
+                fecha_recibida__gte=F('fecha_prevista'))
+
         else:
             pedidos = Pedido.objects.filter(
                 fecha_recibida__lt=F('fecha_prevista'))
@@ -145,38 +167,60 @@ def tiempo_pedido_view(request):
     return render(request, "tiempo_pedidos.html", contexto)
 
 
+@login_required
 def pedidoView(request):
+    from .gestor import GestorDePedidos
     formulario_tipo_pedido = seleccionarTipoPedidoForm(request.POST or None)
     formulario_recibir_pedido = recibirPedidoForm(request.POST or None)
+    contexto = {
+        "formulario_tipo_pedido": formulario_tipo_pedido,
+        "formulario_recibir_pedido": formulario_recibir_pedido,
+        "pedidos": None}
     if formulario_recibir_pedido.is_valid():
         datos_formulario = formulario_recibir_pedido.cleaned_data
         id_pedido_obtenido = datos_formulario.get("id_pedido")
         fecha_recibida_obtenido = datos_formulario.get("fecha_recibida")
-        Pedido.objects.filter(
-            id=id_pedido_obtenido).update(
-            fecha_recibida=fecha_recibida_obtenido)
+        GestorDePedidos().updateFechaRecibidaId(
+            id_pedido_obtenido, fecha_recibida_obtenido)
+    tipo_pedido = "todos_los_pedidos"
     if formulario_tipo_pedido.is_valid():
         datos_formulario = formulario_tipo_pedido.cleaned_data
-        tipo_pedido_obtenido = datos_formulario.get("tipo_pedido")
-
-        if tipo_pedido_obtenido == 'todos_los_pedidos':
-            pedidos = Pedido.objects.all()
-        if tipo_pedido_obtenido == 'pedidos_recibidos':
-            pedidos = Pedido.objects.filter(fecha_recibida__isnull=False)
-            formulario_recibir_pedido = None
-        if tipo_pedido_obtenido == 'pedidos_no_recibidos':
-            pedidos = Pedido.objects.filter(fecha_recibida__isnull=True)
-    else:
-        pedidos = Pedido.objects.all()
-
-    contexto = {
-        "formulario_tipo_pedido": formulario_tipo_pedido,
-        "pedidos": pedidos,
-        "formulario_recibir_pedido": formulario_recibir_pedido}
+        tipo_pedido = datos_formulario.get("tipo_pedido")
+        if tipo_pedido == 'pedidos_recibidos':
+            contexto['formulario_recibir_pedido'] = None
+    contexto['pedidos'] = GestorDePedidos().obtenerPedidosTipo(tipo_pedido)
 
     return render(request, "pedidos.html", contexto)
 
+@login_required
+def registrarOrdenView(request):
+    formulario = registrarOrdenForm(request.POST or None)
+    contexto = {"formulario": formulario}
 
+    if formulario.is_valid():
+        datos_formulario = formulario.cleaned_data
+        producto_obtenido = datos_formulario.get("producto")
+        fecha_obtenida = datos_formulario.get(
+            "fecha")
+
+        cantidad_obtenida = datos_formulario.get("cantidad")
+        precio_unidad_obtenida = datos_formulario.get("precio_unidad")
+        precio_total_obtenida = datos_formulario.get("precio_total")
+
+        producto = Producto.objects.get(nombre=producto_obtenido)
+        objeto_orden = Orden.objects.create(
+            producto=producto,
+            fecha=fecha_obtenida,
+            cantidad=cantidad_obtenida,
+            precio_unidad=precio_unidad_obtenida,
+            precio_total=precio_total_obtenida)
+
+        return HttpResponseRedirect(reverse('inicio'))
+
+    return render(request, "registrar_orden.html", contexto)
+
+
+@login_required
 def registrarPedidoView(request):
     formulario = registrarPedidoForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -188,9 +232,10 @@ def registrarPedidoView(request):
         fecha_prevista_obtenida = datos_formulario.get(
             "fecha_prevista")  # agregado para probar pedido
         fecha_recibida_obtenida = datos_formulario.get(
-            "fecha_prevista")  # agregado para probar pedido
+            "fecha_recibida")  # agregado para probar pedido
         fecha_realizada_obtenida = datos_formulario.get(
-            "fecha_prevista")  # agregado para probar pedido
+            "fecha_realizada")  # agregado para probar pedido
+
         cantidad_obtenida = datos_formulario.get("cantidad")
 
         producto = Producto.objects.get(nombre=producto_obtenido)
@@ -203,7 +248,7 @@ def registrarPedidoView(request):
             fecha_recibida=fecha_recibida_obtenida,
             cantidad=cantidad_obtenida)  # agregado para probar pedido
 
-        administrador = Usuario.objects.get(nombre='administrador')
+        administrador = User.objects.get(nombre='administrador')
 
         correo_emisor = administrador.correo
         correo_emisor_contrasena = administrador.contrasena
@@ -240,6 +285,7 @@ def registrarPedidoView(request):
     return render(request, "registrar_pedido.html", contexto)
 
 
+@login_required
 def registrarUsuarioView(request):
     formulario = registrarUsuarioForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -250,9 +296,9 @@ def registrarUsuarioView(request):
         contrasena_obtenida = datos_formulario.get("contrasena")
         correo_obtenido = datos_formulario.get("correo")
 
-        objeto_usuario = Usuario.objects.create(nombre=nombre_obtenido,
-                                                contrasena=contrasena_obtenida,
-                                                correo=correo_obtenido)
+        objeto_usuario = User.objects.create(username=nombre_obtenido,
+                                             password=contrasena_obtenida,
+                                             email=correo_obtenido)
         return HttpResponseRedirect(reverse('inicio'))
     if formulario.is_valid():
         datos_formulario = formulario.cleaned_data
@@ -261,9 +307,9 @@ def registrarUsuarioView(request):
         correo_obtenido = datos_formulario.get(
             "correo")  # cambié de email a correo
 
-        objeto_usuario = Usuario.objects.create(nombre=nombre_obtenido,
-                                                contrasena=contrasena_obtenida,
-                                                correo=correo_obtenido)
+        objeto_usuario = Usuario.objects.create(username=nombre_obtenido,
+                                                password=contrasena_obtenida,
+                                                email=correo_obtenido)
     return render(request, "registrar_usuario.html", contexto)
 
     formulario = reporteProductoForm(request.POST)
@@ -286,6 +332,7 @@ def registrarUsuarioView(request):
     # productos = cursor.fetchall()
 
 
+@login_required
 def proveedorProductoView(request, id_propro):
     productos = Producto.objects.filter(
         proveedorproducto__producto__id__isnull=False,
@@ -296,6 +343,7 @@ def proveedorProductoView(request, id_propro):
     return render(request, "proveedor_producto.html", contexto)
 
 
+@login_required
 def chartDataView(request):
     data = {
         "sales": 100,
@@ -306,16 +354,17 @@ def chartDataView(request):
 
 
 class HomeView(View):
+
     def get(self, request, *args, **kwargs):
         return render(request, 'charts.html', {"customers": 10})
 
 
-# def get_data(request, *args, **kwargs):
-#     data = {
-#         "sales": 100,
-#         "customers": 10,
-#     }
-#     return JsonResponse(data)  # http response
+def get_data(request, *args, **kwargs):
+    data = {
+        "sales": 100,
+        "customers": 10,
+    }
+    return JsonResponse(data)  # http response
 
 
 class ChartData(APIView):
@@ -344,6 +393,7 @@ class ChartData(APIView):
         return Response(data)
 
 
+@login_required
 def reporteProductoView(request):
     from django.db import connection
     # cursor = connection.cursor()
@@ -370,6 +420,7 @@ def reporteProductoView(request):
     # productos = cursor.fetchall()
 
 
+@login_required
 def proveedorProductoView(request, id_propro):
     productos = Producto.objects.filter(
         proveedorproducto__producto__id__isnull=False,
@@ -380,6 +431,7 @@ def proveedorProductoView(request, id_propro):
     return render(request, "proveedor_producto.html", contexto)
 
 
+@login_required
 def reporteProveedorView(request):
     from django.db import connection
 
@@ -399,35 +451,55 @@ def reporteProveedorView(request):
     return render(request, "reporte_proveedores.html", contexto)
 
 
+@login_required
 def reporteMovimientoView(request):
-    from decimal import Decimal
+    from .gestor import GestorReporte
     formulario = seleccionarTipoReporteMovimiento(request.POST or None)
-    productos = Producto.objects.all()
-    producto_reporte = None
-    movimientos = None
+    contexto = {
+        "productos": None,
+        "formulario": formulario,
+        "producto_reporte": None,
+        "movimientos": None}
+    reporte_generador = GestorReporte()
     if formulario.is_valid():
-        productos = None
         datos_formulario = formulario.cleaned_data
         producto_obtenido = datos_formulario.get('producto')
+        tipo_reporte = datos_formulario.get('tipo_reporte')
         fecha_inicial = datos_formulario.get('fecha_inicial')
         fecha_final = datos_formulario.get('fecha_final')
         producto = Producto.objects.get(nombre=producto_obtenido)
-        producto_reporte = producto
-        movimientos = Pedido.objects.values('fecha_recibida').filter(
-            producto=producto.id, fecha_recibida__isnull=False, fecha_recibida__range=(
-                fecha_inicial, fecha_final)).order_by('-fecha_recibida').annotate(
-            dcount=models.Count('fecha_recibida'))
+        contexto['producto_reporte'] = producto
+        contexto['movimientos'] = reporte_generador.getMovimientos(
+            producto, fecha_inicial, fecha_final, tipo_reporte)
     else:
-        for producto in productos:
-            movimiento = Decimal(0)
-            pedidos = Pedido.objects.filter(producto=producto.id)
-            valor = Decimal(producto.valor)
-            for pedido in pedidos:
-                movimiento = movimiento + Decimal(pedido.cantidad) * valor
-            producto.movimiento = "$" + str(movimiento)
-    contexto = {
-        "productos": productos,
-        "formulario": formulario,
-        "movimientos": movimientos,
-        "producto_reporte": producto_reporte}
+        contexto['productos'] = reporte_generador.getProductosConMovimiento()
+
     return render(request, "reporte_movimiento.html", contexto)
+
+
+@login_required
+def mostrarLugarView(request):
+    from django.db import connection
+    cursor = connection.cursor()
+
+    formulario = mostrarPedidoForm(request.POST)
+
+    if formulario.is_valid():
+        datos_formulario = formulario.cleaned_data
+        pedido = datos_formulario.get("pedido")
+
+    cursor.execute(
+        "SELECT aplicacion_anaquelproducto.candidad_producto, aplicacion_producto.nombre FROM aplicacion_producto INNER JOIN aplicacion_anaquelproducto ON aplicacion_anaquelproducto.id = aplicacion_producto.id;")
+    productos = cursor.fetchall()
+
+    contexto = {"formulario": formulario}
+
+    return render(request, "verificar_producto.html", contexto)
+
+def deleteProductoView(request,id_producto):
+    producto = Producto.objects.get(id=id_producto)
+    contexto = {"producto": producto}
+    if request.method == 'POST':
+        producto.delete()
+        return HttpResponseRedirect(reverse('inicio'))
+    return render(request, "eliminar_producto.html", contexto)

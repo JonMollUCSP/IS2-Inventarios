@@ -70,6 +70,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'inventarios.wsgi.application'
 
+LOGIN_URL = '/iniciar_sesion'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -78,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'inventarios',
-        'USER': 'scrum',
-        'PASSWORD': 'scrum1234',
+        'USER': 'Darkar',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -88,7 +90,7 @@ DATABASES = {
 # Fixtures dir
 
 FIXTURE_DIRS = (
-    os.path.join(BASE_DIR,"fixtures"),
+    os.path.join(BASE_DIR, "fixtures"),
 )
 
 # Password validation
@@ -96,16 +98,20 @@ FIXTURE_DIRS = (
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 

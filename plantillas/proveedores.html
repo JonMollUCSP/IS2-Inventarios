@@ -2,30 +2,51 @@
 	<head>
 		<title> Proveedores </title>
 		<meta charset = "UTF-8">
+
+		<link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+		<link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
 	</head>
+
 	<body>
-	    <h1> Proveedores </h1>
-		<table>
-			<thead>
-				<tr>
-					<th> Nombre </th>
-					<th> Telefono </th>
-					<th> Direccion </th>
-					<th> Email </th>
-					<th> Producto </th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for Proveedor in proveedores %}
-				<tr>
-					<td> {{ Proveedor.nombre }} </td>
-					<td> {{ Proveedor.telefono }} </td>
-					<td> {{ Proveedor.direccion }} </td>
-					<td> {{ Proveedor.email }} </td>
-					<td><a href = "/proveedor_producto/{{Proveedor.id}}/"> Ver </a> </td>
-				</tr>
-				{% endfor %}
-	        </tbody>
-	      </table>
+		{% include 'base/cabecera.html' %}
+
+		<div class = 'container'>
+			<div class = 'row'>
+				{% include 'base/menu.html' %}
+				
+				<div class = 'col-sm-9 full' align = 'center'>
+					<br>
+					<div class = 'color-orange'>
+						<br>
+						<h1> Proveedores </h1>
+						<br>
+					</div>
+
+					<br>
+
+					<div class = "table-responsive">
+  						<table class = "table">
+							<tr>
+								<th class = 'color-orange'> Nombre </th>
+								<th class = 'color-orange'> Telefono </th>
+								<th class = 'color-orange'> Direccion </th>
+								<th class = 'color-orange'> Email </th>
+								<th class = 'color-orange'> Producto </th>
+							</tr>
+						
+							{% for Proveedor in proveedores %}
+							<tr>
+								<td> {{ Proveedor.nombre }} </td>
+								<td> {{ Proveedor.telefono }} </td>
+								<td> {{ Proveedor.direccion }} </td>
+								<td> {{ Proveedor.email }} </td>
+								<td><a href = "/proveedor_producto/{{Proveedor.id}}/"> Ver </a> </td>
+							</tr>
+							{% endfor %}
+					    </table>
+					</div> 
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
