@@ -97,9 +97,16 @@ def registrarProductoView(request):
 def proveedorView(request):
     proveedores = Proveedor.objects.all()
     contexto = {"proveedores": proveedores}
-
     return render(request, "proveedores.html", contexto)
 
+@login_required
+def deleteProveedorView(request,id_proveedor):
+    proveedor = Proveedor.objects.get(id=id_proveedor)
+    contexto = {"proveedor": proveedor}
+    if request.method == 'POST':
+        proveedor.delete()
+        return HttpResponseRedirect(reverse('inicio'))
+    return render(request, "eliminar_proveedor.html", contexto)
 
 @login_required
 def registrarProveedorView(request):
@@ -523,3 +530,4 @@ def analisisAbcView(request):
     contexto = {"ordenes": analisis}
 
     return render(request, "analisisabc.html", contexto)
+

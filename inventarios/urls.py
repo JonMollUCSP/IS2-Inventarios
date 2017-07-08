@@ -85,6 +85,10 @@ urlpatterns = [url(r'^admin/',
                    views.proveedorProductoView,
                    name='proveedor_producto'),
 
+               url(r'^eliminar_proveedor/(?P<id_proveedor>\d+)/$',
+                   views.deleteProveedorView,
+                   name='eliminar_proveedor'),
+
                url(r'^reporte_movimiento/',
                    views.reporteMovimientoView,
                    name='reporte_movimiento'),

@@ -41,6 +41,7 @@
 								<td> {{ Proveedor.direccion }} </td>
 								<td> {{ Proveedor.email }} </td>
 								<td><a href = "/proveedor_producto/{{Proveedor.id}}/"> Ver </a> </td>
+								<td><a class= "btn btn-danger" href="/eliminar_proveedor/{{Proveedor.id}}/"> Eliminar</a>
 							</tr>
 							{% endfor %}
 					    </table>
