@@ -1,7 +1,7 @@
 from django import forms
 from .models import *
 
-OPCIONES_ANOS = ('2016', '2017', '2018', '2019', '2020', '2021')
+OPCIONES_ANOS = ('2012','2013','2014','2015','2016', '2017', '2018', '2019', '2020', '2021')
 OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 
 
@@ -23,7 +23,7 @@ class registrarProveedorProductoForm(forms.Form):
 
 class registrarUsuarioForm(forms.Form):
     nombre = forms.CharField(max_length=20)
-    contrasena = forms.CharField(max_length=20)
+    contrasena = forms.CharField(max_length=20, widget=forms.PasswordInput())
     correo = forms.EmailField()
 
 # OPCIONES_ANOS = ('2016', '2017') #añadido para probar pedidos
@@ -64,6 +64,16 @@ class seleccionarTipoPedidoForm(forms.Form):
                      (recibido, u"Pedidos recibidos"))
 
     tipo_pedido = forms.ChoiceField(choices=pedido_choice)
+
+
+class eliminarPedidosForm(forms.Form):
+    eliminar = 'eliminar'
+    corregir = 'corregir'
+
+    solucion_pedidos_choice = ((eliminar, u"Eliminar"),
+                               (corregir, u"Corregir"))
+
+    solucion_pedidos = forms.ChoiceField(choices=solucion_pedidos_choice)
 
 
 class recibirPedidoForm(forms.Form):
@@ -136,3 +146,13 @@ class tiempo_pedido_form(forms.Form):
 
 class mostrarPedidoForm(forms.Form):
     producto = forms.CharField(max_length=20)
+
+
+class seleccionarAnalisisOrdenForm(forms.Form):
+    ordenes = 'ordenes'
+    analisis = 'analisis'
+
+    orden_analisis_choice = ((ordenes, u"Todas las Ordenes"),
+                             (analisis, u"Analisis ABC"))
+
+    ver = forms.ChoiceField(choices=orden_analisis_choice)

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views.generic import View
@@ -15,9 +16,11 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
+from ratelimit.decorators import ratelimit
 
 from .forms import *
 from .models import *
+from django.db.models import Count
 
 User = get_user_model()
 
@@ -31,11 +34,16 @@ def iniciarView(request):
     return HttpResponseRedirect(settings.LOGIN_URL)
 
 
+@ratelimit(key='ip', rate='5/m')
 def iniciarSesionView(request):
+    was_limited = getattr(request, 'limited', False)
+    if was_limited:
+        return HttpResponse("IP Bloqueada!.")
     next = request.GET.get('next', '/inicio/')
     if request.method == "POST":
         usuarionombre = request.POST['username']
         contrasena = request.POST['password']
+
         usuario = authenticate(username=usuarionombre, password=contrasena)
 
         if usuario is not None:
@@ -172,9 +180,11 @@ def pedidoView(request):
     from .gestor import GestorDePedidos
     formulario_tipo_pedido = seleccionarTipoPedidoForm(request.POST or None)
     formulario_recibir_pedido = recibirPedidoForm(request.POST or None)
+    formulario_eliminar_pedidos = eliminarPedidosForm(request.POST or None)
     contexto = {
         "formulario_tipo_pedido": formulario_tipo_pedido,
         "formulario_recibir_pedido": formulario_recibir_pedido,
+        "formulario_eliminar_pedidos": formulario_eliminar_pedidos,
         "pedidos": None}
     if formulario_recibir_pedido.is_valid():
         datos_formulario = formulario_recibir_pedido.cleaned_data
@@ -188,9 +198,17 @@ def pedidoView(request):
         tipo_pedido = datos_formulario.get("tipo_pedido")
         if tipo_pedido == 'pedidos_recibidos':
             contexto['formulario_recibir_pedido'] = None
+    if formulario_eliminar_pedidos.is_valid():
+        datos_formulario = formulario_eliminar_pedidos.cleaned_data
+        solucion_pedidos = datos_formulario.get("solucion_pedidos")
+        if solucion_pedidos == 'eliminar':
+            Pedido.objects.all().delete()
+        else:
+            GestorDePedidos().updateCantidadFirstCharacter()
     contexto['pedidos'] = GestorDePedidos().obtenerPedidosTipo(tipo_pedido)
 
     return render(request, "pedidos.html", contexto)
+
 
 @login_required
 def registrarOrdenView(request):
@@ -285,7 +303,6 @@ def registrarPedidoView(request):
     return render(request, "registrar_pedido.html", contexto)
 
 
-@login_required
 def registrarUsuarioView(request):
     formulario = registrarUsuarioForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -296,9 +313,9 @@ def registrarUsuarioView(request):
         contrasena_obtenida = datos_formulario.get("contrasena")
         correo_obtenido = datos_formulario.get("correo")
 
-        objeto_usuario = User.objects.create(username=nombre_obtenido,
-                                             password=contrasena_obtenida,
-                                             email=correo_obtenido)
+        objeto_usuario = User.objects.create_user(nombre_obtenido,
+                                                  correo_obtenido,
+                                                  contrasena_obtenida)
         return HttpResponseRedirect(reverse('inicio'))
     if formulario.is_valid():
         datos_formulario = formulario.cleaned_data
@@ -306,10 +323,9 @@ def registrarUsuarioView(request):
         contrasena_obtenida = datos_formulario.get("contrasena")
         correo_obtenido = datos_formulario.get(
             "correo")  # cambié de email a correo
-
-        objeto_usuario = Usuario.objects.create(username=nombre_obtenido,
-                                                password=contrasena_obtenida,
-                                                email=correo_obtenido)
+        objeto_usuario = Usuario.objects.create_user(nombre_obtenido,
+                                                     correo_obtenido,
+                                                     contrasena_obtenida)
     return render(request, "registrar_usuario.html", contexto)
 
     formulario = reporteProductoForm(request.POST)
@@ -434,20 +450,13 @@ def proveedorProductoView(request, id_propro):
 @login_required
 def reporteProveedorView(request):
     from django.db import connection
+    cursor = connection.cursor()
+    # proveedoresTmp=Pedido.objects.values('proveedor').annotate(dcount=Count('id'))
+    # proveedores = Proveedor.objects.filter(id__proveedoresTmp__id)
+    cursor.execute("select pr.id, pr.nombre, count(p.producto_id) from aplicacion_pedido p, aplicacion_proveedor pr WHERE p.proveedor_id=pr.id GROUP BY pr.id, pr.nombre ORDER BY pr.id;")
+    proveedores = cursor.fetchall()
+    contexto = {"proveedores": proveedores}
 
-    formulario = reporteProveedorForm(request.POST)
-
-    if formulario.is_valid():
-        datos_formulario = formulario.cleaned_data
-        inicio_obtenido = datos_formulario.get('inicio')
-        fin_obtenido = datos_formulario.get('fin')
-        proveedores = Proveedor.objects.filter(
-            fecha_ingreso__range=[inicio_obtenido, fin_obtenido])
-        contexto = {"formulario": formulario, "proveedores": proveedores}
-    else:
-        proveedores = Proveedor.objects.filter(
-            fecha_ingreso__range=["2011-01-01", "2011-01-31"])
-        contexto = {"formulario": formulario, "proveedores": proveedores}
     return render(request, "reporte_proveedores.html", contexto)
 
 
@@ -496,6 +505,7 @@ def mostrarLugarView(request):
 
     return render(request, "verificar_producto.html", contexto)
 
+<<<<<<< HEAD
 def deleteProductoView(request,id_producto):
     producto = Producto.objects.get(id=id_producto)
     contexto = {"producto": producto}
@@ -503,3 +513,23 @@ def deleteProductoView(request,id_producto):
         producto.delete()
         return HttpResponseRedirect(reverse('inicio'))
     return render(request, "eliminar_producto.html", contexto)
+=======
+
+def reporteOrdenesView(request):
+    ordenes = Orden.objects.all()
+
+    contexto = {"ordenes": ordenes}
+
+    return render(request, "ordenes.html", contexto)
+
+
+def analisisAbcView(request):
+    from django.db import connection
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT producto.nombre,analisis.cantidad,analisis.ventas_corrientes_pct, CASE WHEN ventas_corrientes_pct<=0.8 THEN 'A' ELSE (CASE WHEN ventas_corrientes_pct<=0.95 THEN 'B' ELSE 'C' END) END AS GrupoABC FROM (SELECT *, SUM(cantidad::double precision) OVER (ORDER BY cantidad DESC)/(SUM(cantidad) OVER()) AS ventas_corrientes_pct FROM aplicacion_orden) AS analisis INNER JOIN aplicacion_producto AS producto ON analisis.id = producto.id")
+    analisis = cursor.fetchall()
+    contexto = {"ordenes": analisis}
+
+    return render(request, "analisisabc.html", contexto)
+>>>>>>> 4de83a4f54676fb2b42fd01bb3b1b3b75001be0d

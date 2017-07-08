@@ -18,6 +18,11 @@ class PedidoRepositorio():
             id=id_pedido).update(
             fecha_recibida=fecha_recibida)
 
+    def updateCantidad(self, id_pedido, cantidad):
+        Pedido.objects.filter(
+            id=id_pedido).update(
+            cantidad=cantidad)
+
     def getPedidosNoRecibidos(self):
         return Pedido.objects.filter(fecha_recibida__isnull=True)
 

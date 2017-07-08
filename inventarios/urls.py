@@ -21,6 +21,10 @@ from aplicacion import views
 urlpatterns = [url(r'^admin/',
                    admin.site.urls),
 
+               url(r'^cerrar_sesion/',
+                   views.cerrarSesionView,
+                   name='cerrar_sesion'),
+
                url(r'^iniciar_sesion/',
                    views.iniciarSesionView,
                    name='iniciar_sesion'),
@@ -125,5 +129,13 @@ urlpatterns = [url(r'^admin/',
                url(r'^tiempo_pedidos/',
                    views.tiempo_pedido_view,
                    name='tiempo_pedidos'),
+
+               url(r'^ordenes/',
+                   views.reporteOrdenesView,
+                   name='ordenes'),
+
+               url(r'^analisisabc/',
+                   views.analisisAbcView,
+                   name='analisisabc'),
 
                ]

@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <title> Analisis </title>
+    <meta charset = "UTF-8">
+        <link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+        <link rel = "stylesheet" href = "https://dl.dropboxusercontent.com/s/nq12hgjs93bp6kl/estilos.css">
+    </head>
+
+    <body>
+        <div class = 'container'>
+            <div class = 'row'>
+                <div class = 'col-sm-4'> </div>
+                
+                <div class = 'col-sm-4' align = 'center'>
+                    <br>
+                    <img src = "https://s26.postimg.org/t0zn98nhl/logo3.png" class = "img-responsive"> 
+                    <br>
+                </div>
+                
+                <div class = 'col-sm-4'> </div>
+            </div>
+        </div>
+
+        <div class = 'container'>
+            <div class = 'row'>
+                <div class = 'col-sm-3'  align = 'center'>
+                    <div class = 'color-black'>
+                        <br>
+                        <h1> Ver </h1>
+                        <br>
+                    </div>
+                    <a href = "../tiempo_pedidos" class = "btn btn-info btn-block"> 
+                        Tiempo de llegada pedidos 
+                    </a>
+                    <a href = "../reporte_productos" class = "btn btn-info btn-block"> 
+                        Reporte de productos 
+                    </a>
+                    <a href = "../proveedores" class = "btn btn-info btn-block"> 
+                        Proveedores 
+                    </a>
+                    <a href = "../almacenes" class = "btn btn-info btn-block"> 
+                        Almacenes 
+                    </a>
+                    <a href = "../pedidos" class = "btn btn-info btn-block"> 
+                        Pedidos 
+                    </a>
+
+                    <a href = "../productos" class = "btn btn-info btn-block"> 
+                        Productos 
+                    </a>
+                    <br>
+
+                    <div class = 'color-black'>
+                        <br>
+                        <h1> Registrar </h1>
+                        <br>
+                    </div>
+                    <a href = "../registrar_usuario" class = "btn btn-info btn-block"> 
+                        Usuario 
+                    </a>
+                    <a href = "../registrar_proveedor" class = "btn btn-info btn-block"> 
+                        Proveedor 
+                    </a>                    
+                    <a href = "../registrar_pedido" class = "btn btn-info btn-block"> 
+                        Pedido 
+                    </a>
+                    <a href = "../registrar_producto" class = "btn btn-info btn-block"> 
+                        Producto 
+                    </a>
+                    <br>    
+                </div>
+                <div class = 'col-sm-9 full' align = 'center'>
+                    <br>
+                    <div class = 'color-orange'>
+                        <br>
+                        <h1> Analisis ABC </h1>
+                        <br>
+                    </div>
+                    <br>
+
+                    <div align = 'left'>
+                    <a class="btn btn-default" href="{% url 'ordenes' %}">Mostrar Ordenes</a>   
+                    </div>    
+                    <div class = "table-responsive">
+                        <table border="1" class = "table">
+                            <tr>
+                                <th class = 'color-orange'> Producto </th>
+                                <th class = 'color-orange'> Cantidad </th>
+                                <th class = 'color-orange'> Porcentaje Acum.</th>
+                                <th class = 'color-orange'> Clasif. </th>
+                            </tr>
+                            {% for Orden in ordenes %}
+                            <tr>
+                              <td> {{ Orden.0 }} </td>
+                              <td> {{ Orden.1 }} </td>
+                              <td> {{ Orden.2 }} </td>
+                              <td> {{ Orden.3 }} </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
