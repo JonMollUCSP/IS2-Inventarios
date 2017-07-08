@@ -187,9 +187,11 @@ def pedidoView(request):
     from .gestor import GestorDePedidos
     formulario_tipo_pedido = seleccionarTipoPedidoForm(request.POST or None)
     formulario_recibir_pedido = recibirPedidoForm(request.POST or None)
+    formulario_eliminar_pedidos = eliminarPedidosForm(request.POST or None)
     contexto = {
         "formulario_tipo_pedido": formulario_tipo_pedido,
         "formulario_recibir_pedido": formulario_recibir_pedido,
+        "formulario_eliminar_pedidos": formulario_eliminar_pedidos,
         "pedidos": None}
     if formulario_recibir_pedido.is_valid():
         datos_formulario = formulario_recibir_pedido.cleaned_data
@@ -203,6 +205,13 @@ def pedidoView(request):
         tipo_pedido = datos_formulario.get("tipo_pedido")
         if tipo_pedido == 'pedidos_recibidos':
             contexto['formulario_recibir_pedido'] = None
+    if formulario_eliminar_pedidos.is_valid():
+        datos_formulario = formulario_eliminar_pedidos.cleaned_data
+        solucion_pedidos = datos_formulario.get("solucion_pedidos")
+        if solucion_pedidos == 'eliminar':
+            Pedido.objects.all().delete()
+        else:
+            GestorDePedidos().updateCantidadFirstCharacter()
     contexto['pedidos'] = GestorDePedidos().obtenerPedidosTipo(tipo_pedido)
 
     return render(request, "pedidos.html", contexto)

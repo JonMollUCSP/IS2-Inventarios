@@ -62,6 +62,12 @@
 					    	{% endfor %}
 						</table>
 					</div> 
+					<form method = 'post' action = ''>
+						{% csrf_token %}
+						{{ formulario_eliminar_pedidos.as_p }}
+
+						<input type = 'submit' value = 'Ok'r>
+					</form>
 				</div>
 			</div>
 		</div>
