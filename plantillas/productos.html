@@ -38,6 +38,7 @@
                                 <td> {{ Producto.codigo }} </td>
                                 <td> {{ Producto.valor }} </td>
                                 <td> {{ Producto.fecha_ingreso }} </td>
+                                <td><a class= "btn btn-danger" href="/eliminar_producto/{{Producto.id}}/"> Eliminar</a>
                             </tr>
                             {% endfor %}
                         </table>

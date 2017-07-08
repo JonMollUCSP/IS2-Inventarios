@@ -512,6 +512,14 @@ def mostrarLugarView(request):
 
     return render(request, "verificar_producto.html", contexto)
 
+def deleteProductoView(request,id_producto):
+    producto = Producto.objects.get(id=id_producto)
+    contexto = {"producto": producto}
+    if request.method == 'POST':
+        producto.delete()
+        return HttpResponseRedirect(reverse('inicio'))
+    return render(request, "eliminar_producto.html", contexto)
+
 
 def reporteOrdenesView(request):
     ordenes = Orden.objects.all()

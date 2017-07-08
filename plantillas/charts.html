@@ -124,7 +124,7 @@ function setChart(){
 });
 }
 // var ctx = document.getElementById("myChart");
-
+//url-endpoint='{% url "grafica_producto_vendido" %}'
 
 
 {% endblock %}
@@ -134,7 +134,7 @@ function setChart(){
 <h1> Graficas de los productos de todo el año </h1>
     
 <div class='row'>
-    <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
+    <div class='col-sm-12'>
         <div class='col-sm-6'>
             <canvas id="myChart" width="400" height="400"></canvas>
         </div>

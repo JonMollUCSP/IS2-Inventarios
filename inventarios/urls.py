@@ -116,6 +116,10 @@ urlpatterns = [url(r'^admin/',
                    views.mostrarLugarView,
                    name='verificar_producto'),
 
+               url(r'^eliminar_producto/(?P<id_producto>\d+)/$',
+                   views.deleteProductoView,
+                   name='eliminar_producto'),
+
                url(r'^tiempo_pedidos/',
                    views.tiempo_pedido_view,
                    name='tiempo_pedidos'),
