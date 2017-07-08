@@ -505,7 +505,6 @@ def mostrarLugarView(request):
 
     return render(request, "verificar_producto.html", contexto)
 
-<<<<<<< HEAD
 def deleteProductoView(request,id_producto):
     producto = Producto.objects.get(id=id_producto)
     contexto = {"producto": producto}
@@ -513,7 +512,7 @@ def deleteProductoView(request,id_producto):
         producto.delete()
         return HttpResponseRedirect(reverse('inicio'))
     return render(request, "eliminar_producto.html", contexto)
-=======
+
 
 def reporteOrdenesView(request):
     ordenes = Orden.objects.all()
@@ -532,4 +531,4 @@ def analisisAbcView(request):
     contexto = {"ordenes": analisis}
 
     return render(request, "analisisabc.html", contexto)
->>>>>>> 4de83a4f54676fb2b42fd01bb3b1b3b75001be0d
+
