@@ -4,6 +4,7 @@ from .models import Pedido, Producto
 
 
 class PedidoRepositorio():
+
     def getPedidosRecibidosDiarios(self, producto, fecha_inicial, fecha_final):
         return Pedido.objects.values('fecha_recibida').filter(
             producto=producto.id, fecha_recibida__isnull=False, fecha_recibida__range=(
@@ -16,6 +17,11 @@ class PedidoRepositorio():
         Pedido.objects.filter(
             id=id_pedido).update(
             fecha_recibida=fecha_recibida)
+
+    def updateCantidad(self, id_pedido, cantidad):
+        Pedido.objects.filter(
+            id=id_pedido).update(
+            cantidad=cantidad)
 
     def getPedidosNoRecibidos(self):
         return Pedido.objects.filter(fecha_recibida__isnull=True)
@@ -33,5 +39,6 @@ class PedidoRepositorio():
 
 
 class ProductoRepositorio():
+
     def getProductos(self):
         return Producto.objects.all()

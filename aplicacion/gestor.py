@@ -6,6 +6,7 @@ from decimal import Decimal
 
 
 class GestorReporte:
+
     def getFecha(self, movimiento, tipo_reporte):
         year = movimiento.get('fecha_recibida').year
         if tipo_reporte == 'anual':
@@ -51,7 +52,8 @@ class GestorReporte:
                 movimientos, tipo_reporte)
         for movimiento in movimientos:
             movimiento['monto_total'] = "$" + \
-                str(Decimal(movimiento.get('cantidad_parcial')) * Decimal(producto.valor))
+                str(Decimal(movimiento.get('cantidad_parcial'))
+                    * Decimal(producto.valor))
         return movimientos
 
     def getProductosConMovimiento(self):
@@ -61,24 +63,34 @@ class GestorReporte:
         for producto in productos:
             monto_total = Decimal(0)
             pedidos = pedidoRepositorio.getPedidosRecibidosProducto(producto)
+            monto_total_correcto=-1
             for pedido in pedidos:
-                monto_total = monto_total + \
-                    Decimal(pedido.cantidad) * Decimal(producto.valor)
-            producto.monto_total = "$" + str(monto_total)
+                if (pedido.cantidad.isdigit()):
+                    monto_total = monto_total + \
+                        Decimal(pedido.cantidad) * Decimal(producto.valor)
+                else:
+                    monto_total_correcto= pedido.id
+            if monto_total_correcto==-1:
+                producto.monto_total = "$" + str(monto_total)
+            else:
+                producto.monto_total = "$" +str(monto_total) + " (Error pedido " + str(monto_total_correcto) + ")"
         return productos
 
 
 class TodosLosPedidos():
+
     def obtenerPedidos(self):
         return PedidoRepositorio().getPedidos()
 
 
 class PedidosRecibidos():
+
     def obtenerPedidos(self):
         return PedidoRepositorio().getPedidosRecibidos()
 
 
 class PedidosNoRecibidos():
+
     def obtenerPedidos(self):
         return PedidoRepositorio().getPedidosNoRecibidos()
 
@@ -97,3 +109,12 @@ class GestorDePedidos():
     def updateFechaRecibidaId(self, id_pedido, fecha_recibida):
         PedidoRepositorio.updateFechaRecibidaId(
             self, id_pedido, fecha_recibida)
+
+    def updateCantidadFirstCharacter(self):
+        print ("corrigiendo cantidad")
+        pedidoRepositorio=PedidoRepositorio()
+        pedidos = pedidoRepositorio.getPedidos()
+        for pedido in pedidos:
+            cantidad = ord(pedido.cantidad[0])
+            pedidoRepositorio.updateCantidad(
+                pedido.id, cantidad)

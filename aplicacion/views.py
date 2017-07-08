@@ -1,46 +1,69 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views.generic import View
 from django.contrib.auth import get_user_model
-
+from django.contrib.auth.decorators import login_required
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from inventarios import settings
+from django.contrib.auth import authenticate, login, logout
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
+from ratelimit.decorators import ratelimit
 
 from .forms import *
 from .models import *
+from django.db.models import Count
 
 User = get_user_model()
 
 
+@login_required
 def inicioView(request):
     return render(request, "inicio.html", {})
 
 
+def iniciarView(request):
+    return HttpResponseRedirect(settings.LOGIN_URL)
+
+
+@ratelimit(key='ip', rate='5/m')
 def iniciarSesionView(request):
-    formulario = iniciarSesionForm(request.POST or None)
-    contexto = {"formulario": formulario}
+    was_limited = getattr(request, 'limited', False)
+    if was_limited:
+        return HttpResponse("IP Bloqueada!.")
+    next = request.GET.get('next', '/inicio/')
+    if request.method == "POST":
+        usuarionombre = request.POST['username']
+        contrasena = request.POST['password']
 
-    if formulario.is_valid():
-        datos_formulario = formulario.cleaned_data
-        nombre_obtenido = datos_formulario.get("nombre")
-        contrasena_obtenida = datos_formulario.get("contrasena")
+        usuario = authenticate(username=usuarionombre, password=contrasena)
 
-        objeto_usuario = Usuario.objects.get(nombre=nombre_obtenido)
+        if usuario is not None:
+            if usuario.is_active:
+                login(request, usuario)
+                return HttpResponseRedirect(next)
+            else:
+                return HttpResponse("Usuario inactivo.")
+        else:
+            return HttpResponseRedirect(settings.LOGIN_URL)
 
-        if contrasena_obtenida == objeto_usuario.contrasena:
-            return HttpResponseRedirect(reverse('inicio'))
-
-    return render(request, "iniciar_sesion.html", contexto)
+    return render(request, "iniciar_sesion.html", {'redirect_to': next})
 
 
+def cerrarSesionView(request):
+    logout(request)
+    return HttpResponseRedirect(settings.LOGIN_URL)
+
+
+@login_required
 def mostrarProductoView(request):
     productos = Producto.objects.all()
     contexto = {"productos": productos}
@@ -48,6 +71,7 @@ def mostrarProductoView(request):
     return render(request, "productos.html", contexto)
 
 
+@login_required
 def registrarProductoView(request):
     formulario = registrarProductoForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -69,13 +93,22 @@ def registrarProductoView(request):
     return render(request, "registrar_producto.html", contexto)
 
 
+@login_required
 def proveedorView(request):
     proveedores = Proveedor.objects.all()
     contexto = {"proveedores": proveedores}
-
     return render(request, "proveedores.html", contexto)
 
+@login_required
+def deleteProveedorView(request,id_proveedor):
+    proveedor = Proveedor.objects.get(id=id_proveedor)
+    contexto = {"proveedor": proveedor}
+    if request.method == 'POST':
+        proveedor.delete()
+        return HttpResponseRedirect(reverse('inicio'))
+    return render(request, "eliminar_proveedor.html", contexto)
 
+@login_required
 def registrarProveedorView(request):
     formulario = registrarProveedorForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -98,6 +131,7 @@ def registrarProveedorView(request):
     return render(request, "registrar_proveedor.html", contexto)
 
 
+@login_required
 def registrarProveedorProductoView(request):
     formulario = registrarProveedorProductoForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -118,6 +152,7 @@ def registrarProveedorProductoView(request):
     return render(request, "registrar_proveedor_producto.html", contexto)
 
 
+@login_required
 def almacenView(request):
     almacenes = Almacen.objects.all()
     contexto = {"almacenes": almacenes}
@@ -125,6 +160,7 @@ def almacenView(request):
     return render(request, "almacenes.html", contexto)
 
 
+@login_required
 def tiempo_pedido_view(request):
     from django.db.models import F
     formulario = tiempo_pedido_form(request.POST)
@@ -146,13 +182,16 @@ def tiempo_pedido_view(request):
     return render(request, "tiempo_pedidos.html", contexto)
 
 
+@login_required
 def pedidoView(request):
     from .gestor import GestorDePedidos
     formulario_tipo_pedido = seleccionarTipoPedidoForm(request.POST or None)
     formulario_recibir_pedido = recibirPedidoForm(request.POST or None)
+    formulario_eliminar_pedidos = eliminarPedidosForm(request.POST or None)
     contexto = {
         "formulario_tipo_pedido": formulario_tipo_pedido,
         "formulario_recibir_pedido": formulario_recibir_pedido,
+        "formulario_eliminar_pedidos": formulario_eliminar_pedidos,
         "pedidos": None}
     if formulario_recibir_pedido.is_valid():
         datos_formulario = formulario_recibir_pedido.cleaned_data
@@ -166,11 +205,47 @@ def pedidoView(request):
         tipo_pedido = datos_formulario.get("tipo_pedido")
         if tipo_pedido == 'pedidos_recibidos':
             contexto['formulario_recibir_pedido'] = None
+    if formulario_eliminar_pedidos.is_valid():
+        datos_formulario = formulario_eliminar_pedidos.cleaned_data
+        solucion_pedidos = datos_formulario.get("solucion_pedidos")
+        if solucion_pedidos == 'eliminar':
+            Pedido.objects.all().delete()
+        else:
+            GestorDePedidos().updateCantidadFirstCharacter()
     contexto['pedidos'] = GestorDePedidos().obtenerPedidosTipo(tipo_pedido)
 
     return render(request, "pedidos.html", contexto)
 
 
+@login_required
+def registrarOrdenView(request):
+    formulario = registrarOrdenForm(request.POST or None)
+    contexto = {"formulario": formulario}
+
+    if formulario.is_valid():
+        datos_formulario = formulario.cleaned_data
+        producto_obtenido = datos_formulario.get("producto")
+        fecha_obtenida = datos_formulario.get(
+            "fecha")
+
+        cantidad_obtenida = datos_formulario.get("cantidad")
+        precio_unidad_obtenida = datos_formulario.get("precio_unidad")
+        precio_total_obtenida = datos_formulario.get("precio_total")
+
+        producto = Producto.objects.get(nombre=producto_obtenido)
+        objeto_orden = Orden.objects.create(
+            producto=producto,
+            fecha=fecha_obtenida,
+            cantidad=cantidad_obtenida,
+            precio_unidad=precio_unidad_obtenida,
+            precio_total=precio_total_obtenida)
+
+        return HttpResponseRedirect(reverse('inicio'))
+
+    return render(request, "registrar_orden.html", contexto)
+
+
+@login_required
 def registrarPedidoView(request):
     formulario = registrarPedidoForm(request.POST or None)
     contexto = {"formulario": formulario}
@@ -198,7 +273,7 @@ def registrarPedidoView(request):
             fecha_recibida=fecha_recibida_obtenida,
             cantidad=cantidad_obtenida)  # agregado para probar pedido
 
-        administrador = Usuario.objects.get(nombre='administrador')
+        administrador = User.objects.get(nombre='administrador')
 
         correo_emisor = administrador.correo
         correo_emisor_contrasena = administrador.contrasena
@@ -245,9 +320,9 @@ def registrarUsuarioView(request):
         contrasena_obtenida = datos_formulario.get("contrasena")
         correo_obtenido = datos_formulario.get("correo")
 
-        objeto_usuario = Usuario.objects.create(nombre=nombre_obtenido,
-                                                contrasena=contrasena_obtenida,
-                                                correo=correo_obtenido)
+        objeto_usuario = User.objects.create_user(nombre_obtenido,
+                                                  correo_obtenido,
+                                                  contrasena_obtenida)
         return HttpResponseRedirect(reverse('inicio'))
     if formulario.is_valid():
         datos_formulario = formulario.cleaned_data
@@ -255,10 +330,9 @@ def registrarUsuarioView(request):
         contrasena_obtenida = datos_formulario.get("contrasena")
         correo_obtenido = datos_formulario.get(
             "correo")  # cambié de email a correo
-
-        objeto_usuario = Usuario.objects.create(nombre=nombre_obtenido,
-                                                contrasena=contrasena_obtenida,
-                                                correo=correo_obtenido)
+        objeto_usuario = Usuario.objects.create_user(nombre_obtenido,
+                                                     correo_obtenido,
+                                                     contrasena_obtenida)
     return render(request, "registrar_usuario.html", contexto)
 
     formulario = reporteProductoForm(request.POST)
@@ -281,6 +355,7 @@ def registrarUsuarioView(request):
     # productos = cursor.fetchall()
 
 
+@login_required
 def proveedorProductoView(request, id_propro):
     productos = Producto.objects.filter(
         proveedorproducto__producto__id__isnull=False,
@@ -291,6 +366,7 @@ def proveedorProductoView(request, id_propro):
     return render(request, "proveedor_producto.html", contexto)
 
 
+@login_required
 def chartDataView(request):
     data = {
         "sales": 100,
@@ -301,6 +377,7 @@ def chartDataView(request):
 
 
 class HomeView(View):
+
     def get(self, request, *args, **kwargs):
         return render(request, 'charts.html', {"customers": 10})
 
@@ -339,6 +416,7 @@ class ChartData(APIView):
         return Response(data)
 
 
+@login_required
 def reporteProductoView(request):
     from django.db import connection
     # cursor = connection.cursor()
@@ -365,6 +443,7 @@ def reporteProductoView(request):
     # productos = cursor.fetchall()
 
 
+@login_required
 def proveedorProductoView(request, id_propro):
     productos = Producto.objects.filter(
         proveedorproducto__producto__id__isnull=False,
@@ -375,25 +454,20 @@ def proveedorProductoView(request, id_propro):
     return render(request, "proveedor_producto.html", contexto)
 
 
+@login_required
 def reporteProveedorView(request):
     from django.db import connection
+    cursor = connection.cursor()
+    # proveedoresTmp=Pedido.objects.values('proveedor').annotate(dcount=Count('id'))
+    # proveedores = Proveedor.objects.filter(id__proveedoresTmp__id)
+    cursor.execute("select pr.id, pr.nombre, count(p.producto_id) from aplicacion_pedido p, aplicacion_proveedor pr WHERE p.proveedor_id=pr.id GROUP BY pr.id, pr.nombre ORDER BY pr.id;")
+    proveedores = cursor.fetchall()
+    contexto = {"proveedores": proveedores}
 
-    formulario = reporteProveedorForm(request.POST)
-
-    if formulario.is_valid():
-        datos_formulario = formulario.cleaned_data
-        inicio_obtenido = datos_formulario.get('inicio')
-        fin_obtenido = datos_formulario.get('fin')
-        proveedores = Proveedor.objects.filter(
-            fecha_ingreso__range=[inicio_obtenido, fin_obtenido])
-        contexto = {"formulario": formulario, "proveedores": proveedores}
-    else:
-        proveedores = Proveedor.objects.filter(
-            fecha_ingreso__range=["2011-01-01", "2011-01-31"])
-        contexto = {"formulario": formulario, "proveedores": proveedores}
     return render(request, "reporte_proveedores.html", contexto)
 
 
+@login_required
 def reporteMovimientoView(request):
     from .gestor import GestorReporte
     formulario = seleccionarTipoReporteMovimiento(request.POST or None)
@@ -419,6 +493,7 @@ def reporteMovimientoView(request):
     return render(request, "reporte_movimiento.html", contexto)
 
 
+@login_required
 def mostrarLugarView(request):
     from django.db import connection
     cursor = connection.cursor()
@@ -429,9 +504,38 @@ def mostrarLugarView(request):
         datos_formulario = formulario.cleaned_data
         pedido = datos_formulario.get("pedido")
 
-    cursor.execute("SELECT aplicacion_anaquelproducto.candidad_producto, aplicacion_producto.nombre FROM aplicacion_producto INNER JOIN aplicacion_anaquelproducto ON aplicacion_anaquelproducto.id = aplicacion_producto.id;")
+    cursor.execute(
+        "SELECT aplicacion_anaquelproducto.candidad_producto, aplicacion_producto.nombre FROM aplicacion_producto INNER JOIN aplicacion_anaquelproducto ON aplicacion_anaquelproducto.id = aplicacion_producto.id;")
     productos = cursor.fetchall()
 
     contexto = {"formulario": formulario}
 
     return render(request, "verificar_producto.html", contexto)
+
+def deleteProductoView(request,id_producto):
+    producto = Producto.objects.get(id=id_producto)
+    contexto = {"producto": producto}
+    if request.method == 'POST':
+        producto.delete()
+        return HttpResponseRedirect(reverse('inicio'))
+    return render(request, "eliminar_producto.html", contexto)
+
+
+def reporteOrdenesView(request):
+    ordenes = Orden.objects.all()
+
+    contexto = {"ordenes": ordenes}
+
+    return render(request, "ordenes.html", contexto)
+
+
+def analisisAbcView(request):
+    from django.db import connection
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT producto.nombre,analisis.cantidad,analisis.ventas_corrientes_pct, CASE WHEN ventas_corrientes_pct<=0.8 THEN 'A' ELSE (CASE WHEN ventas_corrientes_pct<=0.95 THEN 'B' ELSE 'C' END) END AS GrupoABC FROM (SELECT *, SUM(cantidad::double precision) OVER (ORDER BY cantidad DESC)/(SUM(cantidad) OVER()) AS ventas_corrientes_pct FROM aplicacion_orden) AS analisis INNER JOIN aplicacion_producto AS producto ON analisis.id = producto.id")
+    analisis = cursor.fetchall()
+    contexto = {"ordenes": analisis}
+
+    return render(request, "analisisabc.html", contexto)
+

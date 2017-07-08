@@ -1,0 +1,105 @@
+
+.full {
+    background: url(http://www.driverpro.mx/wp-content/uploads/2013/11/almacen_dgo.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height:100%;
+}
+
+html body {
+	background-color: #2d74cf;
+}
+
+th {
+    color: white;
+    text-align: center;
+    font-size: 125%;
+}
+
+td {
+    background-color: white;
+    color: #232323;
+}
+
+.color-white {
+	background-color: #ffffff;
+}
+
+.color-black {
+	background-color: #232323;
+}
+
+.color-orange {
+	background-color: #ffae00;
+}
+
+.color-green {
+	background-color: #6bda27;
+}
+
+.color-blue {
+	background-color: #2d74cf;
+}
+
+.btn-info{
+    font-size: 125%;
+}
+
+label, h1, h2, h3 {
+	color: #ffffff;
+}
+
+.full {
+    background: url(http://www.driverpro.mx/wp-content/uploads/2013/11/almacen_dgo.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height:100%;
+}
+
+html body {
+	background-color: #2d74cf;
+}
+
+th {
+    color: white;
+    text-align: center;
+    font-size: 125%;
+}
+
+td {
+    background-color: white;
+    color: #232323;
+}
+
+.color-white {
+	background-color: #ffffff;
+}
+
+.color-black {
+	background-color: #232323;
+}
+
+.color-orange {
+	background-color: #ffae00;
+}
+
+.color-green {
+	background-color: #6bda27;
+}
+
+.color-blue {
+	background-color: #2d74cf;
+}
+
+.btn-info{
+    font-size: 125%;
+}
+
+label, h1, h2, h3 {
+	color: #ffffff;
+}
+

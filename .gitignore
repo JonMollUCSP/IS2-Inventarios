@@ -21,6 +21,5 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Los que en mi mac se joden solo por abrir el proyecto
-.DS_Store
+
 
