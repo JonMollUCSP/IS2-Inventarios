@@ -5,11 +5,6 @@ OPCIONES_ANOS = ('2016', '2017', '2018', '2019', '2020', '2021')
 OPCIONES_MESES = ('January', 'February', 'March', 'April', 'May')
 
 
-class iniciarSesionForm(forms.Form):
-    nombre = forms.CharField(max_length=20)
-    contrasena = forms.CharField(max_length=20)
-
-
 class registrarProveedorForm(forms.Form):
     nombre = forms.CharField(max_length=20)
     telefono = forms.IntegerField()
@@ -47,6 +42,16 @@ class registrarPedidoForm(forms.Form):
     fecha_realizada = forms.DateField(
         widget=forms.SelectDateWidget(
             years=OPCIONES_ANOS))  # añadido para probar pedidos
+
+
+class registrarOrdenForm(forms.Form):
+    producto = forms.CharField(max_length=20)
+    cantidad = forms.IntegerField()
+    fecha = forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=OPCIONES_ANOS))
+    precio_unidad = forms.IntegerField()
+    precio_total = forms.IntegerField()
 
 
 class seleccionarTipoPedidoForm(forms.Form):
